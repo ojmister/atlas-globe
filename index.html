@@ -336,6 +336,86 @@
     font-style: normal;
   }
 
+  /* Top-10 table shown on main panel (no country selected) */
+  .top-table-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 6px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+  }
+  .top-table-header .count { color: var(--accent); }
+
+  .top-row {
+    display: grid;
+    grid-template-columns: 1fr 72px 48px 48px 48px 48px;
+    gap: 6px;
+    align-items: baseline;
+    padding: 12px 2px;
+    border-bottom: 1px solid var(--line);
+    cursor: pointer;
+    transition: padding 0.2s, background-color 0.2s;
+  }
+  .top-row:hover { padding-left: 6px; background: rgba(255,255,255,0.015); }
+  .top-row:last-child { border-bottom: none; }
+  .top-row-head {
+    cursor: default;
+    padding: 6px 2px 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .top-row-head:hover { padding-left: 2px; background: none; }
+  .top-row-head > div { text-align: right; }
+  .top-row-head > div:first-child { text-align: left; }
+
+  .top-name {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: -0.005em;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .top-name .top-sub {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+    margin-top: 2px;
+    font-weight: 400;
+  }
+
+  .top-price {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+
+  .top-cell {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+  }
+  .top-cell.up { color: var(--up); }
+  .top-cell.down { color: var(--down); }
+  .top-cell.flat { color: var(--ink-dim); }
+  .top-cell.na { color: var(--ink-dim); opacity: 0.4; }
+
   /* Market detail view */
   .market-block {
     padding-bottom: 24px;
@@ -692,6 +772,7 @@
       updateAllPaths();
       updateCountryStyles();
       updatePanelSub();
+      renderTopTable();  // populate the main-screen top-10 table
     })
     .catch(err => {
       loadingEl.textContent = 'Failed to load data: ' + err.message;
@@ -947,13 +1028,95 @@
   function clearSelection() {
     state.selectedId = null;
     updateCountryStyles();
-    panelStatus.textContent = '— Top 50 stock markets';
-    panelTitle.innerHTML = 'Pick a <em>country</em>';
+    panelStatus.textContent = '— Top 10 markets';
+    panelTitle.innerHTML = 'Global <em>indices</em>';
+    renderTopTable();
+  }
+
+  // Render the top-10 table shown on the main (no-country-selected) view.
+  // "Top 10" here means the first 10 markets in quotes.json — ordered by
+  // the Python fetcher's MARKETS list, which is size-ranked.
+  function renderTopTable() {
+    // The MARKETS list has multiple entries for US (3) and China/India (2).
+    // Dedupe to one row per country so "Top 10" = 10 distinct countries,
+    // picking the first index listed for each country (the primary one).
+    const seen = new Set();
+    const rows = [];
+    for (const m of state.markets) {
+      if (seen.has(m.id)) continue;
+      seen.add(m.id);
+      rows.push(m);
+      if (rows.length >= 10) break;
+    }
+
+    if (!rows.length) {
+      panelBody.innerHTML = `
+        <div class="empty-state">
+          Waiting for market data to load. If this persists, the first
+          GitHub Actions refresh may not have run yet.
+        </div>`;
+      return;
+    }
+
+    const bodyRows = rows.map(m => {
+      const q = m.quote;
+      if (!q) {
+        return `
+          <div class="top-row" data-id="${escapeHtml(m.id)}">
+            <div class="top-name">${escapeHtml(m.country)}
+              <span class="top-sub">${escapeHtml(m.index)}</span>
+            </div>
+            <div class="top-price" style="color:var(--ink-dim)">—</div>
+            <div class="top-cell na">—</div>
+            <div class="top-cell na">—</div>
+            <div class="top-cell na">—</div>
+            <div class="top-cell na">—</div>
+          </div>`;
+      }
+      return `
+        <div class="top-row" data-id="${escapeHtml(m.id)}">
+          <div class="top-name">${escapeHtml(m.country)}
+            <span class="top-sub">${escapeHtml(m.index)}</span>
+          </div>
+          <div class="top-price">${fmtPrice(q.price)}</div>
+          ${pctCell(q.changePct)}
+          ${pctCell(q.changePct1w)}
+          ${pctCell(q.changePct1m)}
+          ${pctCell(q.changePct1y)}
+        </div>`;
+    }).join('');
+
     panelBody.innerHTML = `
-      <div class="empty-state">
-        Countries with a tracked stock market index are outlined in gold.
-        Click any of them to see the latest index price and performance.
-      </div>`;
+      <div class="top-table-header">
+        <span>Latest price · change</span>
+        <span class="count">${rows.length.toString().padStart(2, '0')}</span>
+      </div>
+      <div class="top-row top-row-head">
+        <div>Market</div>
+        <div>Price</div>
+        <div>1d</div>
+        <div>1w</div>
+        <div>1m</div>
+        <div>1y</div>
+      </div>
+      ${bodyRows}
+    `;
+
+    // Clicking a row opens that country on the globe + in the panel
+    panelBody.querySelectorAll('.top-row:not(.top-row-head)').forEach(el => {
+      el.addEventListener('click', () => {
+        const id = el.dataset.id;
+        const feature = state.countries.find(c => String(c.id) === id);
+        if (feature) showCountryMarkets(feature);
+      });
+    });
+  }
+
+  function pctCell(v) {
+    if (v == null || !isFinite(v)) return `<div class="top-cell na">—</div>`;
+    const cls = v > 0.05 ? 'up' : v < -0.05 ? 'down' : 'flat';
+    const sign = v >= 0 ? '+' : '';
+    return `<div class="top-cell ${cls}">${sign}${v.toFixed(1)}%</div>`;
   }
 
   // =========================================================================
@@ -1030,6 +1193,8 @@
       if (state.selectedId) {
         const feature = state.countries.find(c => String(c.id) === state.selectedId);
         if (feature) renderMarketsForCountry(state.marketsByCountry[feature.id] || []);
+      } else {
+        renderTopTable();
       }
     } catch (e) {
       console.error(e);
