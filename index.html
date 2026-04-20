@@ -50,7 +50,7 @@
 
   .app {
     display: grid;
-    grid-template-columns: 1fr 420px;
+    grid-template-columns: 1fr 520px;
     height: 100vh;
     position: relative;
   }
@@ -353,8 +353,8 @@
 
   .top-row {
     display: grid;
-    grid-template-columns: 1fr 72px 48px 48px 48px 48px;
-    gap: 6px;
+    grid-template-columns: 1fr 88px 56px 56px 56px 56px;
+    gap: 8px;
     align-items: baseline;
     padding: 12px 2px;
     border-bottom: 1px solid var(--line);
@@ -381,9 +381,14 @@
     font-weight: 400;
     letter-spacing: -0.005em;
     min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    line-height: 1.25;
+  }
+  .top-name .top-rank {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-dim);
+    margin-right: 8px;
+    letter-spacing: 0.05em;
   }
   .top-name .top-sub {
     display: block;
@@ -504,6 +509,63 @@
   }
   .detail-link:hover { border-color: var(--accent); color: var(--accent); }
 
+  /* Persistent back button in the panel header (shown when a country is selected) */
+  .header-back {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    color: var(--ink-dim);
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 0;
+    margin-bottom: 12px;
+    transition: color 0.2s, transform 0.15s;
+  }
+  .header-back.visible { display: inline-flex; }
+  .header-back:hover { color: var(--accent); transform: translateX(-3px); }
+  .header-back .arrow { font-size: 14px; line-height: 1; }
+
+  /* 4-column performance grid (1d / 1w / 1m / 1y) in country detail view */
+  .perf-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin: 18px 0 8px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 0;
+  }
+  .perf-cell {
+    text-align: center;
+    padding: 0 4px;
+    border-right: 1px solid var(--line);
+  }
+  .perf-cell:last-child { border-right: none; }
+  .perf-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 6px;
+  }
+  .perf-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .perf-value.up { color: var(--up); }
+  .perf-value.down { color: var(--down); }
+  .perf-value.flat { color: var(--ink-dim); }
+  .perf-value.na { color: var(--ink-dim); opacity: 0.4; }
+
   .error-msg {
     padding: 14px;
     border: 1px solid rgba(248, 113, 113, 0.3);
@@ -580,6 +642,9 @@
 
   <aside class="panel">
     <div class="panel-header">
+      <button class="header-back" id="header-back" aria-label="Back to top 10">
+        <span class="arrow">←</span> Back
+      </button>
       <div class="panel-eyebrow">
         <span id="panel-status">— Top 50 stock markets</span>
         <button class="refresh" id="btn-refresh">↻ Reload</button>
@@ -950,11 +1015,12 @@
     const markets = state.marketsByCountry[feature.id];
     panelTitle.innerHTML = emphasizeLast(countryName);
     panelStatus.textContent = `— ${markets.length} ${markets.length === 1 ? 'index' : 'indices'}`;
+    document.getElementById('header-back').classList.add('visible');
     renderMarketsForCountry(markets);
   }
 
   function renderMarketsForCountry(markets) {
-    panelBody.innerHTML = markets.map(m => {
+    const marketBlocks = markets.map(m => {
       if (!m.quote) {
         return `
           <div class="market-block">
@@ -985,6 +1051,13 @@
           <div class="price-row">
             <div class="price">${fmtPrice(q.price)}</div>
             <div class="change ${dir}">${arrow} ${changeStr} (${pctStr})</div>
+          </div>
+
+          <div class="perf-grid">
+            ${perfCell('1 day',   q.changePct)}
+            ${perfCell('1 week',  q.changePct1w)}
+            ${perfCell('1 month', q.changePct1m)}
+            ${perfCell('1 year',  q.changePct1y)}
           </div>
 
           <div class="stat-grid">
@@ -1023,6 +1096,26 @@
           </a>
         </div>`;
     }).join('');
+
+    panelBody.innerHTML = marketBlocks;
+  }
+
+  // Renders a single cell in the 4-column perf grid (1d/1w/1m/1y)
+  function perfCell(label, v) {
+    if (v == null || !isFinite(v)) {
+      return `
+        <div class="perf-cell">
+          <div class="perf-label">${escapeHtml(label)}</div>
+          <div class="perf-value na">—</div>
+        </div>`;
+    }
+    const cls = v > 0.05 ? 'up' : v < -0.05 ? 'down' : 'flat';
+    const sign = v >= 0 ? '+' : '';
+    return `
+      <div class="perf-cell">
+        <div class="perf-label">${escapeHtml(label)}</div>
+        <div class="perf-value ${cls}">${sign}${v.toFixed(2)}%</div>
+      </div>`;
   }
 
   function clearSelection() {
@@ -1030,24 +1123,29 @@
     updateCountryStyles();
     panelStatus.textContent = '— Top 10 markets';
     panelTitle.innerHTML = 'Global <em>indices</em>';
+    document.getElementById('header-back').classList.remove('visible');
     renderTopTable();
   }
 
   // Render the top-10 table shown on the main (no-country-selected) view.
-  // "Top 10" here means the first 10 markets in quotes.json — ordered by
-  // the Python fetcher's MARKETS list, which is size-ranked.
+  // "Top 10" = the 10 countries with the largest total stock-market
+  // capitalization, as recorded in each market's `countryMarketCapUsdTn`
+  // field (set in the Python fetcher). When a country has multiple indices
+  // listed (e.g. US has S&P/Dow/Nasdaq), the first in the file is the
+  // primary and is what the table shows.
   function renderTopTable() {
-    // The MARKETS list has multiple entries for US (3) and China/India (2).
-    // Dedupe to one row per country so "Top 10" = 10 distinct countries,
-    // picking the first index listed for each country (the primary one).
+    // 1. Dedupe to one row per country, keeping the first (primary) index.
     const seen = new Set();
-    const rows = [];
+    const perCountry = [];
     for (const m of state.markets) {
       if (seen.has(m.id)) continue;
       seen.add(m.id);
-      rows.push(m);
-      if (rows.length >= 10) break;
+      perCountry.push(m);
     }
+    // 2. Sort by country market cap descending, then take top 10.
+    perCountry.sort((a, b) =>
+      (b.countryMarketCapUsdTn || 0) - (a.countryMarketCapUsdTn || 0));
+    const rows = perCountry.slice(0, 10);
 
     if (!rows.length) {
       panelBody.innerHTML = `
@@ -1058,14 +1156,22 @@
       return;
     }
 
-    const bodyRows = rows.map(m => {
+    const bodyRows = rows.map((m, i) => {
       const q = m.quote;
+      const rank = (i + 1).toString().padStart(2, '0');
+      const mcapLabel = m.countryMarketCapUsdTn != null
+        ? `$${m.countryMarketCapUsdTn.toFixed(2)}T mkt cap`
+        : '';
+      const nameCell = `
+        <div class="top-name">
+          <span class="top-rank">${rank}</span>
+          ${escapeHtml(m.country)}
+          <span class="top-sub">${escapeHtml(m.index)}${mcapLabel ? ' · ' + mcapLabel : ''}</span>
+        </div>`;
       if (!q) {
         return `
           <div class="top-row" data-id="${escapeHtml(m.id)}">
-            <div class="top-name">${escapeHtml(m.country)}
-              <span class="top-sub">${escapeHtml(m.index)}</span>
-            </div>
+            ${nameCell}
             <div class="top-price" style="color:var(--ink-dim)">—</div>
             <div class="top-cell na">—</div>
             <div class="top-cell na">—</div>
@@ -1075,9 +1181,7 @@
       }
       return `
         <div class="top-row" data-id="${escapeHtml(m.id)}">
-          <div class="top-name">${escapeHtml(m.country)}
-            <span class="top-sub">${escapeHtml(m.index)}</span>
-          </div>
+          ${nameCell}
           <div class="top-price">${fmtPrice(q.price)}</div>
           ${pctCell(q.changePct)}
           ${pctCell(q.changePct1w)}
@@ -1088,7 +1192,7 @@
 
     panelBody.innerHTML = `
       <div class="top-table-header">
-        <span>Latest price · change</span>
+        <span>By market cap · latest change</span>
         <span class="count">${rows.length.toString().padStart(2, '0')}</span>
       </div>
       <div class="top-row top-row-head">
@@ -1164,6 +1268,7 @@
   }
 
   // Buttons
+  document.getElementById('header-back').addEventListener('click', clearSelection);
   document.getElementById('btn-reset').addEventListener('click', () => {
     state.rotation = [20, -15, 0];
     state.scale = Math.min(width, height) * 0.42;
