@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-20T20:07:37.854353+00:00",
-  "generated_at_unix": 1776715657,
+  "generated_at": "2026-04-20T20:20:49.136870+00:00",
+  "generated_at_unix": 1776716449,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -333,10 +333,10 @@
       "index": "Bovespa",
       "symbol": "^BVSP",
       "quote": {
-        "price": 196149.6094,
-        "previousClose": 195594.625,
-        "change": 554.9844,
-        "changePct": 0.2837,
+        "price": 196206.2031,
+        "previousClose": 195733.52,
+        "change": 472.6831,
+        "changePct": 0.2415,
         "currency": "BRL",
         "exchange": "SAO",
         "dayHigh": 196724.1719,
@@ -405,10 +405,10 @@
       "index": "IPC",
       "symbol": "^MXX",
       "quote": {
-        "price": 70079.4922,
+        "price": 70020.5938,
         "previousClose": 69853.7812,
-        "change": 225.7109,
-        "changePct": 0.3231,
+        "change": 166.8125,
+        "changePct": 0.2388,
         "currency": "MXN",
         "exchange": "MEX",
         "dayHigh": 70205.5469,
@@ -792,10 +792,10 @@
         "changePct": 0.2817,
         "currency": "PHP",
         "exchange": "PHS",
-        "dayHigh": 6080.21,
-        "dayLow": 6010.7998,
+        "dayHigh": 0.0,
+        "dayLow": 0.0,
         "yearHigh": 6673.6099,
-        "yearLow": 5584.3501
+        "yearLow": 0.0
       }
     },
     {
@@ -847,10 +847,10 @@
       "index": "S&P Merval",
       "symbol": "^MERV",
       "quote": {
-        "price": 2931758.25,
+        "price": 2931701.25,
         "previousClose": 2892385.75,
-        "change": 39372.5,
-        "changePct": 1.3612,
+        "change": 39315.5,
+        "changePct": 1.3593,
         "currency": "",
         "exchange": "BUE",
         "dayHigh": 2938767.75,
@@ -865,10 +865,10 @@
       "index": "IPSA",
       "symbol": "^IPSA",
       "quote": {
-        "price": 11329.1797,
+        "price": 11343.2305,
         "previousClose": 11429.0898,
-        "change": -99.9102,
-        "changePct": -0.8742,
+        "change": -85.8594,
+        "changePct": -0.7512,
         "currency": "CLP",
         "exchange": "SGO",
         "dayHigh": 11445.7998,
