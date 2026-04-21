@@ -101,10 +101,12 @@ def fetch_one(symbol: str) -> dict | None:
         change = price - prev
         pct = (change / prev) * 100 if prev else 0.0
 
-        # Pull ~1 year of daily history in one call. Used to compute
-        # 1-week, 1-month and 1-year percentage changes against the current
-        # price. yfinance returns a pandas DataFrame indexed by date.
-        hist = t.history(period='1y', interval='1d', auto_adjust=True)
+        # Pull ~14 months of daily history so the 1-year lookback is
+        # always covered (a strict `period='1y'` window can end just
+        # after the target date for some markets, returning None — this
+        # is why e.g. Saudi Arabia was the only one with 1y data). Using
+        # '14mo' buys us a margin of ~60 days.
+        hist = t.history(period='14mo', interval='1d', auto_adjust=True)
         pct_week  = _pct_from_ago(hist, price, 7)
         pct_month = _pct_from_ago(hist, price, 30)
         pct_year  = _pct_from_ago(hist, price, 365)
@@ -131,18 +133,30 @@ def fetch_one(symbol: str) -> dict | None:
 
 def _pct_from_ago(hist, current_price: float, days: int):
     """Return percent change of current_price vs. the close price ~`days`
-    calendar days ago. Uses the nearest available trading day at or before
-    that point. Returns None if history is too short."""
+    calendar days ago. Uses the trading day on or just before the target
+    date; if the target falls before the first bar in the history (can
+    happen at 365d for shorter series), falls back to the earliest
+    available bar so we return a best-effort figure rather than None."""
     if hist is None or hist.empty or 'Close' not in hist.columns:
         return None
     try:
         import pandas as pd
         target = hist.index[-1] - pd.Timedelta(days=days)
-        # Take closes at or before target; use the last one (closest before)
+        # Closes on or before the target date; use the last (most recent) one
         eligible = hist.loc[hist.index <= target, 'Close']
         if eligible.empty:
-            return None
-        past = float(eligible.iloc[-1])
+            # Target predates our history. For 1-year lookbacks we'd rather
+            # return an approximate number based on the earliest bar than
+            # no number at all. Only do this when we've got at least ~80%
+            # of the requested span — otherwise the number would be
+            # misleading.
+            span_days = (hist.index[-1] - hist.index[0]).days
+            if span_days >= days * 0.8:
+                past = float(hist['Close'].iloc[0])
+            else:
+                return None
+        else:
+            past = float(eligible.iloc[-1])
         if past == 0:
             return None
         return ((current_price - past) / past) * 100.0
