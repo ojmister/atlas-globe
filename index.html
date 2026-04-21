@@ -875,34 +875,57 @@
   // =========================================================================
   // INTERACTION (drag / zoom / auto-rotate) — unchanged from previous version
   // =========================================================================
-  let isDragging = false;
+  let isDragging = false;           // true once we've moved past the threshold
+  let pointerDown = false;          // true from pointerdown to pointerup
+  let capturedPointerId = null;
   let dragStart = null;
   let rotationStart = null;
+  const DRAG_THRESHOLD = 4;         // px before we call it a drag
   function sensitivity() { return 75 / state.scale; }
 
   svg.on('pointerdown', (event) => {
-    isDragging = true;
+    // Only react to primary-button mouse / touch / pen
+    if (event.button !== undefined && event.button !== 0) return;
+    pointerDown = true;
+    isDragging = false;             // not dragging yet — wait for movement
     dragStart = [event.clientX, event.clientY];
     rotationStart = [...state.rotation];
-    svg.node().setPointerCapture(event.pointerId);
+    capturedPointerId = event.pointerId;
+    // Important: do NOT call setPointerCapture here. If we capture on
+    // pointerdown, the browser routes pointerup to the SVG instead of the
+    // originally-clicked country path, which suppresses the synthesized
+    // click event on desktop. We only capture once a real drag starts.
   });
   svg.on('pointermove', (event) => {
-    if (isDragging) {
-      const dx = event.clientX - dragStart[0];
-      const dy = event.clientY - dragStart[1];
-      state.rotation = [
-        rotationStart[0] + dx * sensitivity(),
-        Math.max(-85, Math.min(85, rotationStart[1] - dy * sensitivity())),
-        rotationStart[2],
-      ];
-      updateAllPaths();
+    if (!pointerDown) return;
+    const dx = event.clientX - dragStart[0];
+    const dy = event.clientY - dragStart[1];
+    if (!isDragging) {
+      if (Math.hypot(dx, dy) < DRAG_THRESHOLD) return;
+      // First meaningful movement — promote to a drag and capture now
+      isDragging = true;
+      try { svg.node().setPointerCapture(capturedPointerId); } catch (e) {}
     }
+    state.rotation = [
+      rotationStart[0] + dx * sensitivity(),
+      Math.max(-85, Math.min(85, rotationStart[1] - dy * sensitivity())),
+      rotationStart[2],
+    ];
+    updateAllPaths();
   });
   svg.on('pointerup', (event) => {
+    pointerDown = false;
     isDragging = false;
-    try { svg.node().releasePointerCapture(event.pointerId); } catch(e) {}
+    if (capturedPointerId !== null) {
+      try { svg.node().releasePointerCapture(capturedPointerId); } catch (e) {}
+      capturedPointerId = null;
+    }
   });
-  svg.on('pointerleave', () => { isDragging = false; hideTooltip(); });
+  svg.on('pointerleave', () => {
+    pointerDown = false;
+    isDragging = false;
+    hideTooltip();
+  });
   svg.on('wheel', (event) => {
     event.preventDefault();
     const factor = event.deltaY > 0 ? 0.92 : 1.08;
