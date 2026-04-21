@@ -865,9 +865,14 @@
   const bordersLayer = g.append('g');
 
   // Load country geometry
+  // Using the 50m resolution atlas (~800KB) instead of 110m (~110KB).
+  // The 110m version merges many small countries/territories into their
+  // neighbors — most notably Hong Kong disappears entirely into China.
+  // 50m keeps them separate and the file is still small enough to load
+  // instantly on any connection.
   const TOPO_SOURCES = [
-    'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json',
-    'https://unpkg.com/world-atlas@2/countries-110m.json',
+    'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json',
+    'https://unpkg.com/world-atlas@2/countries-50m.json',
   ];
   async function loadCountries() {
     for (const url of TOPO_SOURCES) {
