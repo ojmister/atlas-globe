@@ -627,6 +627,16 @@
     text-transform: none;
     font-size: 10px;
   }
+  /* "N outlets" badge — importance signal: >1 major outlet covered the story */
+  .news-meta .news-cluster {
+    font-size: 9px;
+    padding: 2px 6px;
+    border: 1px solid rgba(228, 179, 99, 0.35);
+    color: var(--accent);
+    opacity: 0.9;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
   .news-meta .news-date {
     margin-left: auto;
     opacity: 0.6;
@@ -697,7 +707,7 @@
   <div class="stage">
     <div class="header">
       <div class="eyebrow">— Atlas / Global Markets</div>
-      <h1 class="title">The world's<br><em>markets</em>, live.</h1>
+      <h1 class="title">Monitoring<br>the <em>situation</em>.</h1>
     </div>
 
     <div class="controls">
@@ -1234,7 +1244,7 @@
       return `
         <div class="news-section">
           <div class="news-header">— Latest news</div>
-          <div class="news-empty">No recent English-language coverage in the last 24 hours.</div>
+          <div class="news-empty">No significant business or political coverage from major outlets in the last 24 hours.</div>
         </div>`;
     }
 
@@ -1242,11 +1252,17 @@
       const dom = a.domain || '';
       const when = formatNewsDate(a.seendate);
       const num = (i + 1).toString().padStart(2, '0');
+      // Cluster size = how many reputable outlets are covering this story.
+      // 2+ outlets = significant; we highlight that as an importance badge.
+      const clusterBadge = (a.clusterSize && a.clusterSize >= 2)
+        ? `<span class="news-cluster">${a.clusterSize} outlets</span>`
+        : '';
       return `
         <a class="news-item" href="${escapeAttr(a.url)}" target="_blank" rel="noopener">
           <div class="news-meta">
             <span class="news-num">${num}</span>
             <span class="news-domain">${escapeHtml(dom)}</span>
+            ${clusterBadge}
             ${when ? `<span class="news-date">${escapeHtml(when)}</span>` : ''}
           </div>
           <div class="news-title">${escapeHtml(a.title)}</div>
@@ -1255,7 +1271,7 @@
 
     return `
       <div class="news-section">
-        <div class="news-header">— Latest news <span class="news-source">via GDELT</span></div>
+        <div class="news-header">— Top stories <span class="news-source">via GDELT</span></div>
         ${items}
       </div>`;
   }
