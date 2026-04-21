@@ -1,53 +1,15 @@
 {
-  "generated_at": "2026-04-21T08:35:41.961440+00:00",
-  "generated_at_unix": 1776760541,
+  "generated_at": "2026-04-21T09:10:07.313479+00:00",
+  "generated_at_unix": 1776762607,
   "source": "GDELT 2.0 DOC API",
   "timespan": "24h",
   "news": {
-    "840": [
-      {
-        "title": "Driven by the pressures of war , Iran gives its field commanders more power over militias in Iraq",
-        "url": "https://www.stcatharinesstandard.ca/news/world/middle-east/driven-by-the-pressures-of-war-iran-gives-its-field-commanders-more-power-over-militias-in-iraq/article_ca0e9f4b-f93d-5aaf-9a68-dbae839f3125.html",
-        "domain": "stcatharinesstandard.ca",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "UN chief calls for",
-        "url": "http://www.middleeaststar.com/news/279001307/un-chief-calls-for-full-restoration-of-navigation-rights-amid-strait-of-hormuz-tensions",
-        "domain": "middleeaststar.com",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Grand Prix of Long Beach sees another successful year along the racetrack",
-        "url": "https://www.presstelegram.com/2026/04/20/grand-prix-of-long-beach-sees-another-successful-year-along-the-racetrack/",
-        "domain": "presstelegram.com",
-        "seendate": "20260421T081500Z"
-      }
-    ],
+    "840": [],
     "156": [],
     "392": [],
     "344": [],
     "826": [],
-    "276": [
-      {
-        "title": "Web Manuals Adds Sixth Office In Expansion | Aviation Week Network",
-        "url": "https://aviationweek.com/business-aviation/aircraft-propulsion/web-manuals-adds-sixth-office-expansion",
-        "domain": "aviationweek.com",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "The Playmaker Boards Sales for  Horse on a Stick",
-        "url": "https://variety.com/2026/film/global/the-playmaker-horse-on-a-stick-lieblingsfilm-1236726724/",
-        "domain": "variety.com",
-        "seendate": "20260421T080000Z"
-      },
-      {
-        "title": "Australian Dream : Why Homeownership is Not What it Used To Be | The Area News",
-        "url": "https://www.areanews.com.au/story/9229727/australian-dream-why-homeownership-is-not-what-it-used-to-be/",
-        "domain": "areanews.com.au",
-        "seendate": "20260421T080000Z"
-      }
-    ],
+    "276": [],
     "250": [],
     "356": [],
     "124": [],
@@ -55,258 +17,30 @@
     "036": [],
     "756": [],
     "158": [],
-    "724": [
-      {
-        "title": "Web Manuals Adds Sixth Office In Expansion | Aviation Week Network",
-        "url": "https://aviationweek.com/business-aviation/aircraft-propulsion/web-manuals-adds-sixth-office-expansion",
-        "domain": "aviationweek.com",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Indra Expands In The U . S . To Support ATC Overhaul | Aviation Week Network",
-        "url": "https://aviationweek.com/business-aviation/safety-ops-regulation/indra-expands-us-support-atc-overhaul",
-        "domain": "aviationweek.com",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Jet2 passengers concerned as new 14 - day rule announced for all Brits",
-        "url": "https://www.express.co.uk/travel/articles/2196401/jet2-passengers-concerned-new-14-day-holiday-document-rule-announced-all-brits",
-        "domain": "express.co.uk",
-        "seendate": "20260421T081500Z"
-      }
-    ],
+    "724": [],
     "076": [],
     "380": [],
     "528": [],
-    "702": [
-      {
-        "title": "Web Manuals Adds Sixth Office In Expansion | Aviation Week Network",
-        "url": "https://aviationweek.com/business-aviation/aircraft-propulsion/web-manuals-adds-sixth-office-expansion",
-        "domain": "aviationweek.com",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "The free airline perk most united kingdom parents never think to ask for",
-        "url": "https://www.hexham-courant.co.uk/news/26038181.free-airline-perk-uk-parents-never-think-ask/",
-        "domain": "hexham-courant.co.uk",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "UN agency prepares Hormuz evacuation plan for hundreds of ships",
-        "url": "https://economictimes.indiatimes.com/industry/energy/oil-gas/un-agency-prepares-hormuz-evacuation-plan-for-hundreds-of-ships/articleshow/130411282.cms",
-        "domain": "economictimes.indiatimes.com",
-        "seendate": "20260421T081500Z"
-      }
-    ],
-    "484": [
-      {
-        "title": "Gunman shoots several tourists at historic pyramids in Mexico , killing a Canadian",
-        "url": "https://isp.netscape.com:443/news/world/story/0001/20260421/cfb0ee81bf45ab5df335a17363631296",
-        "domain": "isp.netscape.com",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "2 dead , 6 injured in shooting at Teotihuacan archaeological site in Mexico - Xinhua",
-        "url": "https://english.news.cn/20260421/93407215153b4dedb5f88028dba63822/c.html",
-        "domain": "english.news.cn",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "WhatsApp Plus Premium Subscription Service Is Coming Soon : How Much To Pay & What New Features Does It Bring ?",
-        "url": "https://www.freepressjournal.in/tech/whatsapp-plus-premium-subscription-service-is-coming-soon-how-much-to-pay-what-new-features-does-it-bring",
-        "domain": "freepressjournal.in",
-        "seendate": "20260421T081500Z"
-      }
-    ],
+    "702": [],
+    "484": [],
     "752": [],
     "056": [],
-    "710": [
-      {
-        "title": "David Haye breaks silence on brutal Im A Celebrity row with Adam Thomas",
-        "url": "https://www.dailystar.co.uk/tv/david-haye-breaks-silence-brutal-37045925",
-        "domain": "dailystar.co.uk",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Two campmates evicted from Im A Celebrity | Westmeath Independent",
-        "url": "https://www.westmeathindependent.ie/2026/04/21/two-campmates-evicted-from-im-a-celebrity/",
-        "domain": "westmeathindependent.ie",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "SACP breaks ranks with ANC for local elections",
-        "url": "https://www.citizen.co.za/news/south-africa/politics/sacp-breaks-ranks-with-anc-for-local-elections/",
-        "domain": "citizen.co.za",
-        "seendate": "20260421T081500Z"
-      }
-    ],
+    "710": [],
     "578": [],
     "246": [],
-    "208": [
-      {
-        "title": "Australian Dream : Why Homeownership is Not What it Used To Be | The Area News",
-        "url": "https://www.areanews.com.au/story/9229727/australian-dream-why-homeownership-is-not-what-it-used-to-be/",
-        "domain": "areanews.com.au",
-        "seendate": "20260421T080000Z"
-      },
-      {
-        "title": "Australian Dream : Why Homeownership is Not What it Used To Be | The Queanbeyan Age",
-        "url": "https://www.queanbeyanage.com.au/story/9229727/australian-dream-why-homeownership-is-not-what-it-used-to-be/",
-        "domain": "queanbeyanage.com.au",
-        "seendate": "20260421T080000Z"
-      },
-      {
-        "title": "Australian Dream : Why Homeownership is Not What it Used To Be | Mandurah Mail",
-        "url": "https://www.mandurahmail.com.au/story/9229727/australian-dream-why-homeownership-is-not-what-it-used-to-be/",
-        "domain": "mandurahmail.com.au",
-        "seendate": "20260421T073000Z"
-      }
-    ],
-    "040": [
-      {
-        "title": "Meet California second gentleman and his vision for the state",
-        "url": "https://stanforddaily.com/2026/04/21/meet-californias-second-gentleman-and-his-vision-for-the-state/",
-        "domain": "stanforddaily.com",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Why Hungary became a big deal | News , Sports , Jobs",
-        "url": "https://www.ironmountaindailynews.com/opinion/2026/04/why-hungary-became-a-big-deal/",
-        "domain": "ironmountaindailynews.com",
-        "seendate": "20260421T080000Z"
-      },
-      {
-        "title": "Bicester man visits every country in the European Union",
-        "url": "https://www.thisisoxfordshire.co.uk/news/26036734.bicester-man-visits-every-country-european-union/",
-        "domain": "thisisoxfordshire.co.uk",
-        "seendate": "20260421T073000Z"
-      }
-    ],
-    "620": [
-      {
-        "title": "Jet2 passengers concerned as new 14 - day rule announced for all Brits",
-        "url": "https://www.express.co.uk/travel/articles/2196401/jet2-passengers-concerned-new-14-day-holiday-document-rule-announced-all-brits",
-        "domain": "express.co.uk",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "10th Aswan Intl Women Film Festival opens in Egypt - Xinhua",
-        "url": "https://english.news.cn/20260421/edf5314577344135992dd23c2f8148bb/c.html",
-        "domain": "english.news.cn",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "EU hosts Gaza peace conference as it seeks greater sway in Middle East | News , Sports , Jobs",
-        "url": "https://www.lahainanews.com/wire/?category=5041&ID=392988",
-        "domain": "lahainanews.com",
-        "seendate": "20260421T071500Z"
-      }
-    ],
-    "300": [
-      {
-        "title": "Chornobyl first responder says few survive 40 years on",
-        "url": "https://www.internazionale.it/ultime-notizie-reuters/2026/04/21/chornobyl-first-responder-says-few-survive-40-years-on",
-        "domain": "internazionale.it",
-        "seendate": "20260421T080000Z"
-      },
-      {
-        "title": "Chornobyl first responder says few survive 40 years on",
-        "url": "https://www.marketscreener.com/news/chornobyl-first-responder-says-few-survive-40-years-on-ce7f59dade8ef023",
-        "domain": "marketscreener.com",
-        "seendate": "20260421T073000Z"
-      },
-      {
-        "title": "Whimsical  united kingdom garden named among Europe most beautiful places",
-        "url": "https://metro.co.uk/2026/04/21/whimsical-uk-garden-named-among-europes-beautiful-places-just-16-visit-28044763/",
-        "domain": "metro.co.uk",
-        "seendate": "20260421T073000Z"
-      }
-    ],
+    "208": [],
+    "040": [],
+    "620": [],
+    "300": [],
     "372": [],
     "616": [],
-    "348": [
-      {
-        "title": "Kansas Holocaust Commemoration honors survivors , educates new generations",
-        "url": "https://www.wibw.com/2026/04/21/kansas-holocaust-commemoration-honors-survivors-educates-new-generations/",
-        "domain": "wibw.com",
-        "seendate": "20260421T080000Z"
-      },
-      {
-        "title": "Why Hungary became a big deal | News , Sports , Jobs",
-        "url": "https://www.ironmountaindailynews.com/opinion/2026/04/why-hungary-became-a-big-deal/",
-        "domain": "ironmountaindailynews.com",
-        "seendate": "20260421T080000Z"
-      },
-      {
-        "title": "Bulgaria : What Does Radev Victory Mean ?",
-        "url": "https://www.kyivpost.com/post/74376",
-        "domain": "kyivpost.com",
-        "seendate": "20260421T074500Z"
-      }
-    ],
+    "348": [],
     "203": [],
     "792": [],
     "376": [],
-    "682": [
-      {
-        "title": "Sudip Saha Elevated to Co - founder of Dreamtime Learning",
-        "url": "https://aninews.in/news/business/sudip-saha-elevated-to-co-founder-of-dreamtime-learning20260421132557/",
-        "domain": "aninews.in",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "10th Aswan Intl Women Film Festival opens in Egypt - Xinhua",
-        "url": "https://english.news.cn/20260421/edf5314577344135992dd23c2f8148bb/c.html",
-        "domain": "english.news.cn",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Hajj operation gains momentum as 3 , 510 more",
-        "url": "https://dailythepatriot.com/hajj-operation-gains-momentum-as-3510-more-pakistanis-leave-for-saudi-arabia/",
-        "domain": "dailythepatriot.com",
-        "seendate": "20260421T081500Z"
-      }
-    ],
-    "784": [
-      {
-        "title": "TUI 2 updates to all  due to travel  as customers ask about holidays | Travel News | Travel",
-        "url": "https://www.express.co.uk/travel/articles/2196441/TUI-issues-2-updates-to-all-customers-due-to-travel",
-        "domain": "express.co.uk",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "TUI new update for all customers  due to travel  as fuel concerns rise",
-        "url": "https://www.birminghammail.co.uk/lifestyle/tui-new-update-customers-due-33807307",
-        "domain": "birminghammail.co.uk",
-        "seendate": "20260421T080000Z"
-      },
-      {
-        "title": "Pakistan secures $1bn from Saudi Arabia as second tranche of $3bn deposit",
-        "url": "https://dunyanews.tv/en/Business/947123-pakistan-secures-1bn-from-saudi-arabia-as-second-tranche-of-3bn-depo",
-        "domain": "dunyanews.tv",
-        "seendate": "20260421T073000Z"
-      }
-    ],
-    "634": [
-      {
-        "title": "The free airline perk most united kingdom parents never think to ask for",
-        "url": "https://www.hexham-courant.co.uk/news/26038181.free-airline-perk-uk-parents-never-think-ask/",
-        "domain": "hexham-courant.co.uk",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "TUI 2 updates to all  due to travel  as customers ask about holidays | Travel News | Travel",
-        "url": "https://www.express.co.uk/travel/articles/2196441/TUI-issues-2-updates-to-all-customers-due-to-travel",
-        "domain": "express.co.uk",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Iran war : What is happening on day 53 of the US - Israel conflict ? | US - Israel war on Iran News",
-        "url": "https://www.aljazeera.com/news/2026/4/21/iran-war-what-is-happening-on-day-53-of-the-us-israel-conflict",
-        "domain": "aljazeera.com",
-        "seendate": "20260421T081500Z"
-      }
-    ],
+    "682": [],
+    "784": [],
+    "634": [],
     "818": [],
     "360": [],
     "458": [],
@@ -314,236 +48,27 @@
     "608": [],
     "704": [],
     "586": [],
-    "554": [
-      {
-        "title": "Thunes Launches Real - Time Payments into New Zealand",
-        "url": "http://www.heraldglobe.com/news/279001156/thunes-launches-real-time-payments-into-new-zealand",
-        "domain": "heraldglobe.com",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Japan approves scrapping a ban on lethal weapons exports",
-        "url": "https://www.kedm.org/npr-news/2026-04-21/japan-approves-scrapping-a-ban-on-lethal-weapons-exports",
-        "domain": "kedm.org",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Japan approves scrapping a ban on lethal weapons exports",
-        "url": "https://www.kunr.org/world-headlines/2026-04-20/japan-approves-scrapping-a-ban-on-lethal-weapons-exports",
-        "domain": "kunr.org",
-        "seendate": "20260421T081500Z"
-      }
-    ],
+    "554": [],
     "032": [],
     "152": [],
-    "170": [
-      {
-        "title": "Daily briefing | News , Sports , Jobs - Altoona Mirror",
-        "url": "https://www.altoonamirror.com/news/national/2026/04/daily-briefing-962/",
-        "domain": "altoonamirror.com",
-        "seendate": "20260421T080000Z"
-      },
-      {
-        "title": "Tiger Gold Corp .: Tiger Gold Drills 282 m @ 0 . 6 g / t Au , including 32 m @ 1 . 3 g / t Au and 21 m @ 1 . 6 g / t Au , at Dos Quebradas in Initial Drill Program",
-        "url": "https://www.finanznachrichten.de/nachrichten-2026-04/68250799-tiger-gold-corp-tiger-gold-drills-282-m-a-0-6-g-t-au-including-32-m-a-1-3-g-t-au-and-21-m-a-1-6-g-t-au-at-dos-quebradas-in-initial-drill-program-296.htm",
-        "domain": "finanznachrichten.de",
-        "seendate": "20260421T073000Z"
-      },
-      {
-        "title": "Call for EOIs : Education Resilience and Emergency Response in Colombia",
-        "url": "https://www2.fundsforngos.org/community-development-2/call-for-eois-education-resilience-and-emergency-response-in-colombia/",
-        "domain": "fundsforngos.org",
-        "seendate": "20260421T073000Z"
-      }
-    ],
+    "170": [],
     "604": [],
-    "643": [
-      {
-        "title": "gulf : Gulf worries US - Iran talks may cement Tehran  golden  grip on Hormuz",
-        "url": "https://economictimes.indiatimes.com/news/international/world-news/gulf-worries-us-iran-talks-may-cement-tehrans-golden-grip-on-hormuz/articleshow/130409883.cms",
-        "domain": "economictimes.indiatimes.com",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Gunman kills 6 in Kyiv - News Today | First with the news",
-        "url": "https://newstodaynet.com/2026/04/21/gunman-kills-6-in-kyiv/",
-        "domain": "newstodaynet.com",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Japan approves scrapping a ban on lethal weapons exports",
-        "url": "https://www.kedm.org/npr-news/2026-04-21/japan-approves-scrapping-a-ban-on-lethal-weapons-exports",
-        "domain": "kedm.org",
-        "seendate": "20260421T081500Z"
-      }
-    ],
-    "050": [
-      {
-        "title": "NEC Corporation India Appoints Ichiro Kurihara as President and CEO to Lead Its Next Phase of Growth",
-        "url": "http://www.heraldglobe.com/news/279001178/nec-corporation-india-appoints-ichiro-kurihara-as-president-and-ceo-to-lead-its-next-phase-of-growth",
-        "domain": "heraldglobe.com",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "NEC Corporation India Appoints Ichiro Kurihara as President and CEO to Lead Its Next Phase of Growth",
-        "url": "http://www.bruneinews.net/news/279001178/nec-corporation-india-appoints-ichiro-kurihara-as-president-and-ceo-to-lead-its-next-phase-of-growth",
-        "domain": "bruneinews.net",
-        "seendate": "20260421T071500Z"
-      },
-      {
-        "title": "NEC Corporation India Appoints Ichiro Kurihara as President and CEO to Lead Its Next Phase of Growth",
-        "url": "http://www.srilankasource.com/news/279001178/nec-corporation-india-appoints-ichiro-kurihara-as-president-and-ceo-to-lead-its-next-phase-of-growth",
-        "domain": "srilankasource.com",
-        "seendate": "20260421T070000Z"
-      }
-    ],
-    "144": [
-      {
-        "title": "The Mercenary Shadow : A Gritty Tale of Blood , Betrayal and Becoming",
-        "url": "http://www.heraldglobe.com/news/279001201/the-mercenary-shadow-a-gritty-tale-of-blood-betrayal-and-becoming",
-        "domain": "heraldglobe.com",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "NEC Corporation India Appoints Ichiro Kurihara as President and CEO to Lead Its Next Phase of Growth",
-        "url": "http://www.heraldglobe.com/news/279001178/nec-corporation-india-appoints-ichiro-kurihara-as-president-and-ceo-to-lead-its-next-phase-of-growth",
-        "domain": "heraldglobe.com",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Delhi : Vice President CP Radhakrishnan meets Ladakh LG VK Saxena",
-        "url": "https://aninews.in/news/national/general-news/delhi-vice-president-cp-radhakrishnan-meets-ladakh-lg-vk-saxena20260421111449/",
-        "domain": "aninews.in",
-        "seendate": "20260421T073000Z"
-      }
-    ],
+    "643": [],
+    "050": [],
+    "144": [],
     "116": [],
     "496": [],
-    "400": [
-      {
-        "title": "NHL roundup : Hurricanes prevail in second OT , go up 2 - 0 vs . Sens",
-        "url": "http://www.heraldglobe.com/news/279001289/nhl-roundup-hurricanes-prevail-in-second-ot-go-up-2-0-vs-sens",
-        "domain": "heraldglobe.com",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Four countries condemn terrorist plot targeting UAE",
-        "url": "https://www.tag911.ae/news/local-news/four-countries-condemn-terrorist-plot-targeting-uae/",
-        "domain": "tag911.ae",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Success without losing yourself is rare , but this Michael Jordan quote is the guide to achieve it",
-        "url": "https://economictimes.indiatimes.com/us/news/success-without-losing-yourself-is-rare-but-this-michael-jordan-quote-is-the-guide-to-achieve-it/articleshow/130410874.cms",
-        "domain": "economictimes.indiatimes.com",
-        "seendate": "20260421T081500Z"
-      }
-    ],
+    "400": [],
     "414": [],
-    "048": [
-      {
-        "title": "TUI 2 updates to all  due to travel  as customers ask about holidays | Travel News | Travel",
-        "url": "https://www.express.co.uk/travel/articles/2196441/TUI-issues-2-updates-to-all-customers-due-to-travel",
-        "domain": "express.co.uk",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Four countries condemn terrorist plot targeting UAE",
-        "url": "https://www.tag911.ae/news/local-news/four-countries-condemn-terrorist-plot-targeting-uae/",
-        "domain": "tag911.ae",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "TUI new update for all customers  due to travel  as fuel concerns rise",
-        "url": "https://www.birminghammail.co.uk/lifestyle/tui-new-update-customers-due-33807307",
-        "domain": "birminghammail.co.uk",
-        "seendate": "20260421T080000Z"
-      }
-    ],
+    "048": [],
     "512": [],
     "422": [],
     "368": [],
     "398": [],
-    "504": [
-      {
-        "title": "King of Pops creates a popsicle flavor for nearly every World Cup team playing in Atlanta",
-        "url": "https://www.atlantamagazine.com/dining-news/king-of-pops-creates-a-popsicle-flavor-for-nearly-every-world-cup-team-playing-in-atlanta/",
-        "domain": "atlantamagazine.com",
-        "seendate": "20260421T073000Z"
-      },
-      {
-        "title": "INS Sudarshini concludes Casablanca visit , strengthens India - Morocco maritime",
-        "url": "http://www.calcuttanews.net/news/279001136/ins-sudarshini-concludes-casablanca-visit-strengthens-india-morocco-maritime",
-        "domain": "calcuttanews.net",
-        "seendate": "20260421T071500Z"
-      },
-      {
-        "title": "Defending champion John Korir breaks Boston Marathon record and Sharon Lokedi also repeats",
-        "url": "https://www.pressdemocrat.com/2026/04/20/defending-champion-john-korir-breaks-boston-marathon-record-and-sharon-lokedi-also-repeats/",
-        "domain": "pressdemocrat.com",
-        "seendate": "20260421T063000Z"
-      }
-    ],
-    "566": [
-      {
-        "title": "Police intercept ammunition hidden in garri sack",
-        "url": "https://promptnewsonline.com/police-intercept-ammunition-hidden-in-garri-sack/",
-        "domain": "promptnewsonline.com",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Jonathan fires back at Atiku , defends record in office – The Sun Nigeria",
-        "url": "https://thesun.ng/jonathan-fires-back-at-atiku-defends-record-in-office/",
-        "domain": "thesun.ng",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Tanker crushes dispatch rider to death",
-        "url": "https://promptnewsonline.com/tanker-crushes-dispatch-rider-to-death/",
-        "domain": "promptnewsonline.com",
-        "seendate": "20260421T081500Z"
-      }
-    ],
-    "404": [
-      {
-        "title": "Late Queen Elizabeth II legacy still looms over British monarchy 100 years after her birth",
-        "url": "https://isp.netscape.com:443/entertainment/story/0001/20260421/b8bd95ffd4632d298b0740527503a4fb",
-        "domain": "isp.netscape.com",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Late Queen Elizabeth II legacy still looms over British monarchy 100 years after her birth",
-        "url": "https://www.middletownpress.com/entertainment/article/late-queen-elizabeth-ii-s-legacy-still-looms-over-22217213.php",
-        "domain": "middletownpress.com",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Late Queen Elizabeth II legacy still looms over British monarchy 100 years after her birth",
-        "url": "https://www.nhregister.com/entertainment/article/late-queen-elizabeth-ii-s-legacy-still-looms-over-22217213.php",
-        "domain": "nhregister.com",
-        "seendate": "20260421T080000Z"
-      }
-    ],
-    "288": [
-      {
-        "title": "Export diversification and market expansion key to 2026 outlook – GEPA",
-        "url": "http://www.businessghana.com/site/news/business/347122/Export-diversification-and-market-expansion-key-to-2026-outlook-%E2%80%93-GEPA",
-        "domain": "businessghana.com",
-        "seendate": "20260421T074500Z"
-      },
-      {
-        "title": "Ahmed Ibrahim : 9 , 090 assembly members paid over GHS1K monthly in 2025",
-        "url": "http://www.businessghana.com/site/news/politics/347130/Ahmed-Ibrahim:-9,090-assembly-members-paid-over-GHS1K-monthly-in-2025",
-        "domain": "businessghana.com",
-        "seendate": "20260421T074500Z"
-      },
-      {
-        "title": "Loewe Craft Prize 2026 reveals finalists shaping the future of craft",
-        "url": "https://www.euronews.com/culture/2026/04/21/loewe-craft-prize-2026-reveals-finalists-shaping-the-future-of-craft",
-        "domain": "euronews.com",
-        "seendate": "20260421T071500Z"
-      }
-    ],
+    "504": [],
+    "566": [],
+    "404": [],
+    "288": [],
     "834": [],
     "788": [],
     "894": [],
@@ -553,191 +78,20 @@
     "516": [],
     "384": [],
     "800": [],
-    "100": [
-      {
-        "title": "Bulgaria : What Does Radev Victory Mean ?",
-        "url": "https://www.kyivpost.com/post/74376",
-        "domain": "kyivpost.com",
-        "seendate": "20260421T074500Z"
-      },
-      {
-        "title": "British buyers eye Bulgaria property bargains",
-        "url": "https://www.dailymail.com/money/mortgageshome/article-15658155/British-buyers-eye-Bulgaria-property-bargains-including-20-bed-former-school-170k-four-bed-fixer-upper-just-6-952.html",
-        "domain": "dailymail.com",
-        "seendate": "20260421T061500Z"
-      },
-      {
-        "title": "No Orbán , no excuses",
-        "url": "https://www.politico.eu/podcast/brussels-playbook-podcast/no-orban-no-excuses/",
-        "domain": "politico.eu",
-        "seendate": "20260421T054500Z"
-      }
-    ],
+    "100": [],
     "642": [],
     "191": [],
-    "705": [
-      {
-        "title": "Predator  leaders seeking new  world order",
-        "url": "https://www.rte.ie/news/world/2026/0421/1569299-amnesty-world-order/",
-        "domain": "rte.ie",
-        "seendate": "20260421T073000Z"
-      },
-      {
-        "title": "Scroll , like , repeat : how the EU plans to boost children protection online",
-        "url": "https://www.euronews.com/my-europe/2026/04/21/scroll-like-repeat-how-the-eu-plans-to-boost-childrens-protection-online",
-        "domain": "euronews.com",
-        "seendate": "20260421T071500Z"
-      },
-      {
-        "title": "Amnesty warns that  predator  leaders seek to impose new  world order",
-        "url": "https://www.straitstimes.com/world/europe/amnesty-warns-that-predator-leaders-seek-to-impose-new-world-order",
-        "domain": "straitstimes.com",
-        "seendate": "20260421T043000Z"
-      }
-    ],
-    "703": [
-      {
-        "title": "Rat poison finding prompts baby food recall",
-        "url": "https://www.foodsafetynews.com/2026/04/rat-poison-finding-prompts-baby-food-recall/",
-        "domain": "foodsafetynews.com",
-        "seendate": "20260421T054500Z"
-      },
-      {
-        "title": "Immigration is a very important issue these days  | Missouri News",
-        "url": "https://www.whig.com/news/missouri-news/immigration-is-a-very-important-issue-these-days/article_9c73c824-f320-4f8d-a3e2-0fad080829ed.html",
-        "domain": "whig.com",
-        "seendate": "20260421T021500Z"
-      },
-      {
-        "title": "Viral DJ Priest Padre Guilherme Remixes Bad Bunny , Changing Lyrics to Promote Prayer",
-        "url": "https://www.breitbart.com/faith/2026/04/20/viral-dj-priest-padre-guilherme-remixes-bad-bunny-changing-lyrics-to-promote-prayer/",
-        "domain": "breitbart.com",
-        "seendate": "20260421T004500Z"
-      }
-    ],
-    "688": [
-      {
-        "title": "Amnesty International : State of the World Human Rights – Annual Report",
-        "url": "https://livenews.co.nz/2026/04/21/amnesty-international-state-of-the-worlds-human-rights-annual-report/",
-        "domain": "livenews.co.nz",
-        "seendate": "20260421T031500Z"
-      },
-      {
-        "title": "Chinese language education discussed in Serbia - People Daily Online",
-        "url": "http://en.people.cn/n3/2026/0421/c90000-20448582.html",
-        "domain": "en.people.cn",
-        "seendate": "20260421T024500Z"
-      },
-      {
-        "title": "Trump Peace Deal Claims on Israel - Lebanon War Face Scrutiny",
-        "url": "https://dailypioneer.com/news/lebanon-and-trumps-imaginary-peace-deal",
-        "domain": "dailypioneer.com",
-        "seendate": "20260421T020000Z"
-      }
-    ],
+    "705": [],
+    "703": [],
+    "688": [],
     "070": [],
-    "804": [
-      {
-        "title": "Gunman kills 6 in Kyiv - News Today | First with the news",
-        "url": "https://newstodaynet.com/2026/04/21/gunman-kills-6-in-kyiv/",
-        "domain": "newstodaynet.com",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Japan approves scrapping a ban on lethal weapons exports",
-        "url": "https://www.kedm.org/npr-news/2026-04-21/japan-approves-scrapping-a-ban-on-lethal-weapons-exports",
-        "domain": "kedm.org",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Japan approves scrapping a ban on lethal weapons exports",
-        "url": "https://www.kunr.org/world-headlines/2026-04-20/japan-approves-scrapping-a-ban-on-lethal-weapons-exports",
-        "domain": "kunr.org",
-        "seendate": "20260421T081500Z"
-      }
-    ],
-    "428": [
-      {
-        "title": "38 Secrets Dads And Their Kids Are Keeping From Moms",
-        "url": "https://www.boredpanda.com/dont-tell-mom-stories/?cexp_id=151503&cexp_var=1&_f=homepage_featured",
-        "domain": "boredpanda.com",
-        "seendate": "20260421T071500Z"
-      },
-      {
-        "title": "UK ranks fourth for public charge point numbers , new GridX report finds",
-        "url": "https://fleetworld.co.uk/uk-ranks-fourth-for-public-charge-point-numbers-new-gridx-report-finds/",
-        "domain": "fleetworld.co.uk",
-        "seendate": "20260421T063000Z"
-      },
-      {
-        "title": "38 Secrets Dads And Their Kids Are Keeping From Moms",
-        "url": "https://www.boredpanda.com/dont-tell-mom-stories/?cexp_id=151503&cexp_var=10&_f=homepage_featured",
-        "domain": "boredpanda.com",
-        "seendate": "20260421T063000Z"
-      }
-    ],
+    "804": [],
+    "428": [],
     "440": [],
     "233": [],
-    "352": [
-      {
-        "title": "DWP warns people on PIP to make phone call - and payments could stop",
-        "url": "https://www.birminghammail.co.uk/news/cost-of-living/dwp-warns-people-pip-make-33807235",
-        "domain": "birminghammail.co.uk",
-        "seendate": "20260421T080000Z"
-      },
-      {
-        "title": "US seizes Iran - bound ship from China in Arabian Sea",
-        "url": "https://www.wsws.org/en/articles/2026/04/21/jvzy-a21.html",
-        "domain": "wsws.org",
-        "seendate": "20260421T073000Z"
-      },
-      {
-        "title": "Chico Harlan joins Climate at The New York Times | Editor and Publisher",
-        "url": "http://www.editorandpublisher.com/stories/chico-harlan-joins-climate-at-the-new-york-times,261222",
-        "domain": "editorandpublisher.com",
-        "seendate": "20260421T071500Z"
-      }
-    ],
-    "196": [
-      {
-        "title": "€3 . 4m assets frozen as Koumas faces trial on 25 charges",
-        "url": "https://cyprus-mail.com/2026/04/21/e3-4m-assets-frozen-as-koumas-faces-trial-on-25-charges",
-        "domain": "cyprus-mail.com",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "US funding helps strengthen island safe - haven status | World News",
-        "url": "https://jamaica-gleaner.com/article/world-news/20260421/us-funding-helps-strengthen-islands-safe-haven-status",
-        "domain": "jamaica-gleaner.com",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Rotary brings Blue Tree Project to Sorrento",
-        "url": "https://www.mpnews.com.au/2026/04/21/rotary-brings-blue-tree-project-to-sorrento/",
-        "domain": "mpnews.com.au",
-        "seendate": "20260421T071500Z"
-      }
-    ],
-    "470": [
-      {
-        "title": "TMID Editorial : If fixed terms matter , put them in the manifesto",
-        "url": "https://www.independent.com.mt/articles/2026-04-21/newspaper-leader/TMID-Editorial-If-fixed-terms-matter-put-them-in-the-manifesto-6736288969",
-        "domain": "independent.com.mt",
-        "seendate": "20260421T070000Z"
-      },
-      {
-        "title": "Blockchain . com Launches Global Self - Custodied Perpetual Futures Trading",
-        "url": "https://www.prnewswire.com/news-releases/blockchaincom-launches-global-self-custodied-perpetual-futures-trading-302748086.html",
-        "domain": "prnewswire.com",
-        "seendate": "20260421T070000Z"
-      },
-      {
-        "title": "L - Isla or Senglea ? - The Malta Independent",
-        "url": "https://www.independent.com.mt/articles/2026-04-21/blogs-opinions/L-Isla-or-Senglea-6736288968",
-        "domain": "independent.com.mt",
-        "seendate": "20260421T070000Z"
-      }
-    ],
+    "352": [],
+    "196": [],
+    "470": [],
     "442": [],
     "862": [],
     "218": [],
@@ -749,50 +103,12 @@
     "051": [],
     "268": [],
     "364": [],
-    "760": [
-      {
-        "title": "Church Discovery In Iraq : Archaeologists find a 1 , 500 - year - old church next to a Zoroastrian site of worship in Iraq | World News",
-        "url": "https://timesofindia.indiatimes.com/world/rest-of-world/archaeologists-find-a-1500-year-old-church-next-to-a-zoroastrian-site-of-worship-in-iraq/articleshow/130396546.cms",
-        "domain": "timesofindia.indiatimes.com",
-        "seendate": "20260421T080000Z"
-      },
-      {
-        "title": "Master Gunnery Sgt . Michael Hudak retires , celebrates with family",
-        "url": "https://www.citizensvoice.com/2026/04/21/master-gunnery-sgt-michael-hudak-retires-celebrates-with-family/",
-        "domain": "citizensvoice.com",
-        "seendate": "20260421T080000Z"
-      },
-      {
-        "title": "War crimes are being normalised by nations and not just groups",
-        "url": "https://www.thenational.scot/news/world/26037971.war-crimes-normalised-nations-not-just-groups/",
-        "domain": "thenational.scot",
-        "seendate": "20260421T073000Z"
-      }
-    ],
-    "887": [
-      {
-        "title": "Driven by the pressures of war , Iran gives its field commanders more power over militias in Iraq",
-        "url": "https://www.stcatharinesstandard.ca/news/world/middle-east/driven-by-the-pressures-of-war-iran-gives-its-field-commanders-more-power-over-militias-in-iraq/article_ca0e9f4b-f93d-5aaf-9a68-dbae839f3125.html",
-        "domain": "stcatharinesstandard.ca",
-        "seendate": "20260421T081500Z"
-      },
-      {
-        "title": "Driven by the pressures of war , Iran gives its field commanders more power over militias in Iraq",
-        "url": "https://www.wral.com/news/ap/c2fce-driven-by-the-pressures-of-war-iran-gives-its-field-commanders-more-power-over-militias-in-iraq/",
-        "domain": "wral.com",
-        "seendate": "20260421T080000Z"
-      },
-      {
-        "title": "Driven by the pressures of war , Iran gives its field commanders more power over militias in Iraq",
-        "url": "https://www.thegazette.com/news/world/driven-by-the-pressures-of-war-iran-gives-its-field-commanders-more-power-over-militias/article_bf70b983-5acf-5097-8bac-e0e78272e156.html",
-        "domain": "thegazette.com",
-        "seendate": "20260421T080000Z"
-      }
-    ]
+    "760": [],
+    "887": []
   },
   "summary": {
-    "with_news": 36,
-    "empty": 65,
+    "with_news": 0,
+    "empty": 101,
     "total": 101
   }
 }

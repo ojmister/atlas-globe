@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-21T09:02:45.697806+00:00",
-  "generated_at_unix": 1776762165,
+  "generated_at": "2026-04-21T09:09:02.635694+00:00",
+  "generated_at_unix": 1776762542,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -11,7 +11,7 @@
       "countryMarketCapUsdTn": 86.9,
       "quote": {
         "price": 7109.1401,
-        "previousClose": 7126.06,
+        "previousClose": 7126.0601,
         "change": -16.9199,
         "changePct": -0.2374,
         "changePct1w": 3.2369,
@@ -22,7 +22,7 @@
         "dayHigh": 7122.6499,
         "dayLow": 7084.4102,
         "yearHigh": 7147.52,
-        "yearLow": 5207.6699
+        "yearLow": 5101.6299
       }
     },
     {
@@ -33,8 +33,8 @@
       "countryMarketCapUsdTn": 86.9,
       "quote": {
         "price": 49442.5586,
-        "previousClose": 49447.43,
-        "change": -4.8714,
+        "previousClose": 49447.4297,
+        "change": -4.8711,
         "changePct": -0.0099,
         "changePct1w": 2.5391,
         "changePct1m": 8.4803,
@@ -44,7 +44,7 @@
         "dayHigh": 49489.6289,
         "dayLow": 49245.6016,
         "yearHigh": 50512.7891,
-        "yearLow": 38516.2305
+        "yearLow": 37830.6602
       }
     },
     {
@@ -55,8 +55,8 @@
       "countryMarketCapUsdTn": 86.9,
       "quote": {
         "price": 24404.3906,
-        "previousClose": 24468.48,
-        "change": -64.0894,
+        "previousClose": 24468.4805,
+        "change": -64.0898,
         "changePct": -0.2619,
         "changePct1w": 5.2651,
         "changePct1m": 12.7348,
@@ -66,7 +66,7 @@
         "dayHigh": 24435.9199,
         "dayLow": 24221.5293,
         "yearHigh": 24519.5098,
-        "yearLow": 16038.7305
+        "yearLow": 15685.3301
       }
     },
     {
@@ -77,9 +77,9 @@
       "countryMarketCapUsdTn": 14.03,
       "quote": {
         "price": 4085.0767,
-        "previousClose": 4050.9082,
-        "change": 34.1685,
-        "changePct": 0.8435,
+        "previousClose": 4082.127,
+        "change": 2.9497,
+        "changePct": 0.0723,
         "changePct1w": 1.4516,
         "changePct1m": 3.2353,
         "changePct1y": 24.1124,
@@ -88,7 +88,7 @@
         "dayHigh": 4086.637,
         "dayLow": 4062.1326,
         "yearHigh": 4197.228,
-        "yearLow": 3277.55
+        "yearLow": 3270.0129
       }
     },
     {
@@ -99,9 +99,9 @@
       "countryMarketCapUsdTn": 14.03,
       "quote": {
         "price": 14982.1396,
-        "previousClose": 14884.1494,
-        "change": 97.9902,
-        "changePct": 0.6584,
+        "previousClose": 14966.75,
+        "change": 15.3896,
+        "changePct": 0.1028,
         "changePct1w": 2.3374,
         "changePct1m": 8.0479,
         "changePct1y": 51.2503,
@@ -109,8 +109,8 @@
         "exchange": "SHZ",
         "dayHigh": 15017.751,
         "dayLow": 14774.0762,
-        "yearHigh": 15006.9199,
-        "yearLow": 9799.6504
+        "yearHigh": 15017.751,
+        "yearLow": 9733.4297
       }
     },
     {
@@ -121,9 +121,9 @@
       "countryMarketCapUsdTn": 7.59,
       "quote": {
         "price": 59349.1719,
-        "previousClose": 58899.4883,
-        "change": 449.6836,
-        "changePct": 0.7635,
+        "previousClose": 58824.8906,
+        "change": 524.2812,
+        "changePct": 0.8913,
         "changePct1w": 2.5429,
         "changePct1m": 11.198,
         "changePct1y": 73.131,
@@ -164,13 +164,13 @@
       "symbol": "^FTSE",
       "countryMarketCapUsdTn": 3.14,
       "quote": {
-        "price": 10622.6699,
-        "previousClose": 10604.8896,
-        "change": 17.7803,
-        "changePct": 0.1677,
-        "changePct1w": 0.1279,
-        "changePct1m": 7.1017,
-        "changePct1y": 28.3598,
+        "price": 10625.2402,
+        "previousClose": 10609.0996,
+        "change": 16.1406,
+        "changePct": 0.1521,
+        "changePct1w": 0.1521,
+        "changePct1m": 7.1276,
+        "changePct1y": 28.3908,
         "currency": "GBP",
         "exchange": "FGI",
         "dayHigh": 10630.7197,
@@ -186,13 +186,13 @@
       "symbol": "^GDAXI",
       "countryMarketCapUsdTn": 2.04,
       "quote": {
-        "price": 24597.1504,
-        "previousClose": 24440.8496,
-        "change": 156.3008,
-        "changePct": 0.6395,
-        "changePct1w": 2.2996,
-        "changePct1m": 9.9059,
-        "changePct1y": 15.9922,
+        "price": 24591.0508,
+        "previousClose": 24417.8008,
+        "change": 173.25,
+        "changePct": 0.7095,
+        "changePct1w": 2.2743,
+        "changePct1m": 9.8787,
+        "changePct1y": 15.9635,
         "currency": "EUR",
         "exchange": "GER",
         "dayHigh": 24606.8398,
@@ -208,16 +208,16 @@
       "symbol": "^FCHI",
       "countryMarketCapUsdTn": 1.2,
       "quote": {
-        "price": 8342.1299,
-        "previousClose": 8331.5898,
-        "change": 10.54,
-        "changePct": 0.1265,
-        "changePct1w": 0.1713,
-        "changePct1m": 8.8252,
-        "changePct1y": 14.4975,
+        "price": 8344.0703,
+        "previousClose": 8331.0498,
+        "change": 13.0205,
+        "changePct": 0.1563,
+        "changePct1w": 0.1946,
+        "changePct1m": 8.8506,
+        "changePct1y": 14.5242,
         "currency": "EUR",
         "exchange": "PAR",
-        "dayHigh": 8344.2695,
+        "dayHigh": 8345.0996,
         "dayLow": 8311.9199,
         "yearHigh": 8642.2305,
         "yearLow": 7218.2998
@@ -230,16 +230,16 @@
       "symbol": "^BSESN",
       "countryMarketCapUsdTn": 10.57,
       "quote": {
-        "price": 79224.1484,
-        "previousClose": 78521.1406,
-        "change": 703.0078,
-        "changePct": 0.8953,
-        "changePct1w": 3.0926,
-        "changePct1m": 6.2941,
-        "changePct1y": -0.2322,
+        "price": 79289.5625,
+        "previousClose": 78520.2969,
+        "change": 769.2656,
+        "changePct": 0.9797,
+        "changePct1w": 3.1777,
+        "changePct1m": 6.3819,
+        "changePct1y": -0.1498,
         "currency": "INR",
         "exchange": "BSE",
-        "dayHigh": 79298.3516,
+        "dayHigh": 79310.8906,
         "dayLow": 78522.9609,
         "yearHigh": 86159.0234,
         "yearLow": 71545.8125
@@ -252,16 +252,16 @@
       "symbol": "^NSEI",
       "countryMarketCapUsdTn": 10.57,
       "quote": {
-        "price": 24566.3496,
-        "previousClose": 24330.9004,
-        "change": 235.4492,
-        "changePct": 0.9677,
-        "changePct1w": 3.0353,
-        "changePct1m": 6.2811,
-        "changePct1y": 1.8271,
+        "price": 24556.0508,
+        "previousClose": 24364.8496,
+        "change": 191.2012,
+        "changePct": 0.7847,
+        "changePct1w": 2.9921,
+        "changePct1m": 6.2366,
+        "changePct1y": 1.7844,
         "currency": "INR",
         "exchange": "NSI",
-        "dayHigh": 24584.3496,
+        "dayHigh": 24584.6504,
         "dayLow": 24354.9004,
         "yearHigh": 26373.1992,
         "yearLow": 22182.5508
@@ -275,8 +275,8 @@
       "countryMarketCapUsdTn": 4.0,
       "quote": {
         "price": 34360.0,
-        "previousClose": 34346.29,
-        "change": 13.71,
+        "previousClose": 34346.3008,
+        "change": 13.6992,
         "changePct": 0.0399,
         "changePct1w": 1.4192,
         "changePct1m": 9.7154,
@@ -286,7 +286,7 @@
         "dayHigh": 34371.8984,
         "dayLow": 34211.8008,
         "yearHigh": 34544.5,
-        "yearLow": 24115.3008
+        "yearLow": 23820.5
       }
     },
     {
@@ -297,9 +297,9 @@
       "countryMarketCapUsdTn": 2.95,
       "quote": {
         "price": 6388.4702,
-        "previousClose": 6255.2002,
-        "change": 133.27,
-        "changePct": 2.1305,
+        "previousClose": 6219.0898,
+        "change": 169.3804,
+        "changePct": 2.7236,
         "changePct1w": 7.0499,
         "changePct1m": 10.5042,
         "changePct1y": 156.728,
@@ -307,7 +307,7 @@
         "exchange": "KSC",
         "dayHigh": 6388.4702,
         "dayLow": 6302.54,
-        "yearHigh": 6347.4102,
+        "yearHigh": 6388.4702,
         "yearLow": 2476.1399
       }
     },
@@ -319,9 +319,9 @@
       "countryMarketCapUsdTn": 1.89,
       "quote": {
         "price": 8949.4004,
-        "previousClose": 8946.2998,
-        "change": 3.1006,
-        "changePct": 0.0347,
+        "previousClose": 8953.2998,
+        "change": -3.8994,
+        "changePct": -0.0436,
         "changePct1w": -0.2385,
         "changePct1m": 6.1815,
         "changePct1y": 14.4556,
@@ -340,16 +340,16 @@
       "symbol": "^SSMI",
       "countryMarketCapUsdTn": 1.97,
       "quote": {
-        "price": 13243.9004,
-        "previousClose": 13232.0303,
-        "change": 11.8701,
-        "changePct": 0.0897,
-        "changePct1w": -0.1949,
-        "changePct1m": 7.4906,
-        "changePct1y": 13.5747,
+        "price": 13248.7695,
+        "previousClose": 13284.2197,
+        "change": -35.4502,
+        "changePct": -0.2669,
+        "changePct1w": -0.1583,
+        "changePct1m": 7.5301,
+        "changePct1y": 13.6165,
         "currency": "CHF",
         "exchange": "EBS",
-        "dayHigh": 13244.6602,
+        "dayHigh": 13250.9404,
         "dayLow": 13200.9102,
         "yearHigh": 14063.5303,
         "yearLow": 11492.2402
@@ -363,9 +363,9 @@
       "countryMarketCapUsdTn": 2.87,
       "quote": {
         "price": 37605.1094,
-        "previousClose": 37184.2812,
-        "change": 420.8281,
-        "changePct": 1.1317,
+        "previousClose": 36958.8008,
+        "change": 646.3086,
+        "changePct": 1.7487,
         "changePct1w": 3.6064,
         "changePct1m": 12.1072,
         "changePct1y": 96.8215,
@@ -373,7 +373,7 @@
         "exchange": "TAI",
         "dayHigh": 37781.8281,
         "dayLow": 37051.25,
-        "yearHigh": 37344.5,
+        "yearHigh": 37781.8281,
         "yearLow": 18793.4297
       }
     },
@@ -384,16 +384,16 @@
       "symbol": "^IBEX",
       "countryMarketCapUsdTn": 0.8,
       "quote": {
-        "price": 18339.8008,
-        "previousClose": 18241.9004,
-        "change": 97.9004,
-        "changePct": 0.5367,
-        "changePct1w": 0.2937,
-        "changePct1m": 9.7272,
-        "changePct1y": 41.9709,
+        "price": 18343.5996,
+        "previousClose": 18260.9004,
+        "change": 82.6992,
+        "changePct": 0.4529,
+        "changePct1w": 0.3144,
+        "changePct1m": 9.7499,
+        "changePct1y": 42.0003,
         "currency": "EUR",
         "exchange": "MCE",
-        "dayHigh": 18344.1992,
+        "dayHigh": 18345.5996,
         "dayLow": 18271.6992,
         "yearHigh": 18573.8008,
         "yearLow": 12812.0
@@ -407,9 +407,9 @@
       "countryMarketCapUsdTn": 1.01,
       "quote": {
         "price": 196132.0,
-        "previousClose": 195733.52,
-        "change": 398.48,
-        "changePct": 0.2036,
+        "previousClose": 195734.0,
+        "change": 398.0,
+        "changePct": 0.2033,
         "changePct1w": -0.9439,
         "changePct1m": 11.3001,
         "changePct1y": 51.2781,
@@ -428,16 +428,16 @@
       "symbol": "FTSEMIB.MI",
       "countryMarketCapUsdTn": 0.9,
       "quote": {
-        "price": 48402.6719,
-        "previousClose": 48253.3984,
-        "change": 149.2734,
-        "changePct": 0.3094,
-        "changePct1w": 0.4705,
-        "changePct1m": 12.9821,
-        "changePct1y": 34.5266,
+        "price": 48401.2383,
+        "previousClose": 48207.0,
+        "change": 194.2383,
+        "changePct": 0.4029,
+        "changePct1w": 0.4675,
+        "changePct1m": 12.9788,
+        "changePct1y": 34.5226,
         "currency": "EUR",
         "exchange": "MIL",
-        "dayHigh": 48403.8984,
+        "dayHigh": 48407.1484,
         "dayLow": 48286.6211,
         "yearHigh": 48958.0,
         "yearLow": 35509.0
@@ -450,13 +450,13 @@
       "symbol": "^AEX",
       "countryMarketCapUsdTn": 1.1,
       "quote": {
-        "price": 1024.8101,
-        "previousClose": 1020.66,
-        "change": 4.1501,
-        "changePct": 0.4066,
-        "changePct1w": 0.4893,
-        "changePct1m": 6.5712,
-        "changePct1y": 20.2546,
+        "price": 1024.5,
+        "previousClose": 1021.96,
+        "change": 2.54,
+        "changePct": 0.2485,
+        "changePct1w": 0.4589,
+        "changePct1m": 6.539,
+        "changePct1y": 20.2183,
         "currency": "EUR",
         "exchange": "AMS",
         "dayHigh": 1026.0601,
@@ -472,19 +472,19 @@
       "symbol": "^STI",
       "countryMarketCapUsdTn": 0.6,
       "quote": {
-        "price": 5007.5601,
-        "previousClose": 4997.27,
-        "change": 10.29,
-        "changePct": 0.2059,
-        "changePct1w": -0.0002,
-        "changePct1m": 1.1859,
-        "changePct1y": 33.2074,
+        "price": 5010.3198,
+        "previousClose": 5004.0698,
+        "change": 6.25,
+        "changePct": 0.1249,
+        "changePct1w": 0.0549,
+        "changePct1m": 1.2417,
+        "changePct1y": 33.2808,
         "currency": "SGD",
         "exchange": "SES",
         "dayHigh": 5021.0698,
         "dayLow": 4995.9702,
         "yearHigh": 5041.3301,
-        "yearLow": 3739.3999
+        "yearLow": 3729.6001
       }
     },
     {
@@ -495,9 +495,9 @@
       "countryMarketCapUsdTn": 0.5,
       "quote": {
         "price": 70083.7266,
-        "previousClose": 69853.7812,
-        "change": 229.9453,
-        "changePct": 0.3292,
+        "previousClose": 69825.9375,
+        "change": 257.7891,
+        "changePct": 0.3692,
         "changePct1w": 0.7021,
         "changePct1m": 9.2755,
         "changePct1y": 32.1871,
@@ -506,7 +506,7 @@
         "dayHigh": 70205.5469,
         "dayLow": 69228.3438,
         "yearHigh": 72111.4062,
-        "yearLow": 53665.0312
+        "yearLow": 53117.4414
       }
     },
     {
@@ -516,13 +516,13 @@
       "symbol": "^OMX",
       "countryMarketCapUsdTn": 1.0,
       "quote": {
-        "price": 3166.1379,
-        "previousClose": 3153.1162,
-        "change": 13.0217,
-        "changePct": 0.413,
-        "changePct1w": 1.1158,
-        "changePct1m": 10.5229,
-        "changePct1y": 34.4101,
+        "price": 3165.4956,
+        "previousClose": 3153.1201,
+        "change": 12.3755,
+        "changePct": 0.3925,
+        "changePct1w": 1.0953,
+        "changePct1m": 10.5005,
+        "changePct1y": 34.3828,
         "currency": "SEK",
         "exchange": "STO",
         "dayHigh": 3170.4651,
@@ -538,16 +538,16 @@
       "symbol": "^BFX",
       "countryMarketCapUsdTn": 0.4,
       "quote": {
-        "price": 5521.1602,
+        "price": 5520.1299,
         "previousClose": 5511.1699,
-        "change": 9.9902,
-        "changePct": 0.1813,
-        "changePct1w": 0.6426,
-        "changePct1m": 12.292,
-        "changePct1y": 31.5298,
+        "change": 8.96,
+        "changePct": 0.1626,
+        "changePct1w": 0.6238,
+        "changePct1m": 12.271,
+        "changePct1y": 31.5052,
         "currency": "EUR",
         "exchange": "BRU",
-        "dayHigh": 5521.1602,
+        "dayHigh": 5521.9702,
         "dayLow": 5501.6699,
         "yearHigh": 5691.52,
         "yearLow": 4191.4702
@@ -560,13 +560,13 @@
       "symbol": "^JN0U.JO",
       "countryMarketCapUsdTn": 1.15,
       "quote": {
-        "price": 7321.1401,
-        "previousClose": 7380.9502,
-        "change": -59.8101,
-        "changePct": -0.8103,
-        "changePct1w": -0.6856,
-        "changePct1m": 13.6505,
-        "changePct1y": 55.7653,
+        "price": 7330.4399,
+        "previousClose": 7362.6001,
+        "change": -32.1602,
+        "changePct": -0.4368,
+        "changePct1w": -0.5594,
+        "changePct1m": 13.7949,
+        "changePct1y": 55.9632,
         "currency": "USD",
         "exchange": "JNB",
         "dayHigh": 7377.3599,
@@ -581,21 +581,7 @@
       "index": "OSEAX",
       "symbol": "OSEAX.OL",
       "countryMarketCapUsdTn": 0.35,
-      "quote": {
-        "price": 2318.53,
-        "previousClose": 2308.97,
-        "change": 9.5601,
-        "changePct": 0.414,
-        "changePct1w": null,
-        "changePct1m": null,
-        "changePct1y": null,
-        "currency": "NOK",
-        "exchange": "OSL",
-        "dayHigh": 2321.6101,
-        "dayLow": 2310.8701,
-        "yearHigh": 2321.6101,
-        "yearLow": 2310.8701
-      }
+      "error": "No data returned"
     },
     {
       "id": "246",
@@ -604,13 +590,13 @@
       "symbol": "^OMXH25",
       "countryMarketCapUsdTn": 0.3,
       "quote": {
-        "price": 6302.2861,
-        "previousClose": 6296.7974,
-        "change": 5.4888,
-        "changePct": 0.0872,
-        "changePct1w": 0.307,
-        "changePct1m": 7.9637,
-        "changePct1y": 46.3375,
+        "price": 6294.8188,
+        "previousClose": 6296.7998,
+        "change": -1.981,
+        "changePct": -0.0315,
+        "changePct1w": 0.1881,
+        "changePct1m": 7.8358,
+        "changePct1y": 46.1641,
         "currency": "EUR",
         "exchange": "STO",
         "dayHigh": 6314.5308,
@@ -626,13 +612,13 @@
       "symbol": "^OMXC25",
       "countryMarketCapUsdTn": 0.6,
       "quote": {
-        "price": 1767.3855,
-        "previousClose": 1772.0902,
-        "change": -4.7047,
-        "changePct": -0.2655,
-        "changePct1w": 0.0071,
-        "changePct1m": 8.8412,
-        "changePct1y": 12.1352,
+        "price": 1766.3101,
+        "previousClose": 1772.09,
+        "change": -5.7799,
+        "changePct": -0.3262,
+        "changePct1w": -0.0538,
+        "changePct1m": 8.775,
+        "changePct1y": 12.067,
         "currency": "DKK",
         "exchange": "NIM",
         "dayHigh": 1777.8878,
@@ -648,16 +634,16 @@
       "symbol": "^ATX",
       "countryMarketCapUsdTn": 0.15,
       "quote": {
-        "price": 5895.4399,
-        "previousClose": 5868.6802,
-        "change": 26.7598,
-        "changePct": 0.456,
-        "changePct1w": -0.0493,
-        "changePct1m": 13.4869,
-        "changePct1y": 50.544,
+        "price": 5899.8901,
+        "previousClose": 5866.3301,
+        "change": 33.5601,
+        "changePct": 0.5721,
+        "changePct1w": 0.0261,
+        "changePct1m": 13.5726,
+        "changePct1y": 50.6577,
         "currency": "EUR",
         "exchange": "VIE",
-        "dayHigh": 5897.7402,
+        "dayHigh": 5899.8901,
         "dayLow": 5864.1802,
         "yearHigh": 5972.1899,
         "yearLow": 3881.0801
@@ -670,13 +656,13 @@
       "symbol": "PSI20.LS",
       "countryMarketCapUsdTn": 0.08,
       "quote": {
-        "price": 9181.8701,
+        "price": 9184.04,
         "previousClose": 9177.5898,
-        "change": 4.2803,
-        "changePct": 0.0466,
-        "changePct1w": -1.9285,
-        "changePct1m": 4.8606,
-        "changePct1y": 36.3137,
+        "change": 6.4502,
+        "changePct": 0.0703,
+        "changePct1w": -1.9053,
+        "changePct1m": 4.8854,
+        "changePct1y": 36.3459,
         "currency": "EUR",
         "exchange": "LIS",
         "dayHigh": 9186.75,
@@ -692,13 +678,13 @@
       "symbol": "GD.AT",
       "countryMarketCapUsdTn": 0.1,
       "quote": {
-        "price": 2265.1499,
+        "price": 2264.8701,
         "previousClose": 2259.73,
-        "change": 5.4199,
-        "changePct": 0.2398,
-        "changePct1w": -0.2308,
-        "changePct1m": 9.7047,
-        "changePct1y": 37.9364,
+        "change": 5.1401,
+        "changePct": 0.2275,
+        "changePct1w": -0.2431,
+        "changePct1m": 9.6912,
+        "changePct1y": 37.9193,
         "currency": "EUR",
         "exchange": "ATH",
         "dayHigh": 2272.75,
@@ -714,13 +700,13 @@
       "symbol": "^ISEQ",
       "countryMarketCapUsdTn": 0.14,
       "quote": {
-        "price": 12892.2598,
-        "previousClose": 12812.75,
-        "change": 79.5098,
-        "changePct": 0.6206,
-        "changePct1w": 0.3453,
-        "changePct1m": 8.5094,
-        "changePct1y": 29.3376,
+        "price": 12889.8604,
+        "previousClose": 12844.6104,
+        "change": 45.25,
+        "changePct": 0.3523,
+        "changePct1w": 0.3267,
+        "changePct1m": 8.4892,
+        "changePct1y": 29.3136,
         "currency": "EUR",
         "exchange": "ISE",
         "dayHigh": 12899.5898,
@@ -735,21 +721,7 @@
       "index": "WIG20",
       "symbol": "WIG20.WA",
       "countryMarketCapUsdTn": 0.45,
-      "quote": {
-        "price": 3658.0701,
-        "previousClose": 3666.8601,
-        "change": -8.79,
-        "changePct": -0.2397,
-        "changePct1w": null,
-        "changePct1m": null,
-        "changePct1y": null,
-        "currency": "PLN",
-        "exchange": "WSE",
-        "dayHigh": 3676.4399,
-        "dayLow": 3650.28,
-        "yearHigh": 3676.4399,
-        "yearLow": 3650.28
-      }
+      "error": "No data returned"
     },
     {
       "id": "348",
@@ -757,21 +729,7 @@
       "index": "BUX",
       "symbol": "^BUX.BD",
       "countryMarketCapUsdTn": 0.05,
-      "quote": {
-        "price": 136070.2031,
-        "previousClose": 136675.4844,
-        "change": -605.2812,
-        "changePct": -0.4429,
-        "changePct1w": null,
-        "changePct1m": null,
-        "changePct1y": null,
-        "currency": "HUF",
-        "exchange": "BUD",
-        "dayHigh": 137092.8438,
-        "dayLow": 135760.7812,
-        "yearHigh": 137092.8438,
-        "yearLow": 135760.7812
-      }
+      "error": "No data returned"
     },
     {
       "id": "203",
@@ -788,19 +746,19 @@
       "symbol": "XU100.IS",
       "countryMarketCapUsdTn": 0.3,
       "quote": {
-        "price": 14599.1104,
-        "previousClose": 14488.8799,
-        "change": 110.2305,
-        "changePct": 0.7608,
-        "changePct1w": 2.7947,
-        "changePct1m": 11.8903,
-        "changePct1y": 56.6168,
+        "price": 14590.3799,
+        "previousClose": 14484.9004,
+        "change": 105.4795,
+        "changePct": 0.7282,
+        "changePct1w": 2.7332,
+        "changePct1m": 11.8234,
+        "changePct1y": 56.5231,
         "currency": "TRY",
         "exchange": "IST",
         "dayHigh": 14616.1396,
         "dayLow": 14535.1104,
-        "yearHigh": 14609.9004,
-        "yearLow": 8965.0
+        "yearHigh": 14616.1396,
+        "yearLow": 8964.9524
       }
     },
     {
@@ -810,17 +768,17 @@
       "symbol": "^TA125.TA",
       "countryMarketCapUsdTn": 0.3,
       "quote": {
-        "price": 4327.87,
+        "price": 4327.8701,
         "previousClose": 4309.0298,
-        "change": 18.8402,
+        "change": 18.8403,
         "changePct": 0.4372,
         "changePct1w": 1.2832,
         "changePct1m": 1.9995,
         "changePct1y": 70.6284,
         "currency": "ILS",
         "exchange": "TLV",
-        "dayHigh": null,
-        "dayLow": null,
+        "dayHigh": 4328.8901,
+        "dayLow": 4271.1802,
         "yearHigh": 4353.25,
         "yearLow": 2494.3999
       }
@@ -832,13 +790,13 @@
       "symbol": "^TASI.SR",
       "countryMarketCapUsdTn": 2.73,
       "quote": {
-        "price": 11383.3096,
-        "previousClose": 11385.7803,
-        "change": -2.4707,
-        "changePct": -0.0217,
-        "changePct1w": -0.8956,
-        "changePct1m": 3.9927,
-        "changePct1y": -1.4318,
+        "price": 11384.96,
+        "previousClose": 11366.79,
+        "change": 18.1699,
+        "changePct": 0.1599,
+        "changePct1w": -0.8812,
+        "changePct1m": 4.0078,
+        "changePct1y": -1.4175,
         "currency": "SAR",
         "exchange": "SAU",
         "dayHigh": 11466.6396,
@@ -869,21 +827,7 @@
       "index": "EGX 30",
       "symbol": "^CASE30",
       "countryMarketCapUsdTn": 0.04,
-      "quote": {
-        "price": 51984.3984,
-        "previousClose": 51813.3984,
-        "change": 171.0,
-        "changePct": 0.33,
-        "changePct1w": null,
-        "changePct1m": null,
-        "changePct1y": null,
-        "currency": "EGP",
-        "exchange": "CAI",
-        "dayHigh": 52057.3984,
-        "dayLow": 51813.3984,
-        "yearHigh": 52057.3984,
-        "yearLow": 51813.3984
-      }
+      "error": "No data returned"
     },
     {
       "id": "360",
@@ -904,7 +848,7 @@
         "dayHigh": 7568.9888,
         "dayLow": 7511.8281,
         "yearHigh": 9174.4736,
-        "yearLow": 6428.105
+        "yearLow": 6406.8032
       }
     },
     {
@@ -914,13 +858,13 @@
       "symbol": "^KLSE",
       "countryMarketCapUsdTn": 0.4,
       "quote": {
-        "price": 1715.67,
+        "price": 1715.33,
         "previousClose": 1702.3,
-        "change": 13.37,
-        "changePct": 0.7854,
-        "changePct1w": 1.632,
-        "changePct1m": -0.2929,
-        "changePct1y": 14.4184,
+        "change": 13.0299,
+        "changePct": 0.7654,
+        "changePct1w": 1.6118,
+        "changePct1m": -0.3127,
+        "changePct1y": 14.3958,
         "currency": "MYR",
         "exchange": "KLS",
         "dayHigh": 1716.64,
@@ -936,13 +880,13 @@
       "symbol": "^SET.BK",
       "countryMarketCapUsdTn": 0.45,
       "quote": {
-        "price": 1483.0601,
+        "price": 1483.23,
         "previousClose": 1481.85,
-        "change": 1.2101,
-        "changePct": 0.0817,
-        "changePct1w": -1.5781,
-        "changePct1m": 3.4941,
-        "changePct1y": 30.6995,
+        "change": 1.38,
+        "changePct": 0.0931,
+        "changePct1w": -1.5669,
+        "changePct1m": 3.506,
+        "changePct1y": 30.7145,
         "currency": "THB",
         "exchange": "SET",
         "dayHigh": 1487.28,
@@ -979,21 +923,7 @@
       "index": "VN Index",
       "symbol": "^VNINDEX.VN",
       "countryMarketCapUsdTn": 0.28,
-      "quote": {
-        "price": 1833.48,
-        "previousClose": 1837.11,
-        "change": -3.63,
-        "changePct": -0.1976,
-        "changePct1w": null,
-        "changePct1m": null,
-        "changePct1y": null,
-        "currency": "VND",
-        "exchange": "VSE",
-        "dayHigh": 1866.1,
-        "dayLow": 1823.24,
-        "yearHigh": 1866.1,
-        "yearLow": 1823.24
-      }
+      "error": "No data returned"
     },
     {
       "id": "586",
@@ -1011,9 +941,9 @@
       "countryMarketCapUsdTn": 0.16,
       "quote": {
         "price": 12932.3301,
-        "previousClose": 12882.0,
-        "change": 50.3301,
-        "changePct": 0.3907,
+        "previousClose": 12915.4502,
+        "change": 16.8799,
+        "changePct": 0.1307,
         "changePct1w": -0.6524,
         "changePct1m": -0.4439,
         "changePct1y": 6.7113,
@@ -1033,9 +963,9 @@
       "countryMarketCapUsdTn": 0.1,
       "quote": {
         "price": 2931701.0,
-        "previousClose": 2892385.75,
-        "change": 39315.25,
-        "changePct": 1.3593,
+        "previousClose": 2889185.0,
+        "change": 42516.0,
+        "changePct": 1.4716,
         "changePct1w": -2.0082,
         "changePct1m": 7.5725,
         "changePct1y": 34.6067,
@@ -1053,21 +983,7 @@
       "index": "IPSA",
       "symbol": "^IPSA",
       "countryMarketCapUsdTn": 0.2,
-      "quote": {
-        "price": 11343.5498,
-        "previousClose": 11429.0898,
-        "change": -85.54,
-        "changePct": -0.7484,
-        "changePct1w": null,
-        "changePct1m": null,
-        "changePct1y": null,
-        "currency": "CLP",
-        "exchange": "SGO",
-        "dayHigh": 0.0,
-        "dayLow": 0.0,
-        "yearHigh": 0.0,
-        "yearLow": 0.0
-      }
+      "error": "No data returned"
     },
     {
       "id": "170",
@@ -1092,11 +1008,475 @@
       "symbol": "IMOEX.ME",
       "countryMarketCapUsdTn": 0.7,
       "error": "No data returned"
+    },
+    {
+      "id": "050",
+      "country": "Bangladesh",
+      "index": "DSEX",
+      "symbol": "^DSEX",
+      "countryMarketCapUsdTn": 0.04,
+      "error": "No data returned"
+    },
+    {
+      "id": "144",
+      "country": "Sri Lanka",
+      "index": "CSE All Share",
+      "symbol": "^CSE",
+      "countryMarketCapUsdTn": 0.02,
+      "error": "No data returned"
+    },
+    {
+      "id": "116",
+      "country": "Cambodia",
+      "index": "CSX",
+      "symbol": "^CSX",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "496",
+      "country": "Mongolia",
+      "index": "MSE Top 20",
+      "symbol": "^MSE20",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "400",
+      "country": "Jordan",
+      "index": "ASE General",
+      "symbol": "^ASE",
+      "countryMarketCapUsdTn": 0.02,
+      "error": "No data returned"
+    },
+    {
+      "id": "414",
+      "country": "Kuwait",
+      "index": "Kuwait All Share",
+      "symbol": "^BKP",
+      "countryMarketCapUsdTn": 0.12,
+      "error": "No data returned"
+    },
+    {
+      "id": "048",
+      "country": "Bahrain",
+      "index": "Bahrain All Share",
+      "symbol": "^BAX",
+      "countryMarketCapUsdTn": 0.03,
+      "error": "No data returned"
+    },
+    {
+      "id": "512",
+      "country": "Oman",
+      "index": "MSX 30",
+      "symbol": "^MSX30",
+      "countryMarketCapUsdTn": 0.02,
+      "error": "No data returned"
+    },
+    {
+      "id": "422",
+      "country": "Lebanon",
+      "index": "BLOM Stock Index",
+      "symbol": "^BLOM",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "368",
+      "country": "Iraq",
+      "index": "ISX 60",
+      "symbol": "^ISX60",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "398",
+      "country": "Kazakhstan",
+      "index": "KASE",
+      "symbol": "^KASE",
+      "countryMarketCapUsdTn": 0.06,
+      "error": "No data returned"
+    },
+    {
+      "id": "504",
+      "country": "Morocco",
+      "index": "MASI",
+      "symbol": "^MASI",
+      "countryMarketCapUsdTn": 0.07,
+      "error": "No data returned"
+    },
+    {
+      "id": "566",
+      "country": "Nigeria",
+      "index": "NGX All Share",
+      "symbol": "^NGX",
+      "countryMarketCapUsdTn": 0.04,
+      "error": "No data returned"
+    },
+    {
+      "id": "404",
+      "country": "Kenya",
+      "index": "NSE 20",
+      "symbol": "^NSE20",
+      "countryMarketCapUsdTn": 0.02,
+      "error": "No data returned"
+    },
+    {
+      "id": "288",
+      "country": "Ghana",
+      "index": "GSE Composite",
+      "symbol": "^GSECI",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "834",
+      "country": "Tanzania",
+      "index": "DSE All Share",
+      "symbol": "^DSEI",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "788",
+      "country": "Tunisia",
+      "index": "Tunindex",
+      "symbol": "^TUNINDEX",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "894",
+      "country": "Zambia",
+      "index": "LuSE All Share",
+      "symbol": "^LASI",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "480",
+      "country": "Mauritius",
+      "index": "SEMDEX",
+      "symbol": "^SEMDEX",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "716",
+      "country": "Zimbabwe",
+      "index": "ZSE All Share",
+      "symbol": "^ZSEAS",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "072",
+      "country": "Botswana",
+      "index": "BSE Domestic Company",
+      "symbol": "^DCI",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "516",
+      "country": "Namibia",
+      "index": "NSX Overall",
+      "symbol": "^NOX",
+      "countryMarketCapUsdTn": 0.02,
+      "error": "No data returned"
+    },
+    {
+      "id": "384",
+      "country": "Côte d'Ivoire",
+      "index": "BRVM Composite",
+      "symbol": "^BRVM",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "800",
+      "country": "Uganda",
+      "index": "USE All Share",
+      "symbol": "^USEALSI",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "100",
+      "country": "Bulgaria",
+      "index": "SOFIX",
+      "symbol": "^SOFIX",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "642",
+      "country": "Romania",
+      "index": "BET",
+      "symbol": "^BET",
+      "countryMarketCapUsdTn": 0.04,
+      "error": "No data returned"
+    },
+    {
+      "id": "191",
+      "country": "Croatia",
+      "index": "CROBEX",
+      "symbol": "^CRBEX",
+      "countryMarketCapUsdTn": 0.03,
+      "error": "No data returned"
+    },
+    {
+      "id": "705",
+      "country": "Slovenia",
+      "index": "SBI TOP",
+      "symbol": "^SBITOP",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "703",
+      "country": "Slovakia",
+      "index": "SAX",
+      "symbol": "^SAX",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "688",
+      "country": "Serbia",
+      "index": "BELEX 15",
+      "symbol": "^BELEX15",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "070",
+      "country": "Bosnia and Herz.",
+      "index": "SASX-10",
+      "symbol": "^SASX10",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "804",
+      "country": "Ukraine",
+      "index": "PFTS",
+      "symbol": "^PFTS",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "428",
+      "country": "Latvia",
+      "index": "OMX Riga",
+      "symbol": "^OMXRGI",
+      "countryMarketCapUsdTn": 0.01,
+      "quote": {
+        "price": 888.2657,
+        "previousClose": 886.11,
+        "change": 2.1557,
+        "changePct": 0.2433,
+        "changePct1w": 0.4416,
+        "changePct1m": -0.8853,
+        "changePct1y": 3.0052,
+        "currency": "EUR",
+        "exchange": "NIM",
+        "dayHigh": 889.2964,
+        "dayLow": 885.9591,
+        "yearHigh": 941.79,
+        "yearLow": 858.37
+      }
+    },
+    {
+      "id": "440",
+      "country": "Lithuania",
+      "index": "OMX Vilnius",
+      "symbol": "^OMXVGI",
+      "countryMarketCapUsdTn": 0.01,
+      "quote": {
+        "price": 1418.6293,
+        "previousClose": 1421.54,
+        "change": -2.9108,
+        "changePct": -0.2048,
+        "changePct1w": 0.914,
+        "changePct1m": 3.595,
+        "changePct1y": 24.082,
+        "currency": "EUR",
+        "exchange": "NIM",
+        "dayHigh": 1422.7058,
+        "dayLow": 1418.5306,
+        "yearHigh": 1430.95,
+        "yearLow": 1141.8199
+      }
+    },
+    {
+      "id": "233",
+      "country": "Estonia",
+      "index": "OMX Tallinn",
+      "symbol": "^OMXTGI",
+      "countryMarketCapUsdTn": 0.01,
+      "quote": {
+        "price": 2117.6089,
+        "previousClose": 2117.49,
+        "change": 0.1189,
+        "changePct": 0.0056,
+        "changePct1w": 0.3221,
+        "changePct1m": 1.8708,
+        "changePct1y": 8.2799,
+        "currency": "EUR",
+        "exchange": "NIM",
+        "dayHigh": 2119.4661,
+        "dayLow": 2114.9443,
+        "yearHigh": 2125.1001,
+        "yearLow": 1884.45
+      }
+    },
+    {
+      "id": "352",
+      "country": "Iceland",
+      "index": "OMX Iceland",
+      "symbol": "^OMXI10",
+      "countryMarketCapUsdTn": 0.03,
+      "error": "No data returned"
+    },
+    {
+      "id": "196",
+      "country": "Cyprus",
+      "index": "CSE General",
+      "symbol": "^CSE",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "470",
+      "country": "Malta",
+      "index": "MSE Equity Price",
+      "symbol": "^MALTEX",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "442",
+      "country": "Luxembourg",
+      "index": "LuxX",
+      "symbol": "^LUXX",
+      "countryMarketCapUsdTn": 0.06,
+      "error": "No data returned"
+    },
+    {
+      "id": "862",
+      "country": "Venezuela",
+      "index": "IBC",
+      "symbol": "^IBC",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "218",
+      "country": "Ecuador",
+      "index": "ECU",
+      "symbol": "^ECU",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "858",
+      "country": "Uruguay",
+      "index": "BVMBG",
+      "symbol": "^BVMBG",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "068",
+      "country": "Bolivia",
+      "index": "BBV General",
+      "symbol": "^BBV",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "600",
+      "country": "Paraguay",
+      "index": "PDCA",
+      "symbol": "^PDCA",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "188",
+      "country": "Costa Rica",
+      "index": "CRSMB",
+      "symbol": "^CRSMB",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "031",
+      "country": "Azerbaijan",
+      "index": "Baku Stock Exchange",
+      "symbol": "^BSE",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "051",
+      "country": "Armenia",
+      "index": "AMX Main Index",
+      "symbol": "^AMX",
+      "countryMarketCapUsdTn": 0.01,
+      "quote": {
+        "price": 1028.25,
+        "previousClose": 1024.85,
+        "change": 3.4,
+        "changePct": 0.3318,
+        "changePct1w": 1.5776,
+        "changePct1m": 8.7221,
+        "changePct1y": 28.8211,
+        "currency": "EUR",
+        "exchange": "AMS",
+        "dayHigh": 1028.97,
+        "dayLow": 1026.26,
+        "yearHigh": 1037.26,
+        "yearLow": 788.64
+      }
+    },
+    {
+      "id": "268",
+      "country": "Georgia",
+      "index": "Georgia All Share",
+      "symbol": "^GSXAS",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "364",
+      "country": "Iran",
+      "index": "TEDPIX",
+      "symbol": "^TEDPIX",
+      "countryMarketCapUsdTn": 2.0,
+      "error": "No data returned"
+    },
+    {
+      "id": "760",
+      "country": "Syria",
+      "index": "DSE Weighted",
+      "symbol": "^DSEWG",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
+    },
+    {
+      "id": "887",
+      "country": "Yemen",
+      "index": "Yemen Market Index",
+      "symbol": "^YEMI",
+      "countryMarketCapUsdTn": 0.01,
+      "error": "No data returned"
     }
   ],
   "summary": {
-    "ok": 47,
-    "failed": 7,
-    "total": 54
+    "ok": 45,
+    "failed": 60,
+    "total": 105
   }
 }
