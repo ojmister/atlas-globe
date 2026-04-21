@@ -106,65 +106,18 @@ COUNTRIES = [
     ('170', 'Colombia',               'Colombia'),
     ('604', 'Peru',                   'Peru'),
     ('643', 'Russia',                 'Russia'),
-    ('050', 'Bangladesh',             'Bangladesh'),
-    ('144', 'Sri Lanka',              'Sri Lanka'),
-    ('116', 'Cambodia',               'Cambodia'),
-    ('496', 'Mongolia',               'Mongolia'),
-    ('400', 'Jordan',                 'Jordan'),
-    ('414', 'Kuwait',                 'Kuwait'),
-    ('048', 'Bahrain',                'Bahrain'),
-    ('512', 'Oman',                   'Oman'),
-    ('422', 'Lebanon',                'Lebanon'),
-    ('368', 'Iraq',                   'Iraq'),
-    ('398', 'Kazakhstan',             'Kazakhstan'),
-    ('504', 'Morocco',                'Morocco'),
-    ('566', 'Nigeria',                'Nigeria'),
-    ('404', 'Kenya',                  'Kenya'),
-    ('288', 'Ghana',                  'Ghana'),
-    ('834', 'Tanzania',               'Tanzania'),
-    ('788', 'Tunisia',                'Tunisia'),
-    ('894', 'Zambia',                 'Zambia'),
-    ('480', 'Mauritius',              'Mauritius'),
-    ('716', 'Zimbabwe',               'Zimbabwe'),
-    ('072', 'Botswana',               'Botswana'),
-    ('516', 'Namibia',                'Namibia'),
-    ('384', "Côte d'Ivoire",          'Ivory Coast'),
-    ('800', 'Uganda',                 'Uganda'),
-    ('100', 'Bulgaria',               'Bulgaria'),
-    ('642', 'Romania',                'Romania'),
-    ('191', 'Croatia',                'Croatia'),
-    ('705', 'Slovenia',               'Slovenia'),
-    ('703', 'Slovakia',               'Slovakia'),
-    ('688', 'Serbia',                 'Serbia'),
-    ('070', 'Bosnia and Herz.',       'Bosnia and Herzegovina'),
-    ('804', 'Ukraine',                'Ukraine'),
-    ('428', 'Latvia',                 'Latvia'),
-    ('440', 'Lithuania',              'Lithuania'),
-    ('233', 'Estonia',                'Estonia'),
-    ('352', 'Iceland',                'Iceland'),
-    ('196', 'Cyprus',                 'Cyprus'),
-    ('470', 'Malta',                  'Malta'),
-    ('442', 'Luxembourg',             'Luxembourg'),
-    ('862', 'Venezuela',              'Venezuela'),
-    ('218', 'Ecuador',                'Ecuador'),
-    ('858', 'Uruguay',                'Uruguay'),
-    ('068', 'Bolivia',                'Bolivia'),
-    ('600', 'Paraguay',               'Paraguay'),
-    ('188', 'Costa Rica',             'Costa Rica'),
-    ('031', 'Azerbaijan',             'Azerbaijan'),
-    ('051', 'Armenia',                'Armenia'),
-    ('268', 'Georgia',                'Georgia'),
-    ('364', 'Iran',                   'Iran'),
-    ('760', 'Syria',                  'Syria'),
-    ('887', 'Yemen',                  'Yemen'),
 ]
 
 
 GDELT_ENDPOINT = 'https://api.gdeltproject.org/api/v2/doc/doc'
 USER_AGENT = 'AtlasGlobe/1.0 (+https://github.com; news aggregation)'
 TIMEOUT = 15                    # per-request timeout in seconds
-PAUSE_BETWEEN_REQUESTS = 0.5    # seconds — GDELT doesn't publish a limit
-                                # but we stay polite
+PAUSE_BETWEEN_REQUESTS = 3.0    # seconds — GDELT's rate limit is very
+                                # tight. Their own blog notes that changes
+                                # of 0.001 QPS can push error rate to 5%.
+                                # 3s/req = 0.33 QPS is a safe baseline.
+MAX_RETRIES = 4                 # retries on transient failures (429/5xx)
+BACKOFF_BASE_SECONDS = 8        # first retry waits 8s, then 16, 32, 64
 ARTICLES_PER_COUNTRY = 3        # final returned, AFTER clustering
 FETCH_POOL_SIZE = 50            # articles fetched per country (pre-cluster)
 TIMESPAN = '24h'                # rolling window to search within
@@ -321,6 +274,47 @@ def _score_cluster(cluster: dict) -> float:
     )
 
 
+def _urlopen_with_retry(req, label):
+    """Call urlopen with retry+backoff on transient failures (429/5xx).
+
+    GDELT's rate limiter is aggressive and occasionally returns 429 even
+    when we're well under the quota — we wait and try again. For other
+    network errors (DNS, TLS handshake timeout, etc.) we also retry.
+    Returns the decoded response body on success, or None after final
+    failure. Errors are printed to stderr.
+    """
+    attempt = 0
+    while True:
+        try:
+            with urlopen(req, timeout=TIMEOUT) as resp:
+                return resp.read().decode('utf-8', errors='replace')
+        except HTTPError as e:
+            # Respect Retry-After if the server provided one (seconds)
+            retry_after = None
+            try:
+                retry_after = int(e.headers.get('Retry-After', '0')) or None
+            except (ValueError, AttributeError):
+                pass
+            retriable = e.code == 429 or 500 <= e.code < 600
+            if retriable and attempt < MAX_RETRIES:
+                wait = retry_after or (BACKOFF_BASE_SECONDS * (2 ** attempt))
+                print(f'  ~ {label}: HTTP {e.code}, backing off {wait}s (attempt {attempt + 1}/{MAX_RETRIES})', file=sys.stderr)
+                time.sleep(wait)
+                attempt += 1
+                continue
+            print(f'  ! {label}: HTTPError {e.code}: {e.reason}', file=sys.stderr)
+            return None
+        except (URLError, TimeoutError) as e:
+            if attempt < MAX_RETRIES:
+                wait = BACKOFF_BASE_SECONDS * (2 ** attempt)
+                print(f'  ~ {label}: {type(e).__name__}, backing off {wait}s (attempt {attempt + 1}/{MAX_RETRIES})', file=sys.stderr)
+                time.sleep(wait)
+                attempt += 1
+                continue
+            print(f'  ! {label}: {type(e).__name__}: {e}', file=sys.stderr)
+            return None
+
+
 def fetch_news(country_name: str) -> list:
     """Fetch the most important finance/business/politics stories about a
     country in the last 24h, from reputable outlets.
@@ -360,11 +354,8 @@ def fetch_news(country_name: str) -> list:
     )
 
     req = Request(url, headers={'User-Agent': USER_AGENT})
-    try:
-        with urlopen(req, timeout=TIMEOUT) as resp:
-            raw = resp.read().decode('utf-8', errors='replace')
-    except (URLError, HTTPError, TimeoutError) as e:
-        print(f'  ! {country_name}: {type(e).__name__}: {e}', file=sys.stderr)
+    raw = _urlopen_with_retry(req, country_name)
+    if raw is None:
         return []
 
     if not raw.strip() or not raw.strip().startswith('{'):
