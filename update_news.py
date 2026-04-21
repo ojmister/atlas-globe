@@ -351,8 +351,12 @@ def fetch_news(country_name: str) -> list:
         'timespan': TIMESPAN,
         'sort': 'datedesc',
     }
+    # URL-encode each param value. Keep GDELT operators (`:` `"` `(` `)`)
+    # in their raw form so the server parses the query correctly, but
+    # encode spaces as %20 — Python 3.12+ rejects URLs containing raw
+    # spaces before they're even sent, throwing InvalidURL.
     url = GDELT_ENDPOINT + '?' + '&'.join(
-        f'{k}={quote(v, safe=":\"() ")}' for k, v in params.items()
+        f'{k}={quote(v, safe=":\"()")}' for k, v in params.items()
     )
 
     req = Request(url, headers={'User-Agent': USER_AGENT})
@@ -442,7 +446,15 @@ def main():
 
     for i, (country_id, display_name, query_name) in enumerate(COUNTRIES, 1):
         print(f'[{i:3d}/{len(COUNTRIES)}] {country_id} {display_name}')
-        articles = fetch_news(query_name)
+        # Defence in depth: wrap per-country fetches so one unexpected
+        # exception (URL encoding, JSON parsing, clustering bug) doesn't
+        # break the whole run. fetch_news already catches network errors
+        # internally; this catches anything it misses.
+        try:
+            articles = fetch_news(query_name)
+        except Exception as e:
+            print(f'  ! {display_name}: {type(e).__name__}: {e}', file=sys.stderr)
+            articles = []
         output['news'][country_id] = articles
         if articles:
             ok += 1
