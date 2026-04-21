@@ -1,21 +1,40 @@
 """
-Fetch the top 3 English-language news headlines about each tracked
-country using GDELT's free DOC 2.0 API, and write the results to
-news.json for the globe to consume alongside quotes.json.
+Fetch the most IMPORTANT recent news stories about each tracked country
+using GDELT's free DOC 2.0 API, and write the results to news.json for
+the globe to consume alongside quotes.json.
 
 GDELT is a free open-access global news monitoring project. The DOC 2.0
 API is fully public — no auth required, no rate limit published, but we
 pace requests politely (0.5s between calls).
 
-Design choices:
-  * Query format: `"Country Name" sourcelang:english` — returns English
-    coverage that mentions the country, sorted by date. This is more
-    useful for a "what's happening in X" view than `sourcecountry:`,
-    which would only return articles published BY outlets in X.
-  * 24-hour time window. Fresh is better than comprehensive.
-  * Top 3 per country (keeps the panel compact; 3 credits of GDELT).
-  * If GDELT returns no results or fails, that country's news field is
-    left empty — the UI shows "No recent news" gracefully.
+Query strategy (v3 — ranks by importance via story clustering):
+
+  For each country:
+    1. Query GDELT for up to 50 articles that match ALL three filters:
+       * Exact-phrase country name
+       * At least one GKG theme from a curated finance/politics list
+         (ECON_STOCKMARKET, ELECTION, LEADER, etc.)
+       * Published by one of ~13 reputable global outlets (Reuters,
+         Bloomberg, FT, WSJ, BBC, CNBC, Economist, AP, MarketWatch,
+         CNN, NYT, Al Jazeera)
+    2. Cluster articles into "stories" by title-token overlap. Articles
+       sharing 3+ content words in their titles are treated as covering
+       the same event.
+    3. Score each cluster by (count × source weight), where wire
+       services (Reuters, Bloomberg, AP) are weighted heavier than
+       second-tier outlets. This approximates "how much did the world's
+       major outlets care about this story."
+    4. Return the lead article from the top 3 clusters — i.e. the 3
+       most-covered, highest-prestige stories of the day.
+
+Why clustering? Sorting by date alone gives you "3 most recent
+articles", which could be three low-stakes items from the same outlet.
+Clustering surfaces stories that many outlets covered simultaneously —
+a strong signal of genuine importance.
+
+Fallback: if no clusters match, return an empty list. UI shows "No
+relevant articles in the last 24 hours" gracefully. We do NOT
+progressively relax filters; quality over coverage.
 
 Runs after update_quotes.py in the GitHub Actions workflow.
 """
@@ -146,27 +165,194 @@ USER_AGENT = 'AtlasGlobe/1.0 (+https://github.com; news aggregation)'
 TIMEOUT = 15                    # per-request timeout in seconds
 PAUSE_BETWEEN_REQUESTS = 0.5    # seconds — GDELT doesn't publish a limit
                                 # but we stay polite
-ARTICLES_PER_COUNTRY = 3
+ARTICLES_PER_COUNTRY = 3        # final returned, AFTER clustering
+FETCH_POOL_SIZE = 50            # articles fetched per country (pre-cluster)
 TIMESPAN = '24h'                # rolling window to search within
+
+# Source weights for importance ranking. Wire services and tier-1 global
+# outlets get a multiplier; other reputable outlets stay at baseline.
+# Heavier weight = story is more important if THIS source covered it.
+SOURCE_WEIGHTS = {
+    'reuters.com':      2.0,
+    'bloomberg.com':    2.0,
+    'apnews.com':       2.0,   # AP wire service
+    'ft.com':           1.8,
+    'wsj.com':          1.8,
+    'bbc.com':          1.5,
+    'bbc.co.uk':        1.5,
+    'economist.com':    1.5,
+    'nytimes.com':      1.3,
+    'cnbc.com':         1.2,
+    'aljazeera.com':    1.2,
+    'cnn.com':          1.0,
+    'marketwatch.com':  1.0,
+}
+
+# Stopwords stripped from titles before clustering. Purpose: let the
+# clustering focus on the *content* words, not English glue. Kept small
+# and general.
+STOPWORDS = {
+    'the', 'a', 'an', 'of', 'in', 'on', 'at', 'to', 'for', 'and', 'or',
+    'but', 'as', 'is', 'are', 'was', 'were', 'be', 'been', 'being',
+    'has', 'have', 'had', 'do', 'does', 'did', 'will', 'would', 'could',
+    'should', 'may', 'might', 'can', 'with', 'from', 'by', 'this',
+    'that', 'these', 'those', 'it', 'its', 'his', 'her', 'their', 'our',
+    'your', 'my', 'what', 'which', 'who', 'when', 'where', 'why', 'how',
+    'says', 'said', 'than', 'over', 'after', 'before', 'amid', 'up',
+    'down', 'out', 'new', 'old', 'not', 'no', 'yes', 'all', 'any',
+    'some', 'more', 'most', 'less', 'least', 'news', 'report', 'reports',
+    'reuters', 'bloomberg', 'bbc', 'cnn', 'ap', 'afp',  # outlet names
+}
+
+# Reputable outlets — articles MUST come from one of these domains. This
+# solves the "noisy aggregator" problem by only trusting recognized
+# global news brands.
+REPUTABLE_DOMAINS = [
+    'reuters.com',
+    'bloomberg.com',
+    'ft.com',             # Financial Times
+    'wsj.com',            # Wall Street Journal
+    'bbc.com',
+    'bbc.co.uk',
+    'cnbc.com',
+    'economist.com',
+    'apnews.com',         # Associated Press
+    'marketwatch.com',
+    'cnn.com',
+    'nytimes.com',
+    'aljazeera.com',
+]
+
+# GDELT Global Knowledge Graph (GKG) themes — articles MUST be tagged
+# with at least one of these. Covers finance/business/markets AND
+# politics/government, which is what we want per design decision.
+#
+# Themes are inferred by GDELT's NLP from article content, so they're
+# much more accurate than keyword matching. An article tagged with
+# ECON_STOCKMARKET is genuinely about stock markets, not incidentally
+# mentioning the word "stock".
+RELEVANT_THEMES = [
+    # Economics / finance / business
+    'ECON_STOCKMARKET',
+    'ECON_CENTRALBANK',
+    'ECON_INTEREST_RATES',
+    'ECON_TRADE',
+    'ECON_EARNINGSREPORT',
+    'ECON_MONOPOLY',
+    'ECON_INFLATION',
+    'ECON_BANKRUPTCY',
+    'ECON_TAXATION',
+    'ECON_DEBT',
+    'ECON_COST_OF_LIVING',
+    'EPU_ECONOMY',         # economic policy uncertainty
+    'EPU_POLICY',
+    # Politics / government / current affairs
+    'GENERAL_GOVERNMENT',
+    'ELECTION',
+    'LEGISLATION',
+    'DIPLOMATIC_REL',
+    'LEADER',
+]
+
+
+def _or_block(field: str, values) -> str:
+    """Build a GDELT boolean OR block: '(field:v1 OR field:v2 OR ...)'."""
+    parts = [f'{field}:{v}' for v in values]
+    return '(' + ' OR '.join(parts) + ')'
+
+
+def _title_tokens(title: str) -> set:
+    """Extract content-word tokens from a title for clustering. Lowercase,
+    strip punctuation, drop short tokens and stopwords. Returns a set."""
+    import re
+    # Keep letters, numbers and spaces; normalize the rest to spaces.
+    cleaned = re.sub(r"[^a-z0-9\s]", " ", title.lower())
+    return {
+        w for w in cleaned.split()
+        if len(w) >= 3 and w not in STOPWORDS and not w.isdigit()
+    }
+
+
+def _cluster_articles(articles: list) -> list:
+    """Group articles covering the same story. Two articles are the same
+    story if they share >= 3 content-word tokens in their titles.
+
+    Greedy single-pass clustering: for each article, find the first
+    existing cluster it overlaps with enough; otherwise start a new one.
+    Returns a list of clusters, each cluster being a list of articles
+    (in insertion order — first article is usually the most recent
+    because the input is sorted datedesc).
+    """
+    # 2 shared content words is the right threshold for business news,
+    # where different outlets cover the same event with different phrasing
+    # (e.g. "Bank of England holds rates" vs "BoE keeps interest rates
+    # unchanged" — share only 'rates' and 'holds'/'keeps' is a synonym).
+    # Tried 3 initially; merged too little. 2 gives a good balance.
+    OVERLAP_THRESHOLD = 2
+    clusters = []  # each entry: {'tokens': set, 'articles': list}
+
+    for a in articles:
+        toks = _title_tokens(a.get('title', ''))
+        if not toks:
+            continue
+        placed = False
+        for c in clusters:
+            if len(toks & c['tokens']) >= OVERLAP_THRESHOLD:
+                c['articles'].append(a)
+                # Keep the cluster's core signature as the UNION of all
+                # article tokens so later articles using any of the
+                # covered vocabulary can still merge in.
+                c['tokens'] |= toks
+                placed = True
+                break
+        if not placed:
+            clusters.append({'tokens': toks, 'articles': [a]})
+
+    return clusters
+
+
+def _score_cluster(cluster: dict) -> float:
+    """Importance score for a cluster = sum of source weights of its
+    articles. More outlets covering the story + heavier-weighted outlets
+    covering it = higher score."""
+    return sum(
+        SOURCE_WEIGHTS.get(a.get('domain', '').lower(), 1.0)
+        for a in cluster['articles']
+    )
 
 
 def fetch_news(country_name: str) -> list:
-    """Fetch up to 3 recent English news headlines about a country."""
-    # We query for the exact country name AND filter to English-language
-    # coverage. Sorted by date descending.
-    query = f'"{country_name}" sourcelang:english'
+    """Fetch the most important finance/business/politics stories about a
+    country in the last 24h, from reputable outlets.
+
+    Strategy:
+      1. Query GDELT for up to 50 articles matching all three filters:
+         country name (exact phrase) + theme (finance/politics) +
+         domain (reputable outlets).
+      2. Cluster articles covering the same story by title-token overlap.
+      3. Score each cluster by (number of articles × source weight),
+         which approximates "how much did the world's major outlets
+         care about this story."
+      4. Return the most recent article from each of the top 3 clusters.
+
+    This surfaces the stories being widely covered by wire services and
+    tier-1 outlets, not just the 3 most recent articles (which could be
+    a single outlet's minor filings).
+    """
+    theme_block = _or_block('theme', RELEVANT_THEMES)
+    domain_block = _or_block('domain', REPUTABLE_DOMAINS)
+    query = f'"{country_name}" {theme_block} {domain_block} sourcelang:english'
+
     params = {
         'query': query,
         'mode': 'artlist',
-        'maxrecords': str(ARTICLES_PER_COUNTRY),
+        'maxrecords': str(FETCH_POOL_SIZE),
         'format': 'json',
         'timespan': TIMESPAN,
         'sort': 'datedesc',
     }
-    # Manually build the query string — GDELT wants spaces encoded but
-    # not extra aggressive encoding of quotes/colons.
     url = GDELT_ENDPOINT + '?' + '&'.join(
-        f'{k}={quote(v, safe=":\"()")}' for k, v in params.items()
+        f'{k}={quote(v, safe=":\"() ")}' for k, v in params.items()
     )
 
     req = Request(url, headers={'User-Agent': USER_AGENT})
@@ -177,30 +363,68 @@ def fetch_news(country_name: str) -> list:
         print(f'  ! {country_name}: {type(e).__name__}: {e}', file=sys.stderr)
         return []
 
-    # GDELT sometimes returns empty body for zero results, or an HTML
-    # error page. Guard both.
     if not raw.strip() or not raw.strip().startswith('{'):
         return []
-
     try:
         data = json.loads(raw)
     except json.JSONDecodeError:
         return []
 
-    articles = data.get('articles', []) or []
-    out = []
-    for a in articles[:ARTICLES_PER_COUNTRY]:
+    raw_articles = data.get('articles', []) or []
+
+    # Normalize + drop entries with no title/url.
+    pool = []
+    for a in raw_articles:
         title = (a.get('title') or '').strip()
         url_ = (a.get('url') or '').strip()
         if not title or not url_:
             continue
-        out.append({
+        pool.append({
             'title': title,
             'url': url_,
-            'domain': (a.get('domain') or '').strip(),
+            'domain': (a.get('domain') or '').strip().lower(),
             'seendate': (a.get('seendate') or '').strip(),
         })
+    if not pool:
+        return []
+
+    # Cluster, score, and pick top N clusters. From each cluster we return
+    # the most recent article (which is the first in the cluster, since
+    # the API returned them datedesc and _cluster_articles preserves order).
+    clusters = _cluster_articles(pool)
+    clusters.sort(
+        key=lambda c: (_score_cluster(c), -_earliest_seendate_rank(c)),
+        reverse=True,
+    )
+
+    out = []
+    for c in clusters[:ARTICLES_PER_COUNTRY]:
+        lead = c['articles'][0]
+        out.append({
+            'title':    lead['title'],
+            'url':      lead['url'],
+            'domain':   lead['domain'],
+            'seendate': lead['seendate'],
+            # Diagnostic: how many articles in the cluster (shows how
+            # widely covered the story is). Could surface this in the UI
+            # later if you want to display e.g. "24 outlets".
+            'clusterSize': len(c['articles']),
+        })
     return out
+
+
+def _earliest_seendate_rank(cluster: dict) -> int:
+    """Sort-key helper: return a string-comparable representation of the
+    most recent article's timestamp within a cluster. Used only as a
+    tiebreaker between equally-scored clusters so that newer stories
+    come first."""
+    dates = [a.get('seendate', '') for a in cluster['articles']]
+    # The seendate format "YYYYMMDDThhmmssZ" sorts lexically == chronologically.
+    # Return negative hash for descending sort within the larger key.
+    try:
+        return int(max(dates).replace('T', '').replace('Z', ''))
+    except (ValueError, AttributeError):
+        return 0
 
 
 def main():
