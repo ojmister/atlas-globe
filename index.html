@@ -140,9 +140,10 @@
   }
   .legend .swatch.up { background: var(--up); }
   .legend .swatch.down { background: var(--down); }
-  .legend .swatch.market {
+  .legend .swatch.flat { background: #3a4a6a; }
+  .legend .swatch.untracked {
     background: var(--land);
-    border: 1px solid rgba(228, 179, 99, 0.5);
+    border: 1px solid rgba(228, 179, 99, 0.35);
   }
 
   .controls {
@@ -226,14 +227,18 @@
     stroke-linejoin: round;
     transition: fill 0.15s ease, fill-opacity 0.15s ease;
   }
-  .country.has-market { cursor: pointer; }
-  .country.has-market:hover { fill: var(--land-hover); }
-  .country.up { fill: var(--up); fill-opacity: 0.5; }
-  .country.up:hover { fill-opacity: 0.75; }
-  .country.down { fill: var(--down); fill-opacity: 0.5; }
-  .country.down:hover { fill-opacity: 0.75; }
-  .country.flat { fill: var(--ink-dim); fill-opacity: 0.3; }
-  .country.flat:hover { fill-opacity: 0.5; }
+  /* Tracked country with a quote that hasn't moved much — distinct pale
+     blue tint so it's obviously different from untracked land (default). */
+  .country.has-market { cursor: pointer; fill: #3a4a6a; fill-opacity: 0.55; }
+  .country.has-market:hover { fill: #556a92; fill-opacity: 0.8; }
+  .country.up { fill: var(--up); fill-opacity: 0.55; }
+  .country.up:hover { fill: var(--up); fill-opacity: 0.8; }
+  .country.down { fill: var(--down); fill-opacity: 0.55; }
+  .country.down:hover { fill: var(--down); fill-opacity: 0.8; }
+  /* "flat" specifically means tracked AND close to zero. Same pale blue
+     as default has-market, just slightly more saturated. */
+  .country.flat { fill: #3a4a6a; fill-opacity: 0.55; }
+  .country.flat:hover { fill: #556a92; fill-opacity: 0.8; }
   .country.selected { stroke: var(--accent); stroke-width: 1.4; }
 
   /* --- Side panel --- */
@@ -566,6 +571,79 @@
   .perf-value.flat { color: var(--ink-dim); }
   .perf-value.na { color: var(--ink-dim); opacity: 0.4; }
 
+  /* "Latest news" section at bottom of country detail view (GDELT feed) */
+  .news-section {
+    margin-top: 28px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+  .news-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .news-header .news-source {
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    opacity: 0.5;
+  }
+  .news-item {
+    display: block;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink);
+    text-decoration: none;
+    transition: padding-left 0.15s, background-color 0.15s;
+  }
+  .news-item:hover {
+    padding-left: 6px;
+    background: rgba(255, 255, 255, 0.015);
+  }
+  .news-item:last-child { border-bottom: none; }
+  .news-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 6px;
+  }
+  .news-meta .news-num {
+    color: var(--accent);
+    opacity: 0.7;
+  }
+  .news-meta .news-domain {
+    color: var(--ink-dim);
+    letter-spacing: 0.05em;
+    text-transform: none;
+    font-size: 10px;
+  }
+  .news-meta .news-date {
+    margin-left: auto;
+    opacity: 0.6;
+  }
+  .news-title {
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .news-empty {
+    font-size: 13px;
+    color: var(--ink-dim);
+    font-style: italic;
+    padding: 10px 0;
+  }
+
   .error-msg {
     padding: 14px;
     border: 1px solid rgba(248, 113, 113, 0.3);
@@ -634,7 +712,8 @@
     <div class="legend">
       <div><span class="swatch up"></span> Market up today</div>
       <div><span class="swatch down"></span> Market down today</div>
-      <div><span class="swatch market"></span> Tracked market (click for live data)</div>
+      <div><span class="swatch flat"></span> Tracked, little movement</div>
+      <div><span class="swatch untracked"></span> No market data</div>
     </div>
 
     <div class="hint">Drag to rotate — scroll to zoom</div>
@@ -646,7 +725,7 @@
         <span class="arrow">←</span> Back
       </button>
       <div class="panel-eyebrow">
-        <span id="panel-status">— Top 50 stock markets</span>
+        <span id="panel-status">— 100 stock markets</span>
         <button class="refresh" id="btn-refresh">↻ Reload</button>
       </div>
       <h2 class="panel-title" id="panel-title">Pick a <em>country</em></h2>
@@ -694,6 +773,7 @@
   //   }
   // =========================================================================
   const QUOTES_URL = 'quotes.json';  // relative — served from same GitHub Pages origin
+  const NEWS_URL   = 'news.json';    // optional — if missing, news section just hides
 
   const state = {
     selectedId: null,
@@ -704,6 +784,8 @@
     markets: [],            // populated from quotes.json
     marketsByCountry: {},
     generatedAt: null,
+    newsByCountry: {},      // populated from news.json (keyed by ISO numeric id)
+    newsGeneratedAt: null,
   };
 
   // =========================================================================
@@ -794,9 +876,20 @@
     return await res.json();
   }
 
-  // Boot: load both in parallel
-  Promise.all([loadCountries(), loadQuotes()])
-    .then(([world, quotesData]) => {
+  // Load news — optional, failures are non-fatal (we just skip the news UI).
+  async function loadNews() {
+    try {
+      const res = await fetch(NEWS_URL + '?t=' + Date.now());
+      if (!res.ok) return null;
+      return await res.json();
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // Boot: quotes & countries are required, news is optional
+  Promise.all([loadCountries(), loadQuotes(), loadNews()])
+    .then(([world, quotesData, newsData]) => {
       const countries = topojson.feature(world, world.objects.countries).features;
       const borders = topojson.mesh(world, world.objects.countries, (a, b) => a !== b);
       state.countries = countries;
@@ -808,6 +901,12 @@
         (acc[m.id] = acc[m.id] || []).push(m);
         return acc;
       }, {});
+
+      // News (optional)
+      if (newsData && newsData.news && typeof newsData.news === 'object') {
+        state.newsByCountry = newsData.news;
+        state.newsGeneratedAt = newsData.generated_at || null;
+      }
 
       countriesLayer.selectAll('path')
         .data(countries)
@@ -1120,7 +1219,72 @@
         </div>`;
     }).join('');
 
-    panelBody.innerHTML = marketBlocks;
+    panelBody.innerHTML = marketBlocks + renderNewsSection(markets[0]?.id);
+  }
+
+  // Render the "Latest news" section for a country. Returns empty string
+  // if no news data is available for this country.
+  function renderNewsSection(countryId) {
+    if (!countryId) return '';
+    const articles = state.newsByCountry[countryId];
+    if (!articles || !Array.isArray(articles) || !articles.length) {
+      // Only render the section at all if news data was successfully loaded
+      // globally — otherwise hide to avoid "No news" on every country.
+      if (!state.newsGeneratedAt) return '';
+      return `
+        <div class="news-section">
+          <div class="news-header">— Latest news</div>
+          <div class="news-empty">No recent English-language coverage in the last 24 hours.</div>
+        </div>`;
+    }
+
+    const items = articles.slice(0, 3).map((a, i) => {
+      const dom = a.domain || '';
+      const when = formatNewsDate(a.seendate);
+      const num = (i + 1).toString().padStart(2, '0');
+      return `
+        <a class="news-item" href="${escapeAttr(a.url)}" target="_blank" rel="noopener">
+          <div class="news-meta">
+            <span class="news-num">${num}</span>
+            <span class="news-domain">${escapeHtml(dom)}</span>
+            ${when ? `<span class="news-date">${escapeHtml(when)}</span>` : ''}
+          </div>
+          <div class="news-title">${escapeHtml(a.title)}</div>
+        </a>`;
+    }).join('');
+
+    return `
+      <div class="news-section">
+        <div class="news-header">— Latest news <span class="news-source">via GDELT</span></div>
+        ${items}
+      </div>`;
+  }
+
+  // Parse GDELT's seendate format (YYYYMMDDThhmmssZ) into a relative-time
+  // label like "4h ago" or "yesterday".
+  function formatNewsDate(s) {
+    if (!s) return '';
+    const m = /^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z$/.exec(s);
+    if (!m) return '';
+    const when = new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6]));
+    const diffMs = Date.now() - when.getTime();
+    const mins = Math.floor(diffMs / 60000);
+    if (mins < 1)  return 'just now';
+    if (mins < 60) return `${mins}m ago`;
+    const hrs = Math.floor(mins / 60);
+    if (hrs < 24) return `${hrs}h ago`;
+    const days = Math.floor(hrs / 24);
+    if (days === 1) return 'yesterday';
+    if (days < 7) return `${days}d ago`;
+    return when.toLocaleDateString([], { month: 'short', day: 'numeric' });
+  }
+
+  function escapeAttr(s = '') {
+    // Prevent href injection. We control the data source (GDELT returns
+    // raw URLs) but defense in depth is cheap.
+    return String(s).replace(/[<>"']/g, c => ({
+      '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[c]));
   }
 
   // Renders a single cell in the 4-column perf grid (1d/1w/1m/1y)
@@ -1309,13 +1473,17 @@
     btn.classList.add('loading');
     btn.textContent = 'Reloading';
     try {
-      const data = await loadQuotes();
+      const [data, newsData] = await Promise.all([loadQuotes(), loadNews()]);
       state.markets = data.markets || [];
       state.generatedAt = data.generated_at || null;
       state.marketsByCountry = state.markets.reduce((acc, m) => {
         (acc[m.id] = acc[m.id] || []).push(m);
         return acc;
       }, {});
+      if (newsData && newsData.news) {
+        state.newsByCountry = newsData.news;
+        state.newsGeneratedAt = newsData.generated_at || null;
+      }
       updateCountryStyles();
       updatePanelSub();
       if (state.selectedId) {
