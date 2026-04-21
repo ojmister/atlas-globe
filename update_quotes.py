@@ -85,78 +85,29 @@ MARKETS = [
     ('604', 'Peru',                 'S&P/BVL Peru General',  'SPBLPGPT.LM',  0.08),
     ('643', 'Russia',               'MOEX',                  'IMOEX.ME',     0.70),
 
-    # --- Extended coverage: additional 46 countries to reach 100 distinct
-    # markets. Many of these smaller/frontier markets have patchier Yahoo
-    # coverage — any symbol that doesn't resolve will simply show as
-    # "Data unavailable" in the panel without breaking the globe. ---
+    # --- Extended coverage. Previous iteration tried to add ~50 more
+    # frontier markets but most of those Yahoo tickers I guessed at don't
+    # actually exist (Yahoo's coverage of African/Central-Asian/Caribbean
+    # exchanges is very thin). Removed the guesses; kept only tickers
+    # that Yahoo actually hosts based on their world-indices page. Other
+    # countries still appear on the globe but in the untracked-land color.
 
-    # South & Southeast Asia frontier
-    ('050', 'Bangladesh',           'DSEX',                  '^DSEX',        0.04),
-    ('144', 'Sri Lanka',            'CSE All Share',         '^CSE',         0.02),
-    ('116', 'Cambodia',             'CSX',                   '^CSX',         0.01),
-    ('496', 'Mongolia',             'MSE Top 20',            '^MSE20',       0.01),
-
-    # Middle East (non-GCC covered above) + Central Asia
-    ('400', 'Jordan',               'ASE General',           '^ASE',         0.02),
-    ('414', 'Kuwait',               'Kuwait All Share',      '^BKP',         0.12),
-    ('048', 'Bahrain',              'Bahrain All Share',     '^BAX',         0.03),
-    ('512', 'Oman',                 'MSX 30',                '^MSX30',       0.02),
-    ('422', 'Lebanon',              'BLOM Stock Index',      '^BLOM',        0.01),
-    ('368', 'Iraq',                 'ISX 60',                '^ISX60',       0.01),
-    ('398', 'Kazakhstan',           'KASE',                  '^KASE',        0.06),
-
-    # Africa
-    ('504', 'Morocco',              'MASI',                  '^MASI',        0.07),
-    ('566', 'Nigeria',              'NGX All Share',         '^NGX',         0.04),
-    ('404', 'Kenya',                'NSE 20',                '^NSE20',       0.02),
-    ('288', 'Ghana',                'GSE Composite',         '^GSECI',       0.01),
-    ('834', 'Tanzania',             'DSE All Share',         '^DSEI',        0.01),
-    ('788', 'Tunisia',              'Tunindex',              '^TUNINDEX',    0.01),
-    ('894', 'Zambia',               'LuSE All Share',        '^LASI',        0.01),
-    ('480', 'Mauritius',            'SEMDEX',                '^SEMDEX',      0.01),
-    ('716', 'Zimbabwe',             'ZSE All Share',         '^ZSEAS',       0.01),
-    ('072', 'Botswana',             'BSE Domestic Company',  '^DCI',         0.01),
-    ('516', 'Namibia',              'NSX Overall',           '^NOX',         0.02),
-    ('384', "Côte d'Ivoire",        'BRVM Composite',        '^BRVM',        0.01),
-    ('800', 'Uganda',               'USE All Share',         '^USEALSI',     0.01),
-
-    # Central & Eastern Europe
-    ('100', 'Bulgaria',             'SOFIX',                 '^SOFIX',       0.01),
-    ('642', 'Romania',              'BET',                   '^BET',         0.04),
-    ('191', 'Croatia',              'CROBEX',                '^CRBEX',       0.03),
-    ('705', 'Slovenia',             'SBI TOP',               '^SBITOP',      0.01),
-    ('703', 'Slovakia',             'SAX',                   '^SAX',         0.01),
-    ('688', 'Serbia',               'BELEX 15',              '^BELEX15',     0.01),
-    ('070', 'Bosnia and Herz.',     'SASX-10',               '^SASX10',      0.01),
-    ('804', 'Ukraine',              'PFTS',                  '^PFTS',        0.01),
-
-    # Baltics / Nordics (beyond Denmark/Sweden/Norway/Finland already covered)
-    ('428', 'Latvia',               'OMX Riga',              '^OMXRGI',      0.01),
-    ('440', 'Lithuania',            'OMX Vilnius',           '^OMXVGI',      0.01),
-    ('233', 'Estonia',              'OMX Tallinn',           '^OMXTGI',      0.01),
-    ('352', 'Iceland',              'OMX Iceland',           '^OMXI10',      0.03),
-
-    # Southern Europe / smaller EU
-    ('196', 'Cyprus',               'CSE General',           '^CSE',         0.01),
-    ('470', 'Malta',                'MSE Equity Price',      '^MALTEX',      0.01),
-    ('442', 'Luxembourg',           'LuxX',                  '^LUXX',        0.06),
-
-    # Latin America (beyond Brazil/Mexico/Chile/Colombia/Peru/Argentina)
-    ('862', 'Venezuela',            'IBC',                   '^IBC',         0.01),
-    ('218', 'Ecuador',              'ECU',                   '^ECU',         0.01),
-    ('858', 'Uruguay',              'BVMBG',                 '^BVMBG',       0.01),
-    ('068', 'Bolivia',              'BBV General',           '^BBV',         0.01),
-    ('600', 'Paraguay',             'PDCA',                  '^PDCA',        0.01),
-    ('188', 'Costa Rica',           'CRSMB',                 '^CRSMB',       0.01),
-
-    # Final six to reach 100 distinct countries
-    ('031', 'Azerbaijan',           'Baku Stock Exchange',   '^BSE',         0.01),
-    ('051', 'Armenia',              'AMX Main Index',        '^AMX',         0.01),
-    ('268', 'Georgia',              'Georgia All Share',     '^GSXAS',       0.01),
-    ('364', 'Iran',                 'TEDPIX',                '^TEDPIX',      2.00),
-    ('760', 'Syria',                'DSE Weighted',          '^DSEWG',       0.01),
-    ('887', 'Yemen',                'Yemen Market Index',    '^YEMI',        0.01),
+    # Additional verified tickers
+    ('036', 'Australia',            'All Ordinaries',        '^AORD',        1.89),  # additional AU index
+    ('036', 'Australia',            'S&P/ASX 200',           '^AXJO',        1.89),  # already present, leaving to note
 ]
+
+
+# dedupe by exact tuple in case the list has accidental duplicates
+_seen = set()
+_unique = []
+for _entry in MARKETS:
+    _key = (_entry[0], _entry[3])   # country_id + symbol
+    if _key in _seen:
+        continue
+    _seen.add(_key)
+    _unique.append(_entry)
+MARKETS = _unique
 
 
 def fetch_one(symbol: str) -> dict | None:
@@ -175,12 +126,14 @@ def fetch_one(symbol: str) -> dict | None:
         # on — it also gives us the 1-week, 1-month, 1-year lookbacks.
         hist = t.history(period='14mo', interval='1d', auto_adjust=True)
         if hist is None or hist.empty or 'Close' not in hist.columns:
+            print(f'  ! {symbol}: no data returned (invalid ticker or delisted)', file=sys.stderr)
             return None
 
         # Current price = last close. Previous close = second-to-last.
         # This is standard practice when fast_info is unreliable.
         closes = hist['Close'].dropna()
         if len(closes) < 2:
+            print(f'  ! {symbol}: insufficient history ({len(closes)} closes)', file=sys.stderr)
             return None
         price = float(closes.iloc[-1])
         prev  = float(closes.iloc[-2])
