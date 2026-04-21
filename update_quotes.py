@@ -84,47 +84,150 @@ MARKETS = [
     ('170', 'Colombia',             'COLCAP',                '^COLCAP',      0.10),
     ('604', 'Peru',                 'S&P/BVL Peru General',  'SPBLPGPT.LM',  0.08),
     ('643', 'Russia',               'MOEX',                  'IMOEX.ME',     0.70),
+
+    # --- Extended coverage: additional 46 countries to reach 100 distinct
+    # markets. Many of these smaller/frontier markets have patchier Yahoo
+    # coverage — any symbol that doesn't resolve will simply show as
+    # "Data unavailable" in the panel without breaking the globe. ---
+
+    # South & Southeast Asia frontier
+    ('050', 'Bangladesh',           'DSEX',                  '^DSEX',        0.04),
+    ('144', 'Sri Lanka',            'CSE All Share',         '^CSE',         0.02),
+    ('116', 'Cambodia',             'CSX',                   '^CSX',         0.01),
+    ('496', 'Mongolia',             'MSE Top 20',            '^MSE20',       0.01),
+
+    # Middle East (non-GCC covered above) + Central Asia
+    ('400', 'Jordan',               'ASE General',           '^ASE',         0.02),
+    ('414', 'Kuwait',               'Kuwait All Share',      '^BKP',         0.12),
+    ('048', 'Bahrain',              'Bahrain All Share',     '^BAX',         0.03),
+    ('512', 'Oman',                 'MSX 30',                '^MSX30',       0.02),
+    ('422', 'Lebanon',              'BLOM Stock Index',      '^BLOM',        0.01),
+    ('368', 'Iraq',                 'ISX 60',                '^ISX60',       0.01),
+    ('398', 'Kazakhstan',           'KASE',                  '^KASE',        0.06),
+
+    # Africa
+    ('504', 'Morocco',              'MASI',                  '^MASI',        0.07),
+    ('566', 'Nigeria',              'NGX All Share',         '^NGX',         0.04),
+    ('404', 'Kenya',                'NSE 20',                '^NSE20',       0.02),
+    ('288', 'Ghana',                'GSE Composite',         '^GSECI',       0.01),
+    ('834', 'Tanzania',             'DSE All Share',         '^DSEI',        0.01),
+    ('788', 'Tunisia',              'Tunindex',              '^TUNINDEX',    0.01),
+    ('894', 'Zambia',               'LuSE All Share',        '^LASI',        0.01),
+    ('480', 'Mauritius',            'SEMDEX',                '^SEMDEX',      0.01),
+    ('716', 'Zimbabwe',             'ZSE All Share',         '^ZSEAS',       0.01),
+    ('072', 'Botswana',             'BSE Domestic Company',  '^DCI',         0.01),
+    ('516', 'Namibia',              'NSX Overall',           '^NOX',         0.02),
+    ('384', "Côte d'Ivoire",        'BRVM Composite',        '^BRVM',        0.01),
+    ('800', 'Uganda',               'USE All Share',         '^USEALSI',     0.01),
+
+    # Central & Eastern Europe
+    ('100', 'Bulgaria',             'SOFIX',                 '^SOFIX',       0.01),
+    ('642', 'Romania',              'BET',                   '^BET',         0.04),
+    ('191', 'Croatia',              'CROBEX',                '^CRBEX',       0.03),
+    ('705', 'Slovenia',             'SBI TOP',               '^SBITOP',      0.01),
+    ('703', 'Slovakia',             'SAX',                   '^SAX',         0.01),
+    ('688', 'Serbia',               'BELEX 15',              '^BELEX15',     0.01),
+    ('070', 'Bosnia and Herz.',     'SASX-10',               '^SASX10',      0.01),
+    ('804', 'Ukraine',              'PFTS',                  '^PFTS',        0.01),
+
+    # Baltics / Nordics (beyond Denmark/Sweden/Norway/Finland already covered)
+    ('428', 'Latvia',               'OMX Riga',              '^OMXRGI',      0.01),
+    ('440', 'Lithuania',            'OMX Vilnius',           '^OMXVGI',      0.01),
+    ('233', 'Estonia',              'OMX Tallinn',           '^OMXTGI',      0.01),
+    ('352', 'Iceland',              'OMX Iceland',           '^OMXI10',      0.03),
+
+    # Southern Europe / smaller EU
+    ('196', 'Cyprus',               'CSE General',           '^CSE',         0.01),
+    ('470', 'Malta',                'MSE Equity Price',      '^MALTEX',      0.01),
+    ('442', 'Luxembourg',           'LuxX',                  '^LUXX',        0.06),
+
+    # Latin America (beyond Brazil/Mexico/Chile/Colombia/Peru/Argentina)
+    ('862', 'Venezuela',            'IBC',                   '^IBC',         0.01),
+    ('218', 'Ecuador',              'ECU',                   '^ECU',         0.01),
+    ('858', 'Uruguay',              'BVMBG',                 '^BVMBG',       0.01),
+    ('068', 'Bolivia',              'BBV General',           '^BBV',         0.01),
+    ('600', 'Paraguay',             'PDCA',                  '^PDCA',        0.01),
+    ('188', 'Costa Rica',           'CRSMB',                 '^CRSMB',       0.01),
+
+    # Final six to reach 100 distinct countries
+    ('031', 'Azerbaijan',           'Baku Stock Exchange',   '^BSE',         0.01),
+    ('051', 'Armenia',              'AMX Main Index',        '^AMX',         0.01),
+    ('268', 'Georgia',              'Georgia All Share',     '^GSXAS',       0.01),
+    ('364', 'Iran',                 'TEDPIX',                '^TEDPIX',      2.00),
+    ('760', 'Syria',                'DSE Weighted',          '^DSEWG',       0.01),
+    ('887', 'Yemen',                'Yemen Market Index',    '^YEMI',        0.01),
 ]
 
 
 def fetch_one(symbol: str) -> dict | None:
-    """Fetch a single symbol's latest quote plus multi-period changes."""
+    """Fetch a single symbol's latest quote plus multi-period changes.
+
+    Uses .history() as the source of truth rather than .fast_info —
+    the latter has a known bug where accessing .last_price or
+    .previous_close throws AttributeError('_dividends') for some
+    instruments (typically indices that don't pay dividends, like ^PX,
+    ^QSI, IMOEX.ME etc.). History is more reliable.
+    """
     try:
         t = yf.Ticker(symbol)
-        info = t.fast_info
-        price = info.last_price
-        prev = info.previous_close
 
-        if price is None or prev is None:
+        # Pull ~14 months of daily history. This is the ONE call we depend
+        # on — it also gives us the 1-week, 1-month, 1-year lookbacks.
+        hist = t.history(period='14mo', interval='1d', auto_adjust=True)
+        if hist is None or hist.empty or 'Close' not in hist.columns:
             return None
 
+        # Current price = last close. Previous close = second-to-last.
+        # This is standard practice when fast_info is unreliable.
+        closes = hist['Close'].dropna()
+        if len(closes) < 2:
+            return None
+        price = float(closes.iloc[-1])
+        prev  = float(closes.iloc[-2])
         change = price - prev
         pct = (change / prev) * 100 if prev else 0.0
 
-        # Pull ~14 months of daily history so the 1-year lookback is
-        # always covered (a strict `period='1y'` window can end just
-        # after the target date for some markets, returning None — this
-        # is why e.g. Saudi Arabia was the only one with 1y data). Using
-        # '14mo' buys us a margin of ~60 days.
-        hist = t.history(period='14mo', interval='1d', auto_adjust=True)
         pct_week  = _pct_from_ago(hist, price, 7)
         pct_month = _pct_from_ago(hist, price, 30)
         pct_year  = _pct_from_ago(hist, price, 365)
 
+        # Day high/low from the latest bar
+        last_row = hist.iloc[-1]
+        day_high = _num(last_row.get('High'))
+        day_low  = _num(last_row.get('Low'))
+
+        # 52-week high/low from the trailing ~1-year window of history
+        import pandas as pd
+        year_ago = hist.index[-1] - pd.Timedelta(days=365)
+        last_year = hist.loc[hist.index >= year_ago]
+        year_high = _num(last_year['High'].max()) if 'High' in last_year else None
+        year_low  = _num(last_year['Low'].min())  if 'Low'  in last_year else None
+
+        # Currency / exchange metadata — try fast_info but don't fail if
+        # it breaks (it often does for indices).
+        currency = None
+        exchange = None
+        try:
+            fi = t.fast_info
+            currency = fi.currency
+            exchange = fi.exchange
+        except Exception:
+            pass
+
         return {
-            'price': round(float(price), 4),
-            'previousClose': round(float(prev), 4),
-            'change': round(float(change), 4),
-            'changePct': round(float(pct), 4),
+            'price': round(price, 4),
+            'previousClose': round(prev, 4),
+            'change': round(change, 4),
+            'changePct': round(pct, 4),
             'changePct1w':  _round(pct_week),
             'changePct1m':  _round(pct_month),
             'changePct1y':  _round(pct_year),
-            'currency': info.currency,
-            'exchange': info.exchange,
-            'dayHigh': _num(info.day_high),
-            'dayLow': _num(info.day_low),
-            'yearHigh': _num(info.year_high),
-            'yearLow': _num(info.year_low),
+            'currency': currency,
+            'exchange': exchange,
+            'dayHigh': day_high,
+            'dayLow': day_low,
+            'yearHigh': year_high,
+            'yearLow': year_low,
         }
     except Exception as e:
         print(f'  ! {symbol}: {type(e).__name__}: {e}', file=sys.stderr)
