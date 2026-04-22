@@ -11,6 +11,7 @@ locally with `python update_quotes.py`.
 """
 
 import json
+import math
 import sys
 import time
 from datetime import datetime, timezone
@@ -167,6 +168,16 @@ def fetch_one(symbol: str) -> dict | None:
         except Exception:
             pass
 
+        # 30-day sparkline: last ~30 daily closes. We emit just the
+        # numeric values (floats rounded to 4dp), not the dates — the
+        # client draws them as a monotonic time-series since equal spacing
+        # reads fine for a 30-day trend visualization.
+        spark30 = [
+            round(float(v), 4)
+            for v in closes.iloc[-30:].tolist()
+            if v is not None and math.isfinite(float(v))
+        ]
+
         return {
             'price': round(price, 4),
             'previousClose': round(prev, 4),
@@ -181,6 +192,7 @@ def fetch_one(symbol: str) -> dict | None:
             'dayLow': day_low,
             'yearHigh': year_high,
             'yearLow': year_low,
+            'spark30': spark30,
         }
     except Exception as e:
         print(f'  ! {symbol}: {type(e).__name__}: {e}', file=sys.stderr)
@@ -246,6 +258,75 @@ def _num(v):
     return _round(v)
 
 
+def fetch_fx(symbol: str):
+    """Fetch one FX pair. Returns dict with price + 1d change, or None."""
+    try:
+        t = yf.Ticker(symbol)
+        hist = t.history(period='5d', interval='1d', auto_adjust=True)
+        if hist is None or hist.empty:
+            return None
+        closes = hist['Close'].dropna()
+        if len(closes) < 1:
+            return None
+        price = float(closes.iloc[-1])
+        if not math.isfinite(price):
+            return None
+        prev = float(closes.iloc[-2]) if len(closes) >= 2 else price
+        change_pct = ((price - prev) / prev * 100) if prev else 0.0
+        return {
+            'price': round(price, 4),
+            'changePct': round(change_pct, 4),
+        }
+    except Exception as e:
+        print(f'  ! {symbol}: {type(e).__name__}: {e}', file=sys.stderr)
+        return None
+
+
+# Map country ISO numeric id → ISO-4217 currency code. Used to build
+# the currencyCode field on each market entry and to decide which FX
+# pairs to fetch. Kept as a separate source of truth rather than
+# relying on yfinance's flaky fast_info.currency for indices.
+COUNTRY_CURRENCY = {
+    '840': 'USD',  # United States
+    '156': 'CNY',  # China
+    '392': 'JPY',  # Japan
+    '344': 'HKD',  # Hong Kong
+    '826': 'GBP',  # United Kingdom
+    '276': 'EUR',  # Germany
+    '250': 'EUR',  # France
+    '356': 'INR',  # India
+    '124': 'CAD',  # Canada
+    '410': 'KRW',  # South Korea
+    '036': 'AUD',  # Australia
+    '756': 'CHF',  # Switzerland
+    '158': 'TWD',  # Taiwan
+    '724': 'EUR',  # Spain
+    '076': 'BRL',  # Brazil
+    '380': 'EUR',  # Italy
+    '528': 'EUR',  # Netherlands
+    '702': 'SGD',  # Singapore
+    '484': 'MXN',  # Mexico
+    '752': 'SEK',  # Sweden
+    '056': 'EUR',  # Belgium
+    '710': 'ZAR',  # South Africa
+    '246': 'EUR',  # Finland
+    '208': 'DKK',  # Denmark
+    '040': 'EUR',  # Austria
+    '620': 'EUR',  # Portugal
+    '300': 'EUR',  # Greece
+    '372': 'EUR',  # Ireland
+    '792': 'TRY',  # Turkey
+    '376': 'ILS',  # Israel
+    '682': 'SAR',  # Saudi Arabia
+    '360': 'IDR',  # Indonesia
+    '458': 'MYR',  # Malaysia
+    '764': 'THB',  # Thailand
+    '608': 'PHP',  # Philippines
+    '554': 'NZD',  # New Zealand
+    '032': 'ARS',  # Argentina
+}
+
+
 def main():
     now = datetime.now(timezone.utc)
     output = {
@@ -268,6 +349,7 @@ def main():
             'index': index_name,
             'symbol': symbol,
             'countryMarketCapUsdTn': mcap,
+            'currencyCode': COUNTRY_CURRENCY.get(country_id),
         }
         if quote:
             entry['quote'] = quote
@@ -280,6 +362,29 @@ def main():
 
         # Be polite to Yahoo's servers
         time.sleep(0.15)
+
+    # --- Forex block -------------------------------------------------
+    # Fetch each unique non-USD, non-GBP currency vs USD and vs GBP so
+    # the UI can show "EUR/USD 1.0845" and "EUR/GBP 0.8612" per country.
+    # We skip self-pairs (USD/USD, GBP/GBP).
+    unique_ccys = {
+        COUNTRY_CURRENCY[cid]
+        for cid, *_ in MARKETS
+        if COUNTRY_CURRENCY.get(cid)
+    }
+    fx = {}
+    for ccy in sorted(unique_ccys):
+        for base in ('USD', 'GBP'):
+            if ccy == base:
+                continue
+            pair = f'{ccy}{base}'
+            symbol = f'{pair}=X'
+            print(f'[fx] {symbol}')
+            fx_quote = fetch_fx(symbol)
+            if fx_quote:
+                fx[pair] = fx_quote
+            time.sleep(0.15)
+    output['fx'] = fx
 
     output['summary'] = {'ok': ok, 'failed': fail, 'total': len(MARKETS)}
 
