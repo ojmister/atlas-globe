@@ -259,10 +259,12 @@ def _num(v):
 
 
 def fetch_fx(symbol: str):
-    """Fetch one FX pair. Returns dict with price + 1d change, or None."""
+    """Fetch one FX pair. Returns dict with price + 1d/1w/1m/1y changes,
+    or None on failure."""
     try:
         t = yf.Ticker(symbol)
-        hist = t.history(period='5d', interval='1d', auto_adjust=True)
+        # Pull ~14 months so 1-year lookback is always covered.
+        hist = t.history(period='14mo', interval='1d', auto_adjust=True)
         if hist is None or hist.empty:
             return None
         closes = hist['Close'].dropna()
@@ -273,9 +275,15 @@ def fetch_fx(symbol: str):
             return None
         prev = float(closes.iloc[-2]) if len(closes) >= 2 else price
         change_pct = ((price - prev) / prev * 100) if prev else 0.0
+        pct_week  = _pct_from_ago(hist, price, 7)
+        pct_month = _pct_from_ago(hist, price, 30)
+        pct_year  = _pct_from_ago(hist, price, 365)
         return {
-            'price': round(price, 4),
-            'changePct': round(change_pct, 4),
+            'price':        round(price, 4),
+            'changePct':    round(change_pct, 4),
+            'changePct1w':  _round(pct_week),
+            'changePct1m':  _round(pct_month),
+            'changePct1y':  _round(pct_year),
         }
     except Exception as e:
         print(f'  ! {symbol}: {type(e).__name__}: {e}', file=sys.stderr)
