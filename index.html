@@ -841,7 +841,11 @@
     'aljazeera.com',
   ];
 
-  // GKG themes that indicate finance / business / politics coverage.
+  // GKG themes for finance/business/politics. NOTE: currently unused —
+  // GDELT forbids nested OR blocks, so we can only use ONE of theme or
+  // domain filtering. We kept domain filtering (more important for
+  // source quality). Keeping the list here as reference in case we
+  // later split the query into two parallel calls and merge results.
   const RELEVANT_THEMES = [
     'ECON_STOCKMARKET', 'ECON_CENTRALBANK', 'ECON_INTEREST_RATES',
     'ECON_TRADE', 'ECON_EARNINGSREPORT', 'ECON_MONOPOLY',
@@ -1383,9 +1387,14 @@
   // stories. The query combines three filters with implicit AND:
   //   "Country Name" AND (theme:A OR theme:B ...) AND (domain:X OR ...)
   function buildGdeltUrl(countryName) {
-    const themeBlock  = '(' + RELEVANT_THEMES.map(t => `theme:${t}`).join(' OR ') + ')';
+    // GDELT forbids more than one OR block per query ("Boolean OR blocks
+    // cannot be nested"). Previously we had two: themes + domains. Kept
+    // the domain filter since our reputable outlets (Reuters/Bloomberg/
+    // FT/WSJ/BBC/Economist/CNBC/AP/MarketWatch/CNN/NYT/Al Jazeera) are
+    // already overwhelmingly business and politics focused — theme
+    // filtering was redundant.
     const domainBlock = '(' + REPUTABLE_DOMAINS.map(d => `domain:${d}`).join(' OR ') + ')';
-    const query = `"${countryName}" ${themeBlock} ${domainBlock} sourcelang:english`;
+    const query = `"${countryName}" ${domainBlock} sourcelang:english`;
 
     // IMPORTANT: don't use URLSearchParams here — it encodes spaces as
     // "+", but GDELT's DSL treats "+" as a literal character (not a
