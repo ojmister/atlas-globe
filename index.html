@@ -653,6 +653,29 @@
     font-style: italic;
     padding: 10px 0;
   }
+  /* Loading state for async GDELT fetch */
+  .news-loading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    padding: 14px 0;
+  }
+  .news-spinner {
+    display: inline-block;
+    width: 10px; height: 10px;
+    border: 1.5px solid var(--line);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
 
   .error-msg {
     padding: 14px;
@@ -783,7 +806,74 @@
   //   }
   // =========================================================================
   const QUOTES_URL = 'quotes.json';  // relative — served from same GitHub Pages origin
-  const NEWS_URL   = 'news.json';    // optional — if missing, news section just hides
+
+  // News is now fetched live from GDELT when a user clicks a country —
+  // no more static news.json, no more workflow. See fetchCountryNews().
+  const GDELT_ENDPOINT = 'https://api.gdeltproject.org/api/v2/doc/doc';
+
+  // Map ISO numeric country id -> the phrase GDELT expects for exact-match
+  // keyword search. GDELT accepts full country names.
+  const COUNTRY_NAMES = {
+    '840': 'United States',     '156': 'China',              '392': 'Japan',
+    '344': 'Hong Kong',         '826': 'United Kingdom',     '276': 'Germany',
+    '250': 'France',            '356': 'India',              '124': 'Canada',
+    '410': 'South Korea',       '036': 'Australia',          '756': 'Switzerland',
+    '158': 'Taiwan',            '724': 'Spain',              '076': 'Brazil',
+    '380': 'Italy',             '528': 'Netherlands',        '702': 'Singapore',
+    '484': 'Mexico',            '752': 'Sweden',             '056': 'Belgium',
+    '710': 'South Africa',      '578': 'Norway',             '246': 'Finland',
+    '208': 'Denmark',           '040': 'Austria',            '620': 'Portugal',
+    '300': 'Greece',             '372': 'Ireland',           '616': 'Poland',
+    '348': 'Hungary',            '203': 'Czech Republic',    '792': 'Turkey',
+    '376': 'Israel',             '682': 'Saudi Arabia',      '784': 'United Arab Emirates',
+    '634': 'Qatar',              '818': 'Egypt',             '360': 'Indonesia',
+    '458': 'Malaysia',           '764': 'Thailand',          '608': 'Philippines',
+    '704': 'Vietnam',            '586': 'Pakistan',          '554': 'New Zealand',
+    '032': 'Argentina',          '152': 'Chile',             '170': 'Colombia',
+    '604': 'Peru',               '643': 'Russia',
+  };
+
+  // Reputable outlets — articles MUST come from one of these domains.
+  const REPUTABLE_DOMAINS = [
+    'reuters.com', 'bloomberg.com', 'ft.com', 'wsj.com',
+    'bbc.com', 'bbc.co.uk', 'cnbc.com', 'economist.com',
+    'apnews.com', 'marketwatch.com', 'cnn.com', 'nytimes.com',
+    'aljazeera.com',
+  ];
+
+  // GKG themes that indicate finance / business / politics coverage.
+  const RELEVANT_THEMES = [
+    'ECON_STOCKMARKET', 'ECON_CENTRALBANK', 'ECON_INTEREST_RATES',
+    'ECON_TRADE', 'ECON_EARNINGSREPORT', 'ECON_MONOPOLY',
+    'ECON_INFLATION', 'ECON_BANKRUPTCY', 'ECON_TAXATION',
+    'ECON_DEBT', 'ECON_COST_OF_LIVING', 'EPU_ECONOMY', 'EPU_POLICY',
+    'GENERAL_GOVERNMENT', 'ELECTION', 'LEGISLATION',
+    'DIPLOMATIC_REL', 'LEADER',
+  ];
+
+  // Source weights for importance ranking. Wire services + tier-1 get a
+  // multiplier; others stay at baseline.
+  const SOURCE_WEIGHTS = {
+    'reuters.com': 2.0,   'bloomberg.com': 2.0, 'apnews.com': 2.0,
+    'ft.com': 1.8,        'wsj.com': 1.8,
+    'bbc.com': 1.5,       'bbc.co.uk': 1.5,     'economist.com': 1.5,
+    'nytimes.com': 1.3,
+    'cnbc.com': 1.2,      'aljazeera.com': 1.2,
+    'cnn.com': 1.0,       'marketwatch.com': 1.0,
+  };
+
+  // Stopwords for title clustering.
+  const STOPWORDS = new Set([
+    'the','a','an','of','in','on','at','to','for','and','or','but','as',
+    'is','are','was','were','be','been','being','has','have','had','do',
+    'does','did','will','would','could','should','may','might','can',
+    'with','from','by','this','that','these','those','it','its','his',
+    'her','their','our','your','my','what','which','who','when','where',
+    'why','how','says','said','than','over','after','before','amid','up',
+    'down','out','new','old','not','no','yes','all','any','some','more',
+    'most','less','least','news','report','reports',
+    'reuters','bloomberg','bbc','cnn','ap','afp',
+  ]);
 
   const state = {
     selectedId: null,
@@ -794,8 +884,10 @@
     markets: [],            // populated from quotes.json
     marketsByCountry: {},
     generatedAt: null,
-    newsByCountry: {},      // populated from news.json (keyed by ISO numeric id)
-    newsGeneratedAt: null,
+    // news cache — map of countryId -> {articles, fetchedAt, status}.
+    // status is 'loading' | 'ok' | 'empty' | 'error'. Kept in-memory for
+    // the session so re-clicking a country is instant.
+    newsCache: {},
   };
 
   // =========================================================================
@@ -891,20 +983,9 @@
     return await res.json();
   }
 
-  // Load news — optional, failures are non-fatal (we just skip the news UI).
-  async function loadNews() {
-    try {
-      const res = await fetch(NEWS_URL + '?t=' + Date.now());
-      if (!res.ok) return null;
-      return await res.json();
-    } catch (e) {
-      return null;
-    }
-  }
-
-  // Boot: quotes & countries are required, news is optional
-  Promise.all([loadCountries(), loadQuotes(), loadNews()])
-    .then(([world, quotesData, newsData]) => {
+  // Boot: load countries + quotes. News is fetched on-demand per country.
+  Promise.all([loadCountries(), loadQuotes()])
+    .then(([world, quotesData]) => {
       const countries = topojson.feature(world, world.objects.countries).features;
       const borders = topojson.mesh(world, world.objects.countries, (a, b) => a !== b);
       state.countries = countries;
@@ -916,12 +997,6 @@
         (acc[m.id] = acc[m.id] || []).push(m);
         return acc;
       }, {});
-
-      // News (optional)
-      if (newsData && newsData.news && typeof newsData.news === 'object') {
-        state.newsByCountry = newsData.news;
-        state.newsGeneratedAt = newsData.generated_at || null;
-      }
 
       countriesLayer.selectAll('path')
         .data(countries)
@@ -1237,28 +1312,57 @@
     panelBody.innerHTML = marketBlocks + renderNewsSection(markets[0]?.id);
   }
 
-  // Render the "Latest news" section for a country. Returns empty string
-  // if no news data is available for this country.
+  // Render the "Top stories" section synchronously. If we don't have
+  // news for this country yet, render a loading placeholder and kick off
+  // an async fetch. When the fetch completes, we re-render the section
+  // in place by looking up the DOM element by id.
   function renderNewsSection(countryId) {
     if (!countryId) return '';
-    const articles = state.newsByCountry[countryId];
-    if (!articles || !Array.isArray(articles) || !articles.length) {
-      // Only render the section at all if news data was successfully loaded
-      // globally — otherwise hide to avoid "No news" on every country.
-      if (!state.newsGeneratedAt) return '';
-      return `
-        <div class="news-section">
-          <div class="news-header">— Latest news</div>
-          <div class="news-empty">No significant business or political coverage from major outlets in the last 24 hours.</div>
-        </div>`;
+
+    // Hide the section entirely for countries we don't have a GDELT
+    // query name for (would produce no useful result anyway).
+    if (!COUNTRY_NAMES[countryId]) return '';
+
+    const cached = state.newsCache[countryId];
+    // If not already fetched or fetching, kick off a fetch now.
+    if (!cached) {
+      fetchCountryNews(countryId);
     }
 
-    const items = articles.slice(0, 3).map((a, i) => {
+    const status = cached?.status || 'loading';
+    let body;
+    if (status === 'loading') {
+      body = `<div class="news-loading">
+                <span class="news-spinner"></span>
+                Fetching top stories from GDELT…
+              </div>`;
+    } else if (status === 'error') {
+      body = `<div class="news-empty">
+                Couldn't reach GDELT just now. Try again in a moment.
+              </div>`;
+    } else if (status === 'empty') {
+      body = `<div class="news-empty">
+                No significant business or political coverage from major outlets in the last 24 hours.
+              </div>`;
+    } else {
+      body = renderNewsItems(cached.articles);
+    }
+
+    return `
+      <div class="news-section" data-news-country="${countryId}">
+        <div class="news-header">— Top stories <span class="news-source">via GDELT</span></div>
+        <div class="news-body">${body}</div>
+      </div>`;
+  }
+
+  // Renders just the news items (array of articles). Split out so we can
+  // swap it into an already-rendered section after an async fetch lands.
+  function renderNewsItems(articles) {
+    if (!articles || !articles.length) return '';
+    return articles.slice(0, 3).map((a, i) => {
       const dom = a.domain || '';
       const when = formatNewsDate(a.seendate);
       const num = (i + 1).toString().padStart(2, '0');
-      // Cluster size = how many reputable outlets are covering this story.
-      // 2+ outlets = significant; we highlight that as an importance badge.
       const clusterBadge = (a.clusterSize && a.clusterSize >= 2)
         ? `<span class="news-cluster">${a.clusterSize} outlets</span>`
         : '';
@@ -1273,12 +1377,147 @@
           <div class="news-title">${escapeHtml(a.title)}</div>
         </a>`;
     }).join('');
+  }
 
-    return `
-      <div class="news-section">
-        <div class="news-header">— Top stories <span class="news-source">via GDELT</span></div>
-        ${items}
-      </div>`;
+  // Build the GDELT DOC 2.0 API URL for a country's top business/politics
+  // stories. The query combines three filters with implicit AND:
+  //   "Country Name" AND (theme:A OR theme:B ...) AND (domain:X OR ...)
+  function buildGdeltUrl(countryName) {
+    const themeBlock  = '(' + RELEVANT_THEMES.map(t => `theme:${t}`).join(' OR ') + ')';
+    const domainBlock = '(' + REPUTABLE_DOMAINS.map(d => `domain:${d}`).join(' OR ') + ')';
+    const query = `"${countryName}" ${themeBlock} ${domainBlock} sourcelang:english`;
+    const params = new URLSearchParams({
+      query,
+      mode: 'artlist',
+      maxrecords: '50',
+      format: 'json',
+      timespan: '24h',
+      sort: 'datedesc',
+    });
+    return `${GDELT_ENDPOINT}?${params.toString()}`;
+  }
+
+  // Fetch, cluster, rank, and cache the news for a country. Updates the
+  // cache then re-renders the section if it's still on-screen.
+  async function fetchCountryNews(countryId) {
+    const countryName = COUNTRY_NAMES[countryId];
+    if (!countryName) return;
+    // Mark loading so repeat calls don't re-fire the request.
+    state.newsCache[countryId] = { status: 'loading' };
+
+    try {
+      const res = await fetch(buildGdeltUrl(countryName));
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      const pool = (data.articles || [])
+        .map(a => ({
+          title: (a.title || '').trim(),
+          url: (a.url || '').trim(),
+          domain: (a.domain || '').trim().toLowerCase(),
+          seendate: (a.seendate || '').trim(),
+        }))
+        .filter(a => a.title && a.url);
+
+      if (pool.length === 0) {
+        state.newsCache[countryId] = { status: 'empty', articles: [] };
+      } else {
+        const articles = rankClusters(pool).slice(0, 3);
+        state.newsCache[countryId] = {
+          status: articles.length ? 'ok' : 'empty',
+          articles,
+        };
+      }
+    } catch (e) {
+      console.warn('News fetch failed for', countryName, e);
+      state.newsCache[countryId] = { status: 'error' };
+    }
+
+    // If this country's section is still rendered, update it in place.
+    const section = document.querySelector(`.news-section[data-news-country="${countryId}"]`);
+    if (section) {
+      const bodyEl = section.querySelector('.news-body');
+      const entry = state.newsCache[countryId];
+      if (entry.status === 'ok') {
+        bodyEl.innerHTML = renderNewsItems(entry.articles);
+      } else if (entry.status === 'empty') {
+        bodyEl.innerHTML = `<div class="news-empty">
+            No significant business or political coverage from major outlets in the last 24 hours.
+          </div>`;
+      } else if (entry.status === 'error') {
+        bodyEl.innerHTML = `<div class="news-empty">
+            Couldn't reach GDELT just now. Try again in a moment.
+          </div>`;
+      }
+    }
+  }
+
+  // Tokenize a title into content-word tokens for clustering. Lowercase,
+  // strip punctuation, drop short / stopword / pure-digit tokens.
+  function titleTokens(title) {
+    const cleaned = title.toLowerCase().replace(/[^a-z0-9\s]/g, ' ');
+    const out = new Set();
+    for (const w of cleaned.split(/\s+/)) {
+      if (w.length >= 3 && !STOPWORDS.has(w) && !/^\d+$/.test(w)) {
+        out.add(w);
+      }
+    }
+    return out;
+  }
+
+  // Cluster articles by shared content-word tokens in titles.
+  // Threshold of 2 shared tokens = same story. Single-pass greedy.
+  function clusterArticles(articles) {
+    const OVERLAP = 2;
+    const clusters = [];
+    for (const a of articles) {
+      const toks = titleTokens(a.title);
+      if (toks.size === 0) continue;
+      let placed = false;
+      for (const c of clusters) {
+        let shared = 0;
+        for (const t of toks) {
+          if (c.tokens.has(t)) shared++;
+          if (shared >= OVERLAP) break;
+        }
+        if (shared >= OVERLAP) {
+          c.articles.push(a);
+          for (const t of toks) c.tokens.add(t);  // grow cluster vocabulary
+          placed = true;
+          break;
+        }
+      }
+      if (!placed) clusters.push({ tokens: toks, articles: [a] });
+    }
+    return clusters;
+  }
+
+  // Score = sum of source weights in cluster. More outlets / heavier
+  // outlets covering = higher importance.
+  function scoreCluster(cluster) {
+    let s = 0;
+    for (const a of cluster.articles) {
+      s += SOURCE_WEIGHTS[a.domain] || 1.0;
+    }
+    return s;
+  }
+
+  // Rank clusters by score desc, tiebreak by most-recent article date desc.
+  // Returns a flat list: one lead article per top cluster, each annotated
+  // with clusterSize so the UI can show "N outlets" badges.
+  function rankClusters(pool) {
+    const clusters = clusterArticles(pool);
+    clusters.sort((a, b) => {
+      const sa = scoreCluster(a), sb = scoreCluster(b);
+      if (sa !== sb) return sb - sa;
+      // Tiebreak: cluster with most-recent article wins.
+      const da = Math.max(...a.articles.map(x => +(x.seendate.replace(/\D/g, '') || 0)));
+      const db = Math.max(...b.articles.map(x => +(x.seendate.replace(/\D/g, '') || 0)));
+      return db - da;
+    });
+    return clusters.map(c => {
+      const lead = c.articles[0];  // already datedesc from the API
+      return { ...lead, clusterSize: c.articles.length };
+    });
   }
 
   // Parse GDELT's seendate format (YYYYMMDDThhmmssZ) into a relative-time
@@ -1488,23 +1727,21 @@
     e.currentTarget.classList.toggle('active', state.autoRotate);
     e.currentTarget.textContent = (state.autoRotate ? '● ' : '○ ') + 'Auto-rotate';
   });
-  // Refresh reloads the quotes file (workflow runs every 3h, so usually no-op)
+  // Refresh reloads the quotes file (workflow runs every 3h, so usually no-op).
+  // Also clears the in-memory news cache so the next country click fetches fresh.
   document.getElementById('btn-refresh').addEventListener('click', async () => {
     const btn = document.getElementById('btn-refresh');
     btn.classList.add('loading');
     btn.textContent = 'Reloading';
     try {
-      const [data, newsData] = await Promise.all([loadQuotes(), loadNews()]);
+      const data = await loadQuotes();
       state.markets = data.markets || [];
       state.generatedAt = data.generated_at || null;
       state.marketsByCountry = state.markets.reduce((acc, m) => {
         (acc[m.id] = acc[m.id] || []).push(m);
         return acc;
       }, {});
-      if (newsData && newsData.news) {
-        state.newsByCountry = newsData.news;
-        state.newsGeneratedAt = newsData.generated_at || null;
-      }
+      state.newsCache = {};  // invalidate so subsequent clicks re-fetch
       updateCountryStyles();
       updatePanelSub();
       if (state.selectedId) {
