@@ -78,46 +78,47 @@ COUNTRIES = [
     ('752', 'Sweden',                 'Sweden'),
     ('056', 'Belgium',                'Belgium'),
     ('710', 'South Africa',           'South Africa'),
-    ('578', 'Norway',                 'Norway'),
+    # ('578', 'Norway',                 'Norway'),  # no quote data
     ('246', 'Finland',                'Finland'),
     ('208', 'Denmark',                'Denmark'),
     ('040', 'Austria',                'Austria'),
     ('620', 'Portugal',               'Portugal'),
     ('300', 'Greece',                 'Greece'),
     ('372', 'Ireland',                'Ireland'),
-    ('616', 'Poland',                 'Poland'),
-    ('348', 'Hungary',                'Hungary'),
-    ('203', 'Czechia',                'Czech Republic'),
+    # ('616', 'Poland',                 'Poland'),  # no quote data
+    # ('348', 'Hungary',                'Hungary'),  # no quote data
+    # ('203', 'Czechia',                'Czech Republic'),  # no quote data
     ('792', 'Turkey',                 'Turkey'),
     ('376', 'Israel',                 'Israel'),
     ('682', 'Saudi Arabia',           'Saudi Arabia'),
-    ('784', 'United Arab Emirates',   'United Arab Emirates'),
-    ('634', 'Qatar',                  'Qatar'),
-    ('818', 'Egypt',                  'Egypt'),
+    # ('784', 'United Arab Emirates',   'United Arab Emirates'),  # no quote data
+    # ('634', 'Qatar',                  'Qatar'),  # no quote data
+    # ('818', 'Egypt',                  'Egypt'),  # no quote data
     ('360', 'Indonesia',              'Indonesia'),
     ('458', 'Malaysia',               'Malaysia'),
     ('764', 'Thailand',               'Thailand'),
     ('608', 'Philippines',            'Philippines'),
-    ('704', 'Vietnam',                'Vietnam'),
-    ('586', 'Pakistan',               'Pakistan'),
+    # ('704', 'Vietnam',                'Vietnam'),  # no quote data
+    # ('586', 'Pakistan',               'Pakistan'),  # no quote data
     ('554', 'New Zealand',            'New Zealand'),
     ('032', 'Argentina',              'Argentina'),
-    ('152', 'Chile',                  'Chile'),
-    ('170', 'Colombia',               'Colombia'),
-    ('604', 'Peru',                   'Peru'),
-    ('643', 'Russia',                 'Russia'),
+    # ('152', 'Chile',                  'Chile'),  # no quote data
+    # ('170', 'Colombia',               'Colombia'),  # no quote data
+    # ('604', 'Peru',                   'Peru'),  # no quote data
+    # ('643', 'Russia',                 'Russia'),  # no quote data
 ]
 
 
 GDELT_ENDPOINT = 'https://api.gdeltproject.org/api/v2/doc/doc'
 USER_AGENT = 'AtlasGlobe/1.0 (+https://github.com; news aggregation)'
 TIMEOUT = 15                    # per-request timeout in seconds
-PAUSE_BETWEEN_REQUESTS = 3.0    # seconds — GDELT's rate limit is very
-                                # tight. Their own blog notes that changes
-                                # of 0.001 QPS can push error rate to 5%.
-                                # 3s/req = 0.33 QPS is a safe baseline.
-MAX_RETRIES = 4                 # retries on transient failures (429/5xx)
-BACKOFF_BASE_SECONDS = 8        # first retry waits 8s, then 16, 32, 64
+PAUSE_BETWEEN_REQUESTS = 5.0    # seconds — previous run with 3s still
+                                # tripped GDELT's rate limiter. 5s keeps
+                                # us under the threshold with margin.
+MAX_RETRIES = 1                 # ONE retry on 429 with Retry-After only.
+                                # Previous logic retried URLError too,
+                                # which compounded rate-limit problems.
+BACKOFF_BASE_SECONDS = 15       # used only if server gives no Retry-After
 ARTICLES_PER_COUNTRY = 3        # final returned, AFTER clustering
 FETCH_POOL_SIZE = 50            # articles fetched per country (pre-cluster)
 TIMESPAN = '24h'                # rolling window to search within
@@ -278,10 +279,10 @@ def _urlopen_with_retry(req, label):
     """Call urlopen with retry+backoff on transient failures (429/5xx).
 
     GDELT's rate limiter is aggressive and occasionally returns 429 even
-    when we're well under the quota — we wait and try again. For other
-    network errors (DNS, TLS handshake timeout, etc.) we also retry.
-    Returns the decoded response body on success, or None after final
-    failure. Errors are printed to stderr.
+    when we're well under the quota — we wait and try again ONCE.
+    For URLError/TimeoutError we don't retry (previous logic did, but
+    that compounded rate-limit problems: every retry added more load).
+    Returns the decoded response body on success, or None on failure.
     """
     attempt = 0
     while True:
@@ -289,28 +290,24 @@ def _urlopen_with_retry(req, label):
             with urlopen(req, timeout=TIMEOUT) as resp:
                 return resp.read().decode('utf-8', errors='replace')
         except HTTPError as e:
-            # Respect Retry-After if the server provided one (seconds)
             retry_after = None
             try:
                 retry_after = int(e.headers.get('Retry-After', '0')) or None
             except (ValueError, AttributeError):
                 pass
-            retriable = e.code == 429 or 500 <= e.code < 600
-            if retriable and attempt < MAX_RETRIES:
-                wait = retry_after or (BACKOFF_BASE_SECONDS * (2 ** attempt))
-                print(f'  ~ {label}: HTTP {e.code}, backing off {wait}s (attempt {attempt + 1}/{MAX_RETRIES})', file=sys.stderr)
+            # Only retry on 429 — and only if the server told us when to.
+            # Blind 5xx retries also contribute to pile-on.
+            if e.code == 429 and attempt < MAX_RETRIES:
+                wait = retry_after or BACKOFF_BASE_SECONDS
+                print(f'  ~ {label}: HTTP 429, backing off {wait}s', file=sys.stderr)
                 time.sleep(wait)
                 attempt += 1
                 continue
             print(f'  ! {label}: HTTPError {e.code}: {e.reason}', file=sys.stderr)
             return None
         except (URLError, TimeoutError) as e:
-            if attempt < MAX_RETRIES:
-                wait = BACKOFF_BASE_SECONDS * (2 ** attempt)
-                print(f'  ~ {label}: {type(e).__name__}, backing off {wait}s (attempt {attempt + 1}/{MAX_RETRIES})', file=sys.stderr)
-                time.sleep(wait)
-                attempt += 1
-                continue
+            # No retry. Skip this country and move on — keeps total
+            # runtime predictable. The country just gets no news this run.
             print(f'  ! {label}: {type(e).__name__}: {e}', file=sys.stderr)
             return None
 
@@ -460,7 +457,7 @@ def main():
     }
 
     with open('news.json', 'w', encoding='utf-8') as f:
-        json.dump(output, f, indent=2, ensure_ascii=False)
+        json.dump(output, f, indent=2, ensure_ascii=False, allow_nan=False)
 
     print(f'\nWrote news.json — {ok}/{len(COUNTRIES)} countries had headlines.')
 
