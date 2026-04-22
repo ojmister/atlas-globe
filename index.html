@@ -1386,15 +1386,24 @@
     const themeBlock  = '(' + RELEVANT_THEMES.map(t => `theme:${t}`).join(' OR ') + ')';
     const domainBlock = '(' + REPUTABLE_DOMAINS.map(d => `domain:${d}`).join(' OR ') + ')';
     const query = `"${countryName}" ${themeBlock} ${domainBlock} sourcelang:english`;
-    const params = new URLSearchParams({
-      query,
-      mode: 'artlist',
-      maxrecords: '50',
-      format: 'json',
-      timespan: '24h',
-      sort: 'datedesc',
-    });
-    return `${GDELT_ENDPOINT}?${params.toString()}`;
+
+    // IMPORTANT: don't use URLSearchParams here — it encodes spaces as
+    // "+", but GDELT's DSL treats "+" as a literal character (not a
+    // space), so the query becomes nonsense and GDELT returns a plain
+    // text error starting with "Your query...". encodeURIComponent
+    // uses %20 for spaces, which GDELT correctly decodes.
+    const params = [
+      ['query', query],
+      ['mode', 'artlist'],
+      ['maxrecords', '50'],
+      ['format', 'json'],
+      ['timespan', '24h'],
+      ['sort', 'datedesc'],
+    ];
+    const qs = params
+      .map(([k, v]) => `${k}=${encodeURIComponent(v)}`)
+      .join('&');
+    return `${GDELT_ENDPOINT}?${qs}`;
   }
 
   // Fetch, cluster, rank, and cache the news for a country. Updates the
@@ -1408,7 +1417,17 @@
     try {
       const res = await fetch(buildGdeltUrl(countryName));
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const data = await res.json();
+      const raw = await res.text();
+
+      // GDELT sometimes returns a plain-text error instead of JSON when
+      // it dislikes the query (e.g. starts with "Your query..."). Peek
+      // before parsing so the error message is actually useful.
+      if (!raw.trim().startsWith('{')) {
+        const snippet = raw.trim().slice(0, 140);
+        throw new Error(`GDELT returned non-JSON: ${snippet}`);
+      }
+      const data = JSON.parse(raw);
+
       const pool = (data.articles || [])
         .map(a => ({
           title: (a.title || '').trim(),
