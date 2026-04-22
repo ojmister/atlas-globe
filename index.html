@@ -571,6 +571,80 @@
   .perf-value.flat { color: var(--ink-dim); }
   .perf-value.na { color: var(--ink-dim); opacity: 0.4; }
 
+  /* Sparkline — 30-day price trend chart inline with each market block.
+     Same color semantics as the change text (green/red/flat). Area fill
+     at low opacity gives visual weight without competing with the text. */
+  .sparkline {
+    display: block;
+    width: 100%;
+    height: 48px;
+    margin: 10px 0 16px;
+  }
+  .spark-line {
+    fill: none;
+    stroke-width: 1.5;
+    vector-effect: non-scaling-stroke;
+  }
+  .spark-area {
+    stroke: none;
+    opacity: 0.12;
+  }
+  .spark-up   .spark-line { stroke: var(--up);   }
+  .spark-up   .spark-area { fill:   var(--up);   }
+  .spark-down .spark-line { stroke: var(--down); }
+  .spark-down .spark-area { fill:   var(--down); }
+  .spark-flat .spark-line { stroke: var(--ink-dim); }
+  .spark-flat .spark-area { fill:   var(--ink-dim); }
+
+  /* Currency block — sits between markets and news. Shows CCY/USD and
+     CCY/GBP side by side. Matches the visual weight of the perf-grid. */
+  .currency-section {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+  .currency-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 14px;
+  }
+  .currency-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .fx-cell {
+    padding: 12px 14px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--line);
+  }
+  .fx-pair {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--ink-dim);
+    margin-bottom: 6px;
+  }
+  .fx-rate {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .fx-rate.na { color: var(--ink-dim); opacity: 0.4; }
+  .fx-change {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+  }
+  .fx-change.up   { color: var(--up); }
+  .fx-change.down { color: var(--down); }
+  .fx-change.flat { color: var(--ink-dim); }
+
   /* "Latest news" section at bottom of country detail view (GDELT feed) */
   .news-section {
     margin-top: 28px;
@@ -897,6 +971,7 @@
     countries: [],
     markets: [],            // populated from quotes.json
     marketsByCountry: {},
+    fx: {},                 // FX pairs from quotes.json, e.g. { EURUSD: {price, changePct}, ... }
     generatedAt: null,
     // news cache — map of countryId -> {articles, fetchedAt, status}.
     // status is 'loading' | 'ok' | 'empty' | 'error'. Kept in-memory for
@@ -1004,6 +1079,7 @@
       const borders = topojson.mesh(world, world.objects.countries, (a, b) => a !== b);
       state.countries = countries;
       state.markets = Array.isArray(quotesData.markets) ? quotesData.markets : [];
+      state.fx = (quotesData.fx && typeof quotesData.fx === 'object') ? quotesData.fx : {};
       state.generatedAt = quotesData.generated_at || null;
 
       // Group markets by country id for fast lookup
@@ -1279,6 +1355,8 @@
             <div class="change ${dir}">${arrow} ${changeStr} (${pctStr})</div>
           </div>
 
+          ${renderSparkline(q.spark30, dir)}
+
           <div class="perf-grid">
             ${perfCell('1 day',   q.changePct)}
             ${perfCell('1 week',  q.changePct1w)}
@@ -1323,7 +1401,84 @@
         </div>`;
     }).join('');
 
-    panelBody.innerHTML = marketBlocks + renderNewsSection(markets[0]?.id);
+    panelBody.innerHTML =
+      marketBlocks +
+      renderCurrencyBlock(markets[0]?.id) +
+      renderNewsSection(markets[0]?.id);
+  }
+
+  // Render a 30-day sparkline as an inline SVG from a list of closes.
+  // Uses the same direction color as the 1d change (up/down/flat). Fills
+  // the area under the line at low opacity for visual weight.
+  // `dir` is 'up' | 'down' | 'flat' — determines stroke/fill color.
+  function renderSparkline(closes, dir) {
+    if (!closes || !Array.isArray(closes) || closes.length < 2) return '';
+    const w = 480, h = 48, pad = 2;
+    const min = Math.min(...closes);
+    const max = Math.max(...closes);
+    const range = max - min || 1;  // avoid /0 for flat series
+    const n = closes.length;
+    const stepX = (w - pad * 2) / (n - 1);
+
+    const pts = closes.map((v, i) => {
+      const x = pad + i * stepX;
+      const y = h - pad - ((v - min) / range) * (h - pad * 2);
+      return [x, y];
+    });
+    const line = pts.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
+    // Close the area by dropping down to the baseline then back.
+    const area = `${line} L${pts[pts.length - 1][0].toFixed(1)},${(h - pad).toFixed(1)} L${pts[0][0].toFixed(1)},${(h - pad).toFixed(1)} Z`;
+
+    const cls = `spark-${dir}`;
+    return `
+      <svg class="sparkline ${cls}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-label="30-day trend">
+        <path class="spark-area" d="${area}" />
+        <path class="spark-line" d="${line}" />
+      </svg>`;
+  }
+
+  // Render the "Currency" block for a country. Shows the local currency
+  // vs USD AND vs GBP side by side. If the country's currency IS USD or
+  // GBP, only shows the other pair. Reads from state.fx populated from
+  // quotes.json.
+  function renderCurrencyBlock(countryId) {
+    if (!countryId) return '';
+    // Find the currency code via the first market for this country.
+    const entry = (state.marketsByCountry[countryId] || [])[0];
+    const ccy = entry?.currencyCode;
+    if (!ccy) return '';
+
+    const pairs = [];
+    if (ccy !== 'USD') pairs.push({ code: ccy + 'USD', base: 'USD' });
+    if (ccy !== 'GBP') pairs.push({ code: ccy + 'GBP', base: 'GBP' });
+    if (!pairs.length) return '';  // country uses both USD & GBP (impossible)
+
+    const cells = pairs.map(p => {
+      const fx = state.fx[p.code];
+      if (!fx) {
+        return `
+          <div class="fx-cell">
+            <div class="fx-pair">${ccy} / ${p.base}</div>
+            <div class="fx-rate na">—</div>
+          </div>`;
+      }
+      const cp = fx.changePct;
+      const dir = cp > 0.01 ? 'up' : cp < -0.01 ? 'down' : 'flat';
+      const arrow = dir === 'up' ? '▲' : dir === 'down' ? '▼' : '—';
+      const sign = cp >= 0 ? '+' : '';
+      return `
+        <div class="fx-cell">
+          <div class="fx-pair">${ccy} / ${p.base}</div>
+          <div class="fx-rate">${fx.price.toFixed(4)}</div>
+          <div class="fx-change ${dir}">${arrow} ${sign}${cp.toFixed(2)}%</div>
+        </div>`;
+    }).join('');
+
+    return `
+      <div class="currency-section">
+        <div class="currency-header">— Currency</div>
+        <div class="currency-grid">${cells}</div>
+      </div>`;
   }
 
   // Render the "Top stories" section synchronously. If we don't have
@@ -1774,6 +1929,7 @@
     try {
       const data = await loadQuotes();
       state.markets = data.markets || [];
+      state.fx = (data.fx && typeof data.fx === 'object') ? data.fx : {};
       state.generatedAt = data.generated_at || null;
       state.marketsByCountry = state.markets.reduce((acc, m) => {
         (acc[m.id] = acc[m.id] || []).push(m);
