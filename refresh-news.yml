@@ -1,0 +1,43 @@
+name: Refresh country news
+
+on:
+  # Once daily at 06:00 UTC (07:00 BST / 02:00 ET). News is rate-limited
+  # by GDELT and takes ~3-5 min. No need to run more often than daily.
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    # Hard cap: if GDELT rate-limits us into oblivion again, kill the
+    # job after 15 min rather than letting it consume billable minutes.
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # No yfinance needed — news.py uses only stdlib.
+      - name: Fetch country news
+        run: python update_news.py
+
+      - name: Commit and push if changed
+        if: always()
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add news.json
+          if git diff --cached --quiet; then
+            echo "No news changes to commit."
+          else
+            git commit -m "Refresh news ($(date -u +%Y-%m-%dT%H:%MZ))"
+            git push
+          fi
