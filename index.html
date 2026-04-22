@@ -571,6 +571,160 @@
   .perf-value.flat { color: var(--ink-dim); }
   .perf-value.na { color: var(--ink-dim); opacity: 0.4; }
 
+  /* =========================================================================
+     MAIN VIEW: regional heat-strip + global timeline
+     ========================================================================= */
+
+  .heat-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .heat-cell {
+    padding: 14px 12px;
+    border: 1px solid var(--line);
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s, opacity 0.15s;
+    position: relative;
+  }
+  .heat-cell:hover {
+    border-color: var(--accent);
+  }
+  .heat-cell.active {
+    border-color: var(--accent);
+    background: rgba(228, 179, 99, 0.04);
+  }
+  .heat-cell.dim { opacity: 0.45; }
+  .heat-cell.up   { background: linear-gradient(180deg, rgba(74, 222, 128, 0.04), rgba(74, 222, 128, 0.00)); }
+  .heat-cell.down { background: linear-gradient(180deg, rgba(248, 113, 113, 0.05), rgba(248, 113, 113, 0.00)); }
+  .heat-cell.active.up   { background: rgba(74, 222, 128, 0.07); }
+  .heat-cell.active.down { background: rgba(248, 113, 113, 0.08); }
+
+  .heat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 6px;
+  }
+  .heat-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+  .heat-cell.up   .heat-value { color: var(--up); }
+  .heat-cell.down .heat-value { color: var(--down); }
+  .heat-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--ink-dim);
+    opacity: 0.7;
+    margin-top: 4px;
+  }
+  .heat-clear {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink-dim);
+    padding: 6px 10px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .heat-clear:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* Global timeline — single weighted line with toggle */
+  .tl-section {
+    margin-bottom: 20px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--line);
+  }
+  .tl-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .tl-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .tl-toggles {
+    display: flex;
+    gap: 2px;
+  }
+  .tl-toggle-btn {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    background: transparent;
+    border: 1px solid var(--line);
+    color: var(--ink-dim);
+    padding: 4px 8px;
+    cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .tl-toggle-btn:hover { color: var(--accent); }
+  .tl-toggle-btn.active {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: rgba(228, 179, 99, 0.04);
+  }
+  .tl-readout {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 22px;
+    margin: 4px 0 10px;
+    letter-spacing: -0.01em;
+  }
+  .tl-readout.up   { color: var(--up); }
+  .tl-readout.down { color: var(--down); }
+  .tl-readout.flat { color: var(--ink-dim); }
+  .tl-readout-window {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-left: 8px;
+    opacity: 0.7;
+  }
+  .tl-chart {
+    display: block;
+    width: 100%;
+    height: 80px;
+  }
+  .tl-line {
+    fill: none;
+    stroke-width: 1.5;
+    vector-effect: non-scaling-stroke;
+  }
+  .tl-area { stroke: none; opacity: 0.12; }
+  .tl-chart.up   .tl-line { stroke: var(--up);   }
+  .tl-chart.up   .tl-area { fill:   var(--up);   }
+  .tl-chart.down .tl-line { stroke: var(--down); }
+  .tl-chart.down .tl-area { fill:   var(--down); }
+  .tl-chart.flat .tl-line { stroke: var(--ink-dim); }
+  .tl-chart.flat .tl-area { fill:   var(--ink-dim); }
+  .tl-baseline {
+    stroke: var(--ink-dim);
+    stroke-width: 1;
+    stroke-dasharray: 2 3;
+    opacity: 0.3;
+  }
+
   /* Sparkline — 30-day price trend chart inline with each market block.
      Same color semantics as the change text (green/red/flat). Area fill
      at low opacity gives visual weight without competing with the text. */
@@ -628,6 +782,13 @@
     color: var(--ink-dim);
     margin-bottom: 6px;
   }
+  .fx-rate-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
   .fx-rate {
     font-family: 'JetBrains Mono', monospace;
     font-size: 18px;
@@ -635,121 +796,42 @@
     letter-spacing: -0.01em;
   }
   .fx-rate.na { color: var(--ink-dim); opacity: 0.4; }
-  .fx-change {
+  /* 1d change — prominent, right-aligned next to the rate */
+  .fx-pct {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    margin-top: 4px;
-    letter-spacing: 0.05em;
+    font-size: 12px;
+    letter-spacing: 0.02em;
   }
-  .fx-change.up   { color: var(--up); }
-  .fx-change.down { color: var(--down); }
-  .fx-change.flat { color: var(--ink-dim); }
-
-  /* "Latest news" section at bottom of country detail view (GDELT feed) */
-  .news-section {
-    margin-top: 28px;
-    padding-top: 18px;
-    border-top: 1px solid var(--line);
+  /* 1w/1m/1y mini-grid below */
+  .fx-mini-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
   }
-  .news-header {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--ink-dim);
-    margin-bottom: 14px;
+  .fx-mini {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+    flex-direction: column;
+    gap: 2px;
   }
-  .news-header .news-source {
+  .fx-mini-label {
+    font-family: 'JetBrains Mono', monospace;
     font-size: 8px;
     letter-spacing: 0.2em;
-    opacity: 0.5;
-  }
-  .news-item {
-    display: block;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--line);
-    color: var(--ink);
-    text-decoration: none;
-    transition: padding-left 0.15s, background-color 0.15s;
-  }
-  .news-item:hover {
-    padding-left: 6px;
-    background: rgba(255, 255, 255, 0.015);
-  }
-  .news-item:last-child { border-bottom: none; }
-  .news-meta {
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
     color: var(--ink-dim);
-    margin-bottom: 6px;
-  }
-  .news-meta .news-num {
-    color: var(--accent);
+    text-transform: uppercase;
     opacity: 0.7;
   }
-  .news-meta .news-domain {
-    color: var(--ink-dim);
-    letter-spacing: 0.05em;
-    text-transform: none;
-    font-size: 10px;
-  }
-  /* "N outlets" badge — importance signal: >1 major outlet covered the story */
-  .news-meta .news-cluster {
-    font-size: 9px;
-    padding: 2px 6px;
-    border: 1px solid rgba(228, 179, 99, 0.35);
-    color: var(--accent);
-    opacity: 0.9;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-  .news-meta .news-date {
-    margin-left: auto;
-    opacity: 0.6;
-  }
-  .news-title {
-    font-size: 14px;
-    line-height: 1.4;
-    color: var(--ink);
-    letter-spacing: -0.005em;
-  }
-  .news-empty {
-    font-size: 13px;
-    color: var(--ink-dim);
-    font-style: italic;
-    padding: 10px 0;
-  }
-  /* Loading state for async GDELT fetch */
-  .news-loading {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  .fx-pct-mini {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--ink-dim);
-    padding: 14px 0;
+    letter-spacing: 0.02em;
   }
-  .news-spinner {
-    display: inline-block;
-    width: 10px; height: 10px;
-    border: 1.5px solid var(--line);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-  }
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
+  .fx-pct.up,        .fx-pct-mini.up   { color: var(--up); }
+  .fx-pct.down,      .fx-pct-mini.down { color: var(--down); }
+  .fx-pct.flat,      .fx-pct-mini.flat { color: var(--ink-dim); }
+  .fx-pct.na,        .fx-pct-mini.na   { color: var(--ink-dim); opacity: 0.4; }
 
   .error-msg {
     padding: 14px;
@@ -881,87 +963,30 @@
   // =========================================================================
   const QUOTES_URL = 'quotes.json';  // relative — served from same GitHub Pages origin
 
-  // News is now fetched live from GDELT when a user clicks a country —
-  // no more static news.json, no more workflow. See fetchCountryNews().
-  const GDELT_ENDPOINT = 'https://api.gdeltproject.org/api/v2/doc/doc';
 
-  // Map ISO numeric country id -> the phrase GDELT expects for exact-match
-  // keyword search. GDELT accepts full country names.
-  const COUNTRY_NAMES = {
-    '840': 'United States',     '156': 'China',              '392': 'Japan',
-    '344': 'Hong Kong',         '826': 'United Kingdom',     '276': 'Germany',
-    '250': 'France',            '356': 'India',              '124': 'Canada',
-    '410': 'South Korea',       '036': 'Australia',          '756': 'Switzerland',
-    '158': 'Taiwan',            '724': 'Spain',              '076': 'Brazil',
-    '380': 'Italy',             '528': 'Netherlands',        '702': 'Singapore',
-    '484': 'Mexico',            '752': 'Sweden',             '056': 'Belgium',
-    '710': 'South Africa',      '578': 'Norway',             '246': 'Finland',
-    '208': 'Denmark',           '040': 'Austria',            '620': 'Portugal',
-    '300': 'Greece',             '372': 'Ireland',           '616': 'Poland',
-    '348': 'Hungary',            '203': 'Czech Republic',    '792': 'Turkey',
-    '376': 'Israel',             '682': 'Saudi Arabia',      '784': 'United Arab Emirates',
-    '634': 'Qatar',              '818': 'Egypt',             '360': 'Indonesia',
-    '458': 'Malaysia',           '764': 'Thailand',          '608': 'Philippines',
-    '704': 'Vietnam',            '586': 'Pakistan',          '554': 'New Zealand',
-    '032': 'Argentina',          '152': 'Chile',             '170': 'Colombia',
-    '604': 'Peru',               '643': 'Russia',
+  // Regional grouping — each active country ID mapped to one of three
+  // macro regions. Used for the heat-strip at the top of the main view
+  // (weighted by market cap) and for filtering the top-10 table.
+  const COUNTRY_REGION = {
+    // Americas
+    '840':'AMERICAS','124':'AMERICAS','484':'AMERICAS','076':'AMERICAS',
+    '032':'AMERICAS','152':'AMERICAS','170':'AMERICAS','604':'AMERICAS',
+    // EMEA (Europe, Middle East, Africa)
+    '826':'EMEA','276':'EMEA','250':'EMEA','756':'EMEA','724':'EMEA',
+    '380':'EMEA','528':'EMEA','752':'EMEA','056':'EMEA','578':'EMEA',
+    '246':'EMEA','208':'EMEA','040':'EMEA','620':'EMEA','300':'EMEA',
+    '372':'EMEA','792':'EMEA','376':'EMEA','682':'EMEA','710':'EMEA',
+    // Asia-Pacific
+    '156':'APAC','392':'APAC','344':'APAC','356':'APAC','410':'APAC',
+    '036':'APAC','158':'APAC','702':'APAC','360':'APAC','458':'APAC',
+    '764':'APAC','608':'APAC','554':'APAC',
   };
 
-  // Reputable outlets — articles MUST come from one of these domains.
-  // NOTE: GDELT has an undocumented query-length limit. The previous
-  // 13-domain list produced a ~400-char query that got rejected with
-  // "Your query was too short or too long." Trimmed to 6 outlets that
-  // together cover the vast majority of serious global business and
-  // political reporting: two wire services (Reuters, AP), three tier-1
-  // finance outlets (Bloomberg, FT, WSJ), and BBC for breadth.
-  const REPUTABLE_DOMAINS = [
-    'reuters.com',
-    'bloomberg.com',
-    'apnews.com',
-    'bbc.com',
-    'ft.com',
-    'wsj.com',
-  ];
-
-  // GKG themes for finance/business/politics. NOTE: currently unused —
-  // GDELT forbids nested OR blocks, so we can only use ONE of theme or
-  // domain filtering. We kept domain filtering (more important for
-  // source quality). Keeping the list here as reference in case we
-  // later split the query into two parallel calls and merge results.
-  const RELEVANT_THEMES = [
-    'ECON_STOCKMARKET', 'ECON_CENTRALBANK', 'ECON_INTEREST_RATES',
-    'ECON_TRADE', 'ECON_EARNINGSREPORT', 'ECON_MONOPOLY',
-    'ECON_INFLATION', 'ECON_BANKRUPTCY', 'ECON_TAXATION',
-    'ECON_DEBT', 'ECON_COST_OF_LIVING', 'EPU_ECONOMY', 'EPU_POLICY',
-    'GENERAL_GOVERNMENT', 'ELECTION', 'LEGISLATION',
-    'DIPLOMATIC_REL', 'LEADER',
-  ];
-
-  // Source weights for importance ranking. Wire services get a heavier
-  // multiplier than publisher outlets. Only includes domains we actually
-  // fetch — SOURCE_WEIGHTS.get('some other domain', 1.0) falls back to
-  // baseline if GDELT ever returns an unexpected source.
-  const SOURCE_WEIGHTS = {
-    'reuters.com':   2.0,   // wire service
-    'bloomberg.com': 2.0,   // finance tier-1
-    'apnews.com':    2.0,   // wire service
-    'ft.com':        1.8,   // finance tier-1
-    'wsj.com':       1.8,   // finance tier-1
-    'bbc.com':       1.5,   // global tier-1
+  const REGION_LABELS = {
+    AMERICAS: 'Americas',
+    EMEA:     'EMEA',
+    APAC:     'Asia-Pacific',
   };
-
-  // Stopwords for title clustering.
-  const STOPWORDS = new Set([
-    'the','a','an','of','in','on','at','to','for','and','or','but','as',
-    'is','are','was','were','be','been','being','has','have','had','do',
-    'does','did','will','would','could','should','may','might','can',
-    'with','from','by','this','that','these','those','it','its','his',
-    'her','their','our','your','my','what','which','who','when','where',
-    'why','how','says','said','than','over','after','before','amid','up',
-    'down','out','new','old','not','no','yes','all','any','some','more',
-    'most','less','least','news','report','reports',
-    'reuters','bloomberg','bbc','cnn','ap','afp',
-  ]);
 
   const state = {
     selectedId: null,
@@ -973,10 +998,9 @@
     marketsByCountry: {},
     fx: {},                 // FX pairs from quotes.json, e.g. { EURUSD: {price, changePct}, ... }
     generatedAt: null,
-    // news cache — map of countryId -> {articles, fetchedAt, status}.
-    // status is 'loading' | 'ok' | 'empty' | 'error'. Kept in-memory for
-    // the session so re-clicking a country is instant.
-    newsCache: {},
+    // Main-view filters / view settings
+    regionFilter: null,     // null = all regions; else 'AMERICAS' | 'EMEA' | 'APAC'
+    timelineWindow: 30,     // days — toggle between 30 / 90 / 365
   };
 
   // =========================================================================
@@ -1403,8 +1427,7 @@
 
     panelBody.innerHTML =
       marketBlocks +
-      renderCurrencyBlock(markets[0]?.id) +
-      renderNewsSection(markets[0]?.id);
+      renderCurrencyBlock(markets[0]?.id);
   }
 
   // Render a 30-day sparkline as an inline SVG from a list of closes.
@@ -1462,15 +1485,39 @@
             <div class="fx-rate na">—</div>
           </div>`;
       }
-      const cp = fx.changePct;
-      const dir = cp > 0.01 ? 'up' : cp < -0.01 ? 'down' : 'flat';
-      const arrow = dir === 'up' ? '▲' : dir === 'down' ? '▼' : '—';
-      const sign = cp >= 0 ? '+' : '';
+
+      // 1d is the headline — shown large next to the rate. 1w/1m/1y are
+      // smaller pills underneath. Same green/red/flat logic as the equity
+      // perf grid.
+      const fxPctStr = (v, compact = false) => {
+        if (v == null || !isFinite(v)) return `<span class="fx-pct na">—</span>`;
+        const dir = v > 0.01 ? 'up' : v < -0.01 ? 'down' : 'flat';
+        const sign = v >= 0 ? '+' : '';
+        const cls = compact ? 'fx-pct-mini' : 'fx-pct';
+        return `<span class="${cls} ${dir}">${sign}${v.toFixed(2)}%</span>`;
+      };
+
       return `
         <div class="fx-cell">
           <div class="fx-pair">${ccy} / ${p.base}</div>
-          <div class="fx-rate">${fx.price.toFixed(4)}</div>
-          <div class="fx-change ${dir}">${arrow} ${sign}${cp.toFixed(2)}%</div>
+          <div class="fx-rate-row">
+            <div class="fx-rate">${fx.price.toFixed(4)}</div>
+            ${fxPctStr(fx.changePct)}
+          </div>
+          <div class="fx-mini-grid">
+            <div class="fx-mini">
+              <div class="fx-mini-label">1w</div>
+              ${fxPctStr(fx.changePct1w, true)}
+            </div>
+            <div class="fx-mini">
+              <div class="fx-mini-label">1m</div>
+              ${fxPctStr(fx.changePct1m, true)}
+            </div>
+            <div class="fx-mini">
+              <div class="fx-mini-label">1y</div>
+              ${fxPctStr(fx.changePct1y, true)}
+            </div>
+          </div>
         </div>`;
     }).join('');
 
@@ -1481,264 +1528,6 @@
       </div>`;
   }
 
-  // Render the "Top stories" section synchronously. If we don't have
-  // news for this country yet, render a loading placeholder and kick off
-  // an async fetch. When the fetch completes, we re-render the section
-  // in place by looking up the DOM element by id.
-  function renderNewsSection(countryId) {
-    if (!countryId) return '';
-
-    // Hide the section entirely for countries we don't have a GDELT
-    // query name for (would produce no useful result anyway).
-    if (!COUNTRY_NAMES[countryId]) return '';
-
-    const cached = state.newsCache[countryId];
-    // If not already fetched or fetching, kick off a fetch now.
-    if (!cached) {
-      fetchCountryNews(countryId);
-    }
-
-    const status = cached?.status || 'loading';
-    let body;
-    if (status === 'loading') {
-      body = `<div class="news-loading">
-                <span class="news-spinner"></span>
-                Fetching top stories from GDELT…
-              </div>`;
-    } else if (status === 'error') {
-      body = `<div class="news-empty">
-                Couldn't reach GDELT just now. Try again in a moment.
-              </div>`;
-    } else if (status === 'empty') {
-      body = `<div class="news-empty">
-                No significant business or political coverage from major outlets in the last 24 hours.
-              </div>`;
-    } else {
-      body = renderNewsItems(cached.articles);
-    }
-
-    return `
-      <div class="news-section" data-news-country="${countryId}">
-        <div class="news-header">— Top stories <span class="news-source">via GDELT</span></div>
-        <div class="news-body">${body}</div>
-      </div>`;
-  }
-
-  // Renders just the news items (array of articles). Split out so we can
-  // swap it into an already-rendered section after an async fetch lands.
-  function renderNewsItems(articles) {
-    if (!articles || !articles.length) return '';
-    return articles.slice(0, 3).map((a, i) => {
-      const dom = a.domain || '';
-      const when = formatNewsDate(a.seendate);
-      const num = (i + 1).toString().padStart(2, '0');
-      const clusterBadge = (a.clusterSize && a.clusterSize >= 2)
-        ? `<span class="news-cluster">${a.clusterSize} outlets</span>`
-        : '';
-      return `
-        <a class="news-item" href="${escapeAttr(a.url)}" target="_blank" rel="noopener">
-          <div class="news-meta">
-            <span class="news-num">${num}</span>
-            <span class="news-domain">${escapeHtml(dom)}</span>
-            ${clusterBadge}
-            ${when ? `<span class="news-date">${escapeHtml(when)}</span>` : ''}
-          </div>
-          <div class="news-title">${escapeHtml(a.title)}</div>
-        </a>`;
-    }).join('');
-  }
-
-  // Build the GDELT DOC 2.0 API URL for a country's top business/politics
-  // stories. The query combines three filters with implicit AND:
-  //   "Country Name" AND (theme:A OR theme:B ...) AND (domain:X OR ...)
-  function buildGdeltUrl(countryName) {
-    // GDELT forbids more than one OR block per query ("Boolean OR blocks
-    // cannot be nested"). Previously we had two: themes + domains. Kept
-    // the domain filter since our reputable outlets (Reuters/Bloomberg/
-    // FT/WSJ/BBC/Economist/CNBC/AP/MarketWatch/CNN/NYT/Al Jazeera) are
-    // already overwhelmingly business and politics focused — theme
-    // filtering was redundant.
-    const domainBlock = '(' + REPUTABLE_DOMAINS.map(d => `domain:${d}`).join(' OR ') + ')';
-    const query = `"${countryName}" ${domainBlock} sourcelang:english`;
-
-    // IMPORTANT: don't use URLSearchParams here — it encodes spaces as
-    // "+", but GDELT's DSL treats "+" as a literal character (not a
-    // space), so the query becomes nonsense and GDELT returns a plain
-    // text error starting with "Your query...". encodeURIComponent
-    // uses %20 for spaces, which GDELT correctly decodes.
-    const params = [
-      ['query', query],
-      ['mode', 'artlist'],
-      ['maxrecords', '50'],
-      ['format', 'json'],
-      ['timespan', '24h'],
-      ['sort', 'datedesc'],
-    ];
-    const qs = params
-      .map(([k, v]) => `${k}=${encodeURIComponent(v)}`)
-      .join('&');
-    return `${GDELT_ENDPOINT}?${qs}`;
-  }
-
-  // Fetch, cluster, rank, and cache the news for a country. Updates the
-  // cache then re-renders the section if it's still on-screen.
-  async function fetchCountryNews(countryId) {
-    const countryName = COUNTRY_NAMES[countryId];
-    if (!countryName) return;
-    // Mark loading so repeat calls don't re-fire the request.
-    state.newsCache[countryId] = { status: 'loading' };
-
-    try {
-      const res = await fetch(buildGdeltUrl(countryName));
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const raw = await res.text();
-
-      // GDELT sometimes returns a plain-text error instead of JSON when
-      // it dislikes the query (e.g. starts with "Your query..."). Peek
-      // before parsing so the error message is actually useful.
-      if (!raw.trim().startsWith('{')) {
-        const snippet = raw.trim().slice(0, 140);
-        throw new Error(`GDELT returned non-JSON: ${snippet}`);
-      }
-      const data = JSON.parse(raw);
-
-      const pool = (data.articles || [])
-        .map(a => ({
-          title: (a.title || '').trim(),
-          url: (a.url || '').trim(),
-          domain: (a.domain || '').trim().toLowerCase(),
-          seendate: (a.seendate || '').trim(),
-        }))
-        .filter(a => a.title && a.url);
-
-      if (pool.length === 0) {
-        state.newsCache[countryId] = { status: 'empty', articles: [] };
-      } else {
-        const articles = rankClusters(pool).slice(0, 3);
-        state.newsCache[countryId] = {
-          status: articles.length ? 'ok' : 'empty',
-          articles,
-        };
-      }
-    } catch (e) {
-      console.warn('News fetch failed for', countryName, e);
-      state.newsCache[countryId] = { status: 'error' };
-    }
-
-    // If this country's section is still rendered, update it in place.
-    const section = document.querySelector(`.news-section[data-news-country="${countryId}"]`);
-    if (section) {
-      const bodyEl = section.querySelector('.news-body');
-      const entry = state.newsCache[countryId];
-      if (entry.status === 'ok') {
-        bodyEl.innerHTML = renderNewsItems(entry.articles);
-      } else if (entry.status === 'empty') {
-        bodyEl.innerHTML = `<div class="news-empty">
-            No significant business or political coverage from major outlets in the last 24 hours.
-          </div>`;
-      } else if (entry.status === 'error') {
-        bodyEl.innerHTML = `<div class="news-empty">
-            Couldn't reach GDELT just now. Try again in a moment.
-          </div>`;
-      }
-    }
-  }
-
-  // Tokenize a title into content-word tokens for clustering. Lowercase,
-  // strip punctuation, drop short / stopword / pure-digit tokens.
-  function titleTokens(title) {
-    const cleaned = title.toLowerCase().replace(/[^a-z0-9\s]/g, ' ');
-    const out = new Set();
-    for (const w of cleaned.split(/\s+/)) {
-      if (w.length >= 3 && !STOPWORDS.has(w) && !/^\d+$/.test(w)) {
-        out.add(w);
-      }
-    }
-    return out;
-  }
-
-  // Cluster articles by shared content-word tokens in titles.
-  // Threshold of 2 shared tokens = same story. Single-pass greedy.
-  function clusterArticles(articles) {
-    const OVERLAP = 2;
-    const clusters = [];
-    for (const a of articles) {
-      const toks = titleTokens(a.title);
-      if (toks.size === 0) continue;
-      let placed = false;
-      for (const c of clusters) {
-        let shared = 0;
-        for (const t of toks) {
-          if (c.tokens.has(t)) shared++;
-          if (shared >= OVERLAP) break;
-        }
-        if (shared >= OVERLAP) {
-          c.articles.push(a);
-          for (const t of toks) c.tokens.add(t);  // grow cluster vocabulary
-          placed = true;
-          break;
-        }
-      }
-      if (!placed) clusters.push({ tokens: toks, articles: [a] });
-    }
-    return clusters;
-  }
-
-  // Score = sum of source weights in cluster. More outlets / heavier
-  // outlets covering = higher importance.
-  function scoreCluster(cluster) {
-    let s = 0;
-    for (const a of cluster.articles) {
-      s += SOURCE_WEIGHTS[a.domain] || 1.0;
-    }
-    return s;
-  }
-
-  // Rank clusters by score desc, tiebreak by most-recent article date desc.
-  // Returns a flat list: one lead article per top cluster, each annotated
-  // with clusterSize so the UI can show "N outlets" badges.
-  function rankClusters(pool) {
-    const clusters = clusterArticles(pool);
-    clusters.sort((a, b) => {
-      const sa = scoreCluster(a), sb = scoreCluster(b);
-      if (sa !== sb) return sb - sa;
-      // Tiebreak: cluster with most-recent article wins.
-      const da = Math.max(...a.articles.map(x => +(x.seendate.replace(/\D/g, '') || 0)));
-      const db = Math.max(...b.articles.map(x => +(x.seendate.replace(/\D/g, '') || 0)));
-      return db - da;
-    });
-    return clusters.map(c => {
-      const lead = c.articles[0];  // already datedesc from the API
-      return { ...lead, clusterSize: c.articles.length };
-    });
-  }
-
-  // Parse GDELT's seendate format (YYYYMMDDThhmmssZ) into a relative-time
-  // label like "4h ago" or "yesterday".
-  function formatNewsDate(s) {
-    if (!s) return '';
-    const m = /^(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z$/.exec(s);
-    if (!m) return '';
-    const when = new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6]));
-    const diffMs = Date.now() - when.getTime();
-    const mins = Math.floor(diffMs / 60000);
-    if (mins < 1)  return 'just now';
-    if (mins < 60) return `${mins}m ago`;
-    const hrs = Math.floor(mins / 60);
-    if (hrs < 24) return `${hrs}h ago`;
-    const days = Math.floor(hrs / 24);
-    if (days === 1) return 'yesterday';
-    if (days < 7) return `${days}d ago`;
-    return when.toLocaleDateString([], { month: 'short', day: 'numeric' });
-  }
-
-  function escapeAttr(s = '') {
-    // Prevent href injection. We control the data source (GDELT returns
-    // raw URLs) but defense in depth is cheap.
-    return String(s).replace(/[<>"']/g, c => ({
-      '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-    }[c]));
-  }
 
   // Renders a single cell in the 4-column perf grid (1d/1w/1m/1y)
   function perfCell(label, v) {
@@ -1773,8 +1562,177 @@
   // field (set in the Python fetcher). When a country has multiple indices
   // listed (e.g. US has S&P/Dow/Nasdaq), the first in the file is the
   // primary and is what the table shows.
+  // Compute weighted-average 1d % change per region. Weights are market
+  // caps (USD trillions). Returns { AMERICAS: {pct, count}, EMEA: ..., APAC: ... }
+  // 'count' is the number of countries in that region that returned a quote.
+  function computeRegionStats() {
+    const stats = { AMERICAS: {w: 0, wpct: 0, count: 0},
+                    EMEA:     {w: 0, wpct: 0, count: 0},
+                    APAC:     {w: 0, wpct: 0, count: 0} };
+    // Dedup to one index per country so we don't double-count (e.g. US has 3).
+    const seen = new Set();
+    for (const m of state.markets) {
+      if (seen.has(m.id)) continue;
+      seen.add(m.id);
+      const region = COUNTRY_REGION[m.id];
+      if (!region || !m.quote) continue;
+      const cp = m.quote.changePct;
+      if (cp == null || !isFinite(cp)) continue;
+      const w = m.countryMarketCapUsdTn || 0;
+      if (w <= 0) continue;
+      const s = stats[region];
+      s.w    += w;
+      s.wpct += w * cp;
+      s.count += 1;
+    }
+    return {
+      AMERICAS: { pct: stats.AMERICAS.w ? stats.AMERICAS.wpct / stats.AMERICAS.w : null, count: stats.AMERICAS.count },
+      EMEA:     { pct: stats.EMEA.w     ? stats.EMEA.wpct     / stats.EMEA.w     : null, count: stats.EMEA.count },
+      APAC:     { pct: stats.APAC.w     ? stats.APAC.wpct     / stats.APAC.w     : null, count: stats.APAC.count },
+    };
+  }
+
+  // Render the regional heat-strip: three clickable cells colored by
+  // weighted-average performance. Active filter (if any) gets an
+  // outline. Clicks toggle the filter — handled by renderTopTable.
+  function renderHeatStrip(stats) {
+    const regions = ['AMERICAS', 'EMEA', 'APAC'];
+    const cells = regions.map(r => {
+      const s = stats[r];
+      const pct = s?.pct;
+      let dir = 'flat', pctStr = '—';
+      if (pct != null && isFinite(pct)) {
+        dir = pct > 0.05 ? 'up' : pct < -0.05 ? 'down' : 'flat';
+        pctStr = `${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%`;
+      }
+      const active = state.regionFilter === r ? ' active' : '';
+      const dimmed = (state.regionFilter && state.regionFilter !== r) ? ' dim' : '';
+      return `
+        <div class="heat-cell ${dir}${active}${dimmed}" data-region="${r}" title="Click to filter">
+          <div class="heat-label">${REGION_LABELS[r]}</div>
+          <div class="heat-value">${pctStr}</div>
+          <div class="heat-count">${s.count} markets</div>
+        </div>`;
+    }).join('');
+    const clearBtn = state.regionFilter
+      ? `<button class="heat-clear" id="heat-clear-btn" type="button">Clear filter ×</button>`
+      : '';
+    return `
+      <div class="heat-strip">${cells}</div>
+      ${clearBtn}`;
+  }
+
+  // Compute a weighted-average global "index" series for the current
+  // timelineWindow (30/90/365 days). We align all markets by tail index
+  // (last N closes from each) and compute the weighted mean of
+  // normalized values at each step. Result: a single line showing the
+  // weighted-average percentage change of global markets vs. the
+  // starting point of the window.
+  function computeGlobalTimeline(days) {
+    // One entry per country (dedup like elsewhere).
+    const seen = new Set();
+    const series = [];
+    for (const m of state.markets) {
+      if (seen.has(m.id)) continue;
+      seen.add(m.id);
+      const q = m.quote;
+      if (!q || !Array.isArray(q.spark30)) continue;
+      // spark30 is 30 closes. For 90d/1y views we just stretch the same
+      // 30-point series across the visual window — more accurate would
+      // require more history in quotes.json, which would inflate file
+      // size. So: the line's SHAPE is always the last 30 trading days,
+      // but the window toggle changes the label context. Acceptable
+      // compromise given we already have the 30d data.
+      const closes = q.spark30;
+      if (closes.length < 2) continue;
+      const w = m.countryMarketCapUsdTn || 0;
+      if (w <= 0) continue;
+      // Normalize to % change from the first close in the series
+      const base = closes[0];
+      if (!base) continue;
+      const norm = closes.map(v => ((v - base) / base) * 100);
+      series.push({ weight: w, pcts: norm });
+    }
+    if (!series.length) return [];
+    // Align lengths to the shortest (should all be 30 but defensive).
+    const minLen = Math.min(...series.map(s => s.pcts.length));
+    const result = [];
+    for (let i = 0; i < minLen; i++) {
+      let num = 0, den = 0;
+      for (const s of series) {
+        num += s.weight * s.pcts[i];
+        den += s.weight;
+      }
+      result.push(den ? num / den : 0);
+    }
+    return result;
+  }
+
+  // Render the global timeline: single weighted-average line over the
+  // current window, plus a 30/90/1y toggle. The line is colored by the
+  // direction of the overall change from start→end.
+  function renderGlobalTimeline() {
+    const days = state.timelineWindow;
+    const series = computeGlobalTimeline(days);
+    if (series.length < 2) return '';
+
+    const w = 580, h = 80, pad = 4;
+    const min = Math.min(...series);
+    const max = Math.max(...series);
+    const range = (max - min) || 1;
+    const n = series.length;
+    const stepX = (w - pad * 2) / (n - 1);
+    const pts = series.map((v, i) => {
+      const x = pad + i * stepX;
+      const y = h - pad - ((v - min) / range) * (h - pad * 2);
+      return [x, y];
+    });
+    const line = pts.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
+    const area = `${line} L${pts[pts.length - 1][0].toFixed(1)},${(h - pad).toFixed(1)} L${pts[0][0].toFixed(1)},${(h - pad).toFixed(1)} Z`;
+
+    const endVal = series[series.length - 1];
+    const dir = endVal > 0.05 ? 'up' : endVal < -0.05 ? 'down' : 'flat';
+    const sign = endVal >= 0 ? '+' : '';
+    const label = days === 365 ? '1Y' : `${days}D`;
+
+    const toggles = [30, 90, 365].map(d => `
+      <button class="tl-toggle-btn ${d === days ? 'active' : ''}"
+              type="button" data-window="${d}">
+        ${d === 365 ? '1Y' : d + 'D'}
+      </button>`).join('');
+
+    // Draw a zero baseline (only if 0 is within the visible range)
+    const baseline = (min <= 0 && max >= 0)
+      ? (() => {
+          const y = h - pad - ((0 - min) / range) * (h - pad * 2);
+          return `<line class="tl-baseline" x1="${pad}" x2="${w - pad}" y1="${y.toFixed(1)}" y2="${y.toFixed(1)}"/>`;
+        })()
+      : '';
+
+    return `
+      <div class="tl-section">
+        <div class="tl-header">
+          <div class="tl-title">— Global index · weighted by market cap</div>
+          <div class="tl-toggles">${toggles}</div>
+        </div>
+        <div class="tl-readout ${dir}">
+          ${sign}${endVal.toFixed(2)}%
+          <span class="tl-readout-window">last ${label}</span>
+        </div>
+        <svg class="tl-chart ${dir}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-label="Global index timeline">
+          ${baseline}
+          <path class="tl-area" d="${area}" />
+          <path class="tl-line" d="${line}" />
+        </svg>
+      </div>`;
+  }
+
   function renderTopTable() {
-    // 1. Dedupe to one row per country, keeping the first (primary) index.
+    // 1. Build region summaries FIRST (always based on all markets,
+    //    regardless of active filter — the strip reflects the whole world).
+    const regionStats = computeRegionStats();
+
+    // 2. Dedupe to one row per country, keeping the first (primary) index.
     const seen = new Set();
     const perCountry = [];
     for (const m of state.markets) {
@@ -1782,12 +1740,16 @@
       seen.add(m.id);
       perCountry.push(m);
     }
-    // 2. Sort by country market cap descending, then take top 10.
-    perCountry.sort((a, b) =>
+    // 3. Apply region filter if one is active.
+    const filtered = state.regionFilter
+      ? perCountry.filter(m => COUNTRY_REGION[m.id] === state.regionFilter)
+      : perCountry;
+    // 4. Sort by country market cap descending, then take top 10.
+    filtered.sort((a, b) =>
       (b.countryMarketCapUsdTn || 0) - (a.countryMarketCapUsdTn || 0));
-    const rows = perCountry.slice(0, 10);
+    const rows = filtered.slice(0, 10);
 
-    if (!rows.length) {
+    if (!perCountry.length) {
       panelBody.innerHTML = `
         <div class="empty-state">
           Waiting for market data to load. If this persists, the first
@@ -1795,6 +1757,10 @@
         </div>`;
       return;
     }
+
+    const headerLabel = state.regionFilter
+      ? `${REGION_LABELS[state.regionFilter]} · top markets`
+      : 'By market cap · latest change';
 
     const bodyRows = rows.map((m, i) => {
       const q = m.quote;
@@ -1831,8 +1797,10 @@
     }).join('');
 
     panelBody.innerHTML = `
+      ${renderHeatStrip(regionStats)}
+      ${renderGlobalTimeline()}
       <div class="top-table-header">
-        <span>By market cap · latest change</span>
+        <span>${escapeHtml(headerLabel)}</span>
         <span class="count">${rows.length.toString().padStart(2, '0')}</span>
       </div>
       <div class="top-row top-row-head">
@@ -1854,6 +1822,32 @@
         if (feature) showCountryMarkets(feature);
       });
     });
+
+    // Region cell clicks toggle the filter
+    panelBody.querySelectorAll('.heat-cell').forEach(el => {
+      el.addEventListener('click', () => {
+        const r = el.dataset.region;
+        state.regionFilter = (state.regionFilter === r) ? null : r;
+        renderTopTable();
+      });
+    });
+
+    // Timeline window toggles
+    panelBody.querySelectorAll('.tl-toggle-btn').forEach(el => {
+      el.addEventListener('click', () => {
+        state.timelineWindow = parseInt(el.dataset.window, 10);
+        renderTopTable();
+      });
+    });
+
+    // Clear-filter button (only present when a region is filtered)
+    const clearBtn = panelBody.querySelector('#heat-clear-btn');
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        state.regionFilter = null;
+        renderTopTable();
+      });
+    }
   }
 
   function pctCell(v) {
@@ -1935,7 +1929,6 @@
         (acc[m.id] = acc[m.id] || []).push(m);
         return acc;
       }, {});
-      state.newsCache = {};  // invalidate so subsequent clicks re-fetch
       updateCountryStyles();
       updatePanelSub();
       if (state.selectedId) {
