@@ -56,34 +56,34 @@ MARKETS = [
     ('752', 'Sweden',               'OMXS30',                '^OMX',         1.00),
     ('056', 'Belgium',              'BEL 20',                '^BFX',         0.40),
     ('710', 'South Africa',         'JSE Top 40',            '^JN0U.JO',     1.15),
-    ('578', 'Norway',               'OSEAX',                 'OSEAX.OL',     0.35),
+    # ('578', 'Norway',               'OBX',                   'OBX.OL',       0.35),  # dropped: history data unreliable
     ('246', 'Finland',              'OMXH25',                '^OMXH25',      0.30),
     ('208', 'Denmark',              'OMXC25',                '^OMXC25',      0.60),
     ('040', 'Austria',              'ATX',                   '^ATX',         0.15),
     ('620', 'Portugal',             'PSI 20',                'PSI20.LS',     0.08),
     ('300', 'Greece',               'ATHEX Composite',       'GD.AT',        0.10),
     ('372', 'Ireland',              'ISEQ Overall',          '^ISEQ',        0.14),
-    ('616', 'Poland',               'WIG20',                 'WIG20.WA',     0.45),
-    ('348', 'Hungary',              'BUX',                   '^BUX.BD',      0.05),
-    ('203', 'Czechia',              'PX',                    '^PX',          0.07),
+    # ('616', 'Poland',               'WIG20',                 'WIG20.WA',     0.45),  # dropped: broken ticker
+    # ('348', 'Hungary',              'BUX',                   '^BUX.BD',      0.05),  # dropped: broken ticker
+    # ('203', 'Czechia',              'PX',                    '^PX',          0.07),  # dropped: broken ticker
     ('792', 'Turkey',               'BIST 100',              'XU100.IS',     0.30),
     ('376', 'Israel',               'TA-125',                '^TA125.TA',    0.30),
     ('682', 'Saudi Arabia',         'Tadawul All Share',     '^TASI.SR',     2.73),
-    ('784', 'United Arab Emirates', 'DFM General',           '^DFMGI',       0.95),
-    ('634', 'Qatar',                'QE General',            '^QSI',         0.17),
-    ('818', 'Egypt',                'EGX 30',                '^CASE30',      0.04),
+    # ('784', 'United Arab Emirates', 'DFM General',           '^DFMGI',       0.95),  # dropped: broken ticker
+    # ('634', 'Qatar',                'QE General',            '^QSI',         0.17),  # dropped: broken ticker
+    # ('818', 'Egypt',                'EGX 30',                '^CASE30',      0.04),  # dropped: broken ticker
     ('360', 'Indonesia',            'Jakarta Composite',     '^JKSE',        0.70),
     ('458', 'Malaysia',             'KLCI',                  '^KLSE',        0.40),
     ('764', 'Thailand',             'SET',                   '^SET.BK',      0.45),
     ('608', 'Philippines',          'PSEi',                  'PSEI.PS',      0.25),
-    ('704', 'Vietnam',              'VN Index',              '^VNINDEX.VN',  0.28),
-    ('586', 'Pakistan',             'KSE 100',               '^KSE',         0.05),
+    # ('704', 'Vietnam',              'VN Index',              '^VNINDEX.VN',  0.28),  # dropped: broken ticker
+    # ('586', 'Pakistan',             'KSE 100',               '^KSE',         0.05),  # dropped: broken ticker
     ('554', 'New Zealand',          'NZX 50',                '^NZ50',        0.16),
     ('032', 'Argentina',            'S&P Merval',            '^MERV',        0.10),
-    ('152', 'Chile',                'IPSA',                  '^IPSA',        0.20),
-    ('170', 'Colombia',             'COLCAP',                '^COLCAP',      0.10),
-    ('604', 'Peru',                 'S&P/BVL Peru General',  'SPBLPGPT.LM',  0.08),
-    ('643', 'Russia',               'MOEX',                  'IMOEX.ME',     0.70),
+    # ('152', 'Chile',                'IPSA',                  '^IPSA',        0.20),  # dropped: broken ticker
+    # ('170', 'Colombia',             'COLCAP',                '^COLCAP',      0.10),  # dropped: broken ticker
+    # ('604', 'Peru',                 'S&P/BVL Peru General',  'SPBLPGPT.LM',  0.08),  # dropped: broken ticker
+    # ('643', 'Russia',               'MOEX',                  'IMOEX.ME',     0.70),  # dropped: broken ticker
 
     # --- Extended coverage. Previous iteration tried to add ~50 more
     # frontier markets but most of those Yahoo tickers I guessed at don't
@@ -221,21 +221,29 @@ def _pct_from_ago(hist, current_price: float, days: int):
 
 
 def _round(v):
+    """Round to 4 dp, returning None for missing/NaN/inf.
+
+    NaN passes isinstance(v, float) and survives round(), but isn't
+    valid JSON — standard JSON.parse() will reject a file containing
+    the literal "NaN". We convert to None here so json.dumps can emit
+    it as the JSON null.
+    """
     if v is None:
         return None
     try:
-        return round(float(v), 4)
+        f = float(v)
     except (TypeError, ValueError):
         return None
+    import math
+    if not math.isfinite(f):
+        return None
+    return round(f, 4)
 
 
 def _num(v):
-    if v is None:
-        return None
-    try:
-        return round(float(v), 4)
-    except (TypeError, ValueError):
-        return None
+    """Same as _round. Kept as a separate name for semantic clarity at
+    call sites (prices vs percentages)."""
+    return _round(v)
 
 
 def main():
@@ -275,8 +283,11 @@ def main():
 
     output['summary'] = {'ok': ok, 'failed': fail, 'total': len(MARKETS)}
 
+    # allow_nan=False -> json.dump will raise ValueError if any NaN/Inf
+    # slipped through _num/_round. Better to crash the workflow loudly
+    # than silently produce invalid JSON that breaks the globe.
     with open('quotes.json', 'w', encoding='utf-8') as f:
-        json.dump(output, f, indent=2, ensure_ascii=False)
+        json.dump(output, f, indent=2, ensure_ascii=False, allow_nan=False)
 
     print(f'\nWrote quotes.json — {ok}/{len(MARKETS)} succeeded, {fail} failed.')
 
