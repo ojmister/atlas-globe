@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-04-23T18:45:15.326570+00:00",
-  "generated_at_unix": 1776969915,
+  "generated_at": "2026-04-23T23:32:30.582242+00:00",
+  "generated_at_unix": 1776987150,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -11,13 +11,13 @@
       "countryMarketCapUsdTn": 86.9,
       "currencyCode": "USD",
       "quote": {
-        "price": 7109.54,
+        "price": 7108.3999,
         "previousClose": 7137.8999,
-        "change": -28.3599,
-        "changePct": -0.3973,
-        "changePct1w": 0.9694,
-        "changePct1m": 8.4371,
-        "changePct1y": 32.2494,
+        "change": -29.5,
+        "changePct": -0.4133,
+        "changePct1w": 0.9532,
+        "changePct1m": 8.4197,
+        "changePct1y": 32.2281,
         "currency": "USD",
         "exchange": "SNP",
         "dayHigh": 7147.7798,
@@ -54,7 +54,7 @@
           7109.1401,
           7064.0098,
           7137.8999,
-          7109.54
+          7108.3999
         ]
       }
     },
@@ -66,13 +66,13 @@
       "countryMarketCapUsdTn": 86.9,
       "currencyCode": "USD",
       "quote": {
-        "price": 49305.7383,
+        "price": 49310.3203,
         "previousClose": 49490.0312,
-        "change": -184.293,
-        "changePct": -0.3724,
-        "changePct1w": 1.4966,
-        "changePct1m": 6.8981,
-        "changePct1y": 24.4888,
+        "change": -179.7109,
+        "changePct": -0.3631,
+        "changePct1w": 1.506,
+        "changePct1m": 6.908,
+        "changePct1y": 24.5004,
         "currency": "USD",
         "exchange": "DJI",
         "dayHigh": 49522.9414,
@@ -109,7 +109,7 @@
           49442.5586,
           49149.3789,
           49490.0312,
-          49305.7383
+          49310.3203
         ]
       }
     },
@@ -121,13 +121,13 @@
       "countryMarketCapUsdTn": 86.9,
       "currencyCode": "USD",
       "quote": {
-        "price": 24450.0352,
+        "price": 24438.5039,
         "previousClose": 24657.5703,
-        "change": -207.5352,
-        "changePct": -0.8417,
-        "changePct1w": 1.4411,
-        "changePct1m": 12.3525,
-        "changePct1y": 46.3368,
+        "change": -219.0664,
+        "changePct": -0.8884,
+        "changePct1w": 1.3932,
+        "changePct1m": 12.2995,
+        "changePct1y": 46.2678,
         "currency": "USD",
         "exchange": "NIM",
         "dayHigh": 24664.8672,
@@ -164,7 +164,7 @@
           24404.3906,
           24259.9609,
           24657.5703,
-          24450.0352
+          24438.5039
         ]
       }
     },
@@ -396,20 +396,21 @@
       "countryMarketCapUsdTn": 3.14,
       "currencyCode": "GBP",
       "quote": {
-        "price": 10457.0098,
-        "previousClose": 10476.5,
-        "change": -19.4902,
-        "changePct": -0.186,
-        "changePct1w": -1.2558,
-        "changePct1m": 5.6883,
-        "changePct1y": 24.4408,
+        "price": 10476.5,
+        "previousClose": 10498.0996,
+        "change": -21.5996,
+        "changePct": -0.2057,
+        "changePct1w": -0.787,
+        "changePct1m": 5.628,
+        "changePct1y": 25.7895,
         "currency": "GBP",
         "exchange": "FGI",
-        "dayHigh": 10477.1504,
-        "dayLow": 10361.4502,
+        "dayHigh": 10523.2002,
+        "dayLow": 10468.0,
         "yearHigh": 10934.9004,
-        "yearLow": 8328.2998,
+        "yearLow": 8262.5,
         "spark30": [
+          10412.2002,
           10353.7998,
           10305.2002,
           10261.2002,
@@ -438,8 +439,7 @@
           10667.5996,
           10609.0996,
           10498.0996,
-          10476.5,
-          10457.0098
+          10476.5
         ]
       }
     },
@@ -451,20 +451,21 @@
       "countryMarketCapUsdTn": 2.04,
       "currencyCode": "EUR",
       "quote": {
-        "price": 24155.4492,
-        "previousClose": 24194.9004,
-        "change": -39.4512,
-        "changePct": -0.1631,
-        "changePct1w": 0.0041,
-        "changePct1m": 6.6284,
-        "changePct1y": 9.9876,
+        "price": 24194.9004,
+        "previousClose": 24270.8691,
+        "change": -75.9688,
+        "changePct": -0.313,
+        "changePct1w": 0.5327,
+        "changePct1m": 8.1086,
+        "changePct1y": 13.6256,
         "currency": "EUR",
         "exchange": "GER",
-        "dayHigh": 24204.4707,
-        "dayLow": 23991.7793,
+        "dayHigh": 24399.5703,
+        "dayLow": 24151.8906,
         "yearHigh": 25507.7891,
-        "yearLow": 21722.8398,
+        "yearLow": 21044.6094,
         "spark30": [
+          23968.6309,
           23640.0293,
           23589.6504,
           23447.2891,
@@ -493,8 +494,7 @@
           24702.2402,
           24417.8008,
           24270.8691,
-          24194.9004,
-          24155.4492
+          24194.9004
         ]
       }
     },
@@ -506,20 +506,21 @@
       "countryMarketCapUsdTn": 1.2,
       "currencyCode": "EUR",
       "quote": {
-        "price": 8227.3203,
-        "previousClose": 8156.4302,
-        "change": 70.8901,
-        "changePct": 0.8691,
-        "changePct1w": -0.4282,
-        "changePct1m": 6.486,
-        "changePct1y": 9.9562,
+        "price": 8156.4302,
+        "previousClose": 8235.7197,
+        "change": -79.2896,
+        "changePct": -0.9628,
+        "changePct1w": -1.4277,
+        "changePct1m": 6.4027,
+        "changePct1y": 11.3282,
         "currency": "EUR",
         "exchange": "PAR",
-        "dayHigh": 8242.2197,
-        "dayLow": 8142.4902,
+        "dayHigh": 8266.9102,
+        "dayLow": 8156.4302,
         "yearHigh": 8642.2305,
-        "yearLow": 7403.9302,
+        "yearLow": 7218.2998,
         "spark30": [
+          8057.3599,
           8041.8101,
           7984.4399,
           7911.5298,
@@ -548,8 +549,7 @@
           8425.1299,
           8331.0498,
           8235.7197,
-          8156.4302,
-          8227.3203
+          8156.4302
         ]
       }
     },
@@ -671,13 +671,13 @@
       "countryMarketCapUsdTn": 4.0,
       "currencyCode": "CAD",
       "quote": {
-        "price": 33931.4688,
+        "price": 33912.9297,
         "previousClose": 33955.1016,
-        "change": -23.6328,
-        "changePct": -0.0696,
-        "changePct1w": -0.3545,
-        "changePct1m": 6.2297,
-        "changePct1y": 38.6503,
+        "change": -42.1719,
+        "changePct": -0.1242,
+        "changePct1w": -0.409,
+        "changePct1m": 6.1717,
+        "changePct1y": 38.5745,
         "currency": "CAD",
         "exchange": "TSI",
         "dayHigh": 34010.4609,
@@ -714,7 +714,7 @@
           34360.0,
           33808.3008,
           33955.1016,
-          33931.4688
+          33912.9297
         ]
       }
     },
@@ -836,20 +836,21 @@
       "countryMarketCapUsdTn": 1.97,
       "currencyCode": "CHF",
       "quote": {
-        "price": 13248.0596,
-        "previousClose": 13067.6299,
-        "change": 180.4297,
-        "changePct": 1.3807,
-        "changePct1w": 0.5685,
-        "changePct1m": 6.9282,
-        "changePct1y": 12.1889,
+        "price": 13067.6299,
+        "previousClose": 13134.1396,
+        "change": -66.5098,
+        "changePct": -0.5064,
+        "changePct1w": -1.1494,
+        "changePct1m": 6.0599,
+        "changePct1y": 12.2039,
         "currency": "CHF",
         "exchange": "EBS",
-        "dayHigh": 13261.4404,
-        "dayLow": 13019.8896,
+        "dayHigh": 13208.0,
+        "dayLow": 13051.54,
         "yearHigh": 14063.5303,
-        "yearLow": 11612.0,
+        "yearLow": 11492.2402,
         "spark30": [
+          13065.1904,
           12958.5898,
           12842.1602,
           12839.2695,
@@ -878,8 +879,7 @@
           13426.7197,
           13284.2197,
           13134.1396,
-          13067.6299,
-          13248.0596
+          13067.6299
         ]
       }
     },
@@ -946,20 +946,21 @@
       "countryMarketCapUsdTn": 0.8,
       "currencyCode": "EUR",
       "quote": {
-        "price": 17885.9004,
-        "previousClose": 18006.4004,
-        "change": -120.5,
-        "changePct": -0.6692,
-        "changePct1w": -1.1255,
-        "changePct1m": 5.9077,
-        "changePct1y": 35.4141,
+        "price": 18006.4004,
+        "previousClose": 18142.5996,
+        "change": -136.1992,
+        "changePct": -0.7507,
+        "changePct1w": -0.4594,
+        "changePct1m": 6.6212,
+        "changePct1y": 36.3264,
         "currency": "EUR",
         "exchange": "MCE",
-        "dayHigh": 17929.9004,
-        "dayLow": 17716.6992,
+        "dayHigh": null,
+        "dayLow": null,
         "yearHigh": 18573.8008,
         "yearLow": 13074.7998,
         "spark30": [
+          17445.0,
           17351.9004,
           17139.9004,
           17059.3008,
@@ -988,8 +989,7 @@
           18484.5,
           18260.9004,
           18142.5996,
-          18006.4004,
-          17885.9004
+          18006.4004
         ]
       }
     },
@@ -1001,13 +1001,13 @@
       "countryMarketCapUsdTn": 1.01,
       "currencyCode": "BRL",
       "quote": {
-        "price": 192138.8594,
+        "price": 191378.4375,
         "previousClose": 192889.0,
-        "change": -750.1406,
-        "changePct": -0.3889,
-        "changePct1w": -2.3779,
-        "changePct1m": 5.2764,
-        "changePct1y": 45.3219,
+        "change": -1510.5625,
+        "changePct": -0.7831,
+        "changePct1w": -2.7642,
+        "changePct1m": 4.8597,
+        "changePct1y": 44.7468,
         "currency": "BRL",
         "exchange": "SAO",
         "dayHigh": 193346.625,
@@ -1044,7 +1044,7 @@
           195734.0,
           196132.0,
           192889.0,
-          192138.8594
+          191378.4375
         ]
       }
     },
@@ -1056,20 +1056,21 @@
       "countryMarketCapUsdTn": 0.9,
       "currencyCode": "EUR",
       "quote": {
-        "price": 47907.4102,
-        "previousClose": 47785.0,
-        "change": 122.4102,
-        "changePct": 0.2562,
-        "changePct1w": -0.249,
-        "changePct1m": 10.9225,
-        "changePct1y": 31.4044,
+        "price": 47785.0,
+        "previousClose": 47903.0,
+        "change": -118.0,
+        "changePct": -0.2463,
+        "changePct1w": -0.7704,
+        "changePct1m": 11.5403,
+        "changePct1y": 32.9281,
         "currency": "EUR",
         "exchange": "MIL",
-        "dayHigh": 47988.3203,
-        "dayLow": 47503.5,
+        "dayHigh": 48099.0,
+        "dayLow": 47743.0,
         "yearHigh": 48958.0,
-        "yearLow": 36220.0,
+        "yearLow": 35509.0,
         "spark30": [
+          45202.0,
           44773.0,
           44456.0,
           44317.0,
@@ -1098,8 +1099,7 @@
           48869.0,
           48207.0,
           47903.0,
-          47785.0,
-          47907.4102
+          47785.0
         ]
       }
     },
@@ -1111,20 +1111,21 @@
       "countryMarketCapUsdTn": 1.1,
       "currencyCode": "EUR",
       "quote": {
-        "price": 1014.08,
-        "previousClose": 1021.26,
-        "change": -7.18,
-        "changePct": -0.7031,
-        "changePct1w": -0.2587,
-        "changePct1m": 4.899,
-        "changePct1y": 16.6052,
+        "price": 1021.26,
+        "previousClose": 1019.05,
+        "change": 2.21,
+        "changePct": 0.2169,
+        "changePct1w": 0.5603,
+        "changePct1m": 6.202,
+        "changePct1y": 19.1377,
         "currency": "EUR",
         "exchange": "AMS",
-        "dayHigh": 1017.77,
-        "dayLow": 1008.13,
+        "dayHigh": 1027.54,
+        "dayLow": 1019.26,
         "yearHigh": 1031.79,
-        "yearLow": 864.37,
+        "yearLow": 847.81,
         "spark30": [
+          1002.42,
           1002.9,
           1000.62,
           1001.66,
@@ -1153,8 +1154,7 @@
           1023.68,
           1021.96,
           1019.05,
-          1021.26,
-          1014.08
+          1021.26
         ]
       }
     },
@@ -1221,17 +1221,17 @@
       "countryMarketCapUsdTn": 0.5,
       "currencyCode": "MXN",
       "quote": {
-        "price": 68571.3828,
+        "price": 68631.1562,
         "previousClose": 68836.9219,
-        "change": -265.5391,
-        "changePct": -0.3858,
-        "changePct1w": -0.7579,
-        "changePct1m": 4.2512,
-        "changePct1y": 22.9614,
+        "change": -205.7656,
+        "changePct": -0.2989,
+        "changePct1w": -0.6713,
+        "changePct1m": 4.3421,
+        "changePct1y": 23.0686,
         "currency": "MXN",
         "exchange": "MEX",
         "dayHigh": 69415.5625,
-        "dayLow": 68549.1406,
+        "dayLow": 68511.7188,
         "yearHigh": 72111.4062,
         "yearLow": 54846.4805,
         "spark30": [
@@ -1264,7 +1264,7 @@
           70083.7266,
           68809.1719,
           68836.9219,
-          68571.3828
+          68631.1562
         ]
       }
     },
@@ -1276,20 +1276,21 @@
       "countryMarketCapUsdTn": 1.0,
       "currencyCode": "SEK",
       "quote": {
-        "price": 3131.3523,
-        "previousClose": 3128.3899,
-        "change": 2.9624,
-        "changePct": 0.0947,
-        "changePct1w": 0.3397,
-        "changePct1m": 8.2692,
-        "changePct1y": 30.8908,
+        "price": 3128.3899,
+        "previousClose": 3133.29,
+        "change": -4.9001,
+        "changePct": -0.1564,
+        "changePct1w": 0.32,
+        "changePct1m": 9.2052,
+        "changePct1y": 32.324,
         "currency": "SEK",
         "exchange": "STO",
-        "dayHigh": 3139.8423,
-        "dayLow": 3108.0122,
+        "dayHigh": 3157.1399,
+        "dayLow": 3124.9299,
         "yearHigh": 3230.0701,
-        "yearLow": 2373.74,
+        "yearLow": 2335.6001,
         "spark30": [
+          3082.6101,
           3058.96,
           3063.0901,
           3018.72,
@@ -1318,8 +1319,7 @@
           3182.1299,
           3153.1201,
           3133.29,
-          3128.3899,
-          3131.3523
+          3128.3899
         ]
       }
     },
@@ -1331,20 +1331,21 @@
       "countryMarketCapUsdTn": 0.4,
       "currencyCode": "EUR",
       "quote": {
-        "price": 5392.0298,
-        "previousClose": 5386.79,
-        "change": 5.2397,
-        "changePct": 0.0973,
-        "changePct1w": -1.6688,
-        "changePct1m": 9.15,
-        "changePct1y": 25.7974,
+        "price": 5386.79,
+        "previousClose": 5431.3799,
+        "change": -44.5898,
+        "changePct": -0.821,
+        "changePct1w": -1.614,
+        "changePct1m": 9.5591,
+        "changePct1y": 27.097,
         "currency": "EUR",
         "exchange": "BRU",
-        "dayHigh": 5396.1499,
-        "dayLow": 5342.1001,
+        "dayHigh": 5443.1201,
+        "dayLow": 5380.4502,
         "yearHigh": 5691.52,
-        "yearLow": 4248.3999,
+        "yearLow": 4191.4702,
         "spark30": [
+          5247.5098,
           5176.8398,
           5149.0601,
           5109.48,
@@ -1373,8 +1374,7 @@
           5572.1001,
           5511.1699,
           5431.3799,
-          5386.79,
-          5392.0298
+          5386.79
         ]
       }
     },
@@ -1386,20 +1386,21 @@
       "countryMarketCapUsdTn": 1.15,
       "currencyCode": "ZAR",
       "quote": {
-        "price": 7084.4302,
-        "previousClose": 7199.1201,
-        "change": -114.6899,
-        "changePct": -1.5931,
-        "changePct1w": -2.2501,
-        "changePct1m": 9.3962,
-        "changePct1y": 48.581,
+        "price": 7199.1201,
+        "previousClose": 7232.1201,
+        "change": -33.0,
+        "changePct": -0.4563,
+        "changePct1w": -1.5925,
+        "changePct1m": 9.9396,
+        "changePct1y": 50.5462,
         "currency": "USD",
         "exchange": "JNB",
-        "dayHigh": 7167.9302,
-        "dayLow": 7012.3799,
+        "dayHigh": 7287.54,
+        "dayLow": 7161.1401,
         "yearHigh": 8184.71,
-        "yearLow": 4739.96,
+        "yearLow": 4732.3198,
         "spark30": [
+          7430.1099,
           7157.52,
           7005.4399,
           6803.8301,
@@ -1428,8 +1429,7 @@
           7547.4102,
           7362.6001,
           7232.1201,
-          7199.1201,
-          7084.4302
+          7199.1201
         ]
       }
     },
@@ -1441,20 +1441,21 @@
       "countryMarketCapUsdTn": 0.3,
       "currencyCode": "EUR",
       "quote": {
-        "price": 6314.0303,
-        "previousClose": 6220.0298,
-        "change": 94.0005,
-        "changePct": 1.5113,
-        "changePct1w": 1.2532,
-        "changePct1m": 8.5814,
-        "changePct1y": 43.238,
+        "price": 6220.0298,
+        "previousClose": 6254.3701,
+        "change": -34.3403,
+        "changePct": -0.5491,
+        "changePct1w": 0.0927,
+        "changePct1m": 6.5546,
+        "changePct1y": 43.0589,
         "currency": "EUR",
         "exchange": "STO",
-        "dayHigh": 6347.2456,
-        "dayLow": 6178.3052,
-        "yearHigh": 6347.2456,
-        "yearLow": 4330.6802,
+        "dayHigh": 6287.8198,
+        "dayLow": 6209.3999,
+        "yearHigh": 6318.5698,
+        "yearLow": 4280.0801,
         "spark30": [
+          5956.7402,
           5963.6201,
           6049.4702,
           5978.5801,
@@ -1483,8 +1484,7 @@
           6291.8101,
           6296.7998,
           6254.3701,
-          6220.0298,
-          6314.0303
+          6220.0298
         ]
       }
     },
@@ -1551,20 +1551,21 @@
       "countryMarketCapUsdTn": 0.15,
       "currencyCode": "EUR",
       "quote": {
-        "price": 5813.6899,
-        "previousClose": 5809.6099,
-        "change": 4.0801,
-        "changePct": 0.0702,
-        "changePct1w": -0.8828,
-        "changePct1m": 10.5155,
-        "changePct1y": 44.8985,
+        "price": 5809.6099,
+        "previousClose": 5852.3599,
+        "change": -42.75,
+        "changePct": -0.7305,
+        "changePct1w": -1.2336,
+        "changePct1m": 11.8347,
+        "changePct1y": 48.1038,
         "currency": "EUR",
         "exchange": "VIE",
-        "dayHigh": 5818.5698,
-        "dayLow": 5768.29,
+        "dayHigh": 5898.1099,
+        "dayLow": 5796.6802,
         "yearHigh": 5972.1899,
-        "yearLow": 3925.27,
+        "yearLow": 3881.0801,
         "spark30": [
+          5452.4902,
           5434.3999,
           5348.9902,
           5263.0698,
@@ -1593,8 +1594,7 @@
           5957.7002,
           5866.3301,
           5852.3599,
-          5809.6099,
-          5813.6899
+          5809.6099
         ]
       }
     },
@@ -1606,20 +1606,21 @@
       "countryMarketCapUsdTn": 0.08,
       "currencyCode": "EUR",
       "quote": {
-        "price": 9208.7695,
-        "previousClose": 9185.5996,
-        "change": 23.1699,
-        "changePct": 0.2522,
-        "changePct1w": -0.2572,
-        "changePct1m": 4.9013,
-        "changePct1y": 34.6943,
+        "price": 9185.5996,
+        "previousClose": 9136.3398,
+        "change": 49.2598,
+        "changePct": 0.5392,
+        "changePct1w": -1.7095,
+        "changePct1m": 4.9032,
+        "changePct1y": 34.4841,
         "currency": "EUR",
         "exchange": "LIS",
-        "dayHigh": 9221.96,
-        "dayLow": 9153.6904,
+        "dayHigh": 9218.54,
+        "dayLow": 9136.9902,
         "yearHigh": 9516.4297,
-        "yearLow": 6821.8101,
+        "yearLow": 6703.4302,
         "spark30": [
+          9023.7803,
           9076.3701,
           9152.04,
           9143.7197,
@@ -1648,8 +1649,7 @@
           9185.2803,
           9177.5898,
           9136.3398,
-          9185.5996,
-          9208.7695
+          9185.5996
         ]
       }
     },
@@ -1661,20 +1661,21 @@
       "countryMarketCapUsdTn": 0.1,
       "currencyCode": "EUR",
       "quote": {
-        "price": 2234.6799,
-        "previousClose": 2229.5901,
-        "change": 5.0898,
-        "changePct": 0.2283,
-        "changePct1w": -1.7714,
-        "changePct1m": 6.3338,
-        "changePct1y": 31.107,
+        "price": 2229.5901,
+        "previousClose": 2260.6699,
+        "change": -31.0798,
+        "changePct": -1.3748,
+        "changePct1w": -1.9952,
+        "changePct1m": 6.0916,
+        "changePct1y": 30.8084,
         "currency": "EUR",
         "exchange": "ATH",
-        "dayHigh": 2240.24,
-        "dayLow": 2210.26,
+        "dayHigh": null,
+        "dayLow": null,
         "yearHigh": 2407.0901,
         "yearLow": 1689.15,
         "spark30": [
+          2171.8701,
           2122.6001,
           2102.6101,
           2178.76,
@@ -1703,8 +1704,7 @@
           2309.1001,
           2259.73,
           2260.6699,
-          2229.5901,
-          2234.6799
+          2229.5901
         ]
       }
     },
@@ -1716,20 +1716,21 @@
       "countryMarketCapUsdTn": 0.14,
       "currencyCode": "EUR",
       "quote": {
-        "price": 12366.9805,
-        "previousClose": 12584.7197,
-        "change": -217.7393,
-        "changePct": -1.7302,
-        "changePct1w": -1.7862,
-        "changePct1m": 2.2947,
-        "changePct1y": 20.4164,
+        "price": 12584.7197,
+        "previousClose": 12709.7695,
+        "change": -125.0498,
+        "changePct": -0.9839,
+        "changePct1w": -2.1277,
+        "changePct1m": 5.9209,
+        "changePct1y": 25.6675,
         "currency": "EUR",
         "exchange": "ISE",
-        "dayHigh": 12585.7305,
-        "dayLow": 12273.0195,
+        "dayHigh": 12736.9902,
+        "dayLow": 12559.8701,
         "yearHigh": 13595.5303,
-        "yearLow": 10065.1201,
+        "yearLow": 9921.8604,
         "spark30": [
+          12762.8496,
           12826.96,
           12467.1699,
           12393.71,
@@ -1758,8 +1759,7 @@
           12994.0898,
           12844.6104,
           12709.7695,
-          12584.7197,
-          12366.9805
+          12584.7197
         ]
       }
     },
@@ -1826,20 +1826,21 @@
       "countryMarketCapUsdTn": 0.3,
       "currencyCode": "ILS",
       "quote": {
-        "price": 4328.0498,
-        "previousClose": 4327.8701,
-        "change": 0.1797,
-        "changePct": 0.0042,
-        "changePct1w": 1.5052,
-        "changePct1m": 2.5065,
-        "changePct1y": 69.5772,
+        "price": 4327.8701,
+        "previousClose": 4309.0298,
+        "change": 18.8403,
+        "changePct": 0.4372,
+        "changePct1w": 1.2832,
+        "changePct1m": 1.9995,
+        "changePct1y": 70.6284,
         "currency": "ILS",
         "exchange": "TLV",
-        "dayHigh": 4336.3198,
-        "dayLow": 4288.0498,
+        "dayHigh": 4328.8901,
+        "dayLow": 4271.1802,
         "yearHigh": 4353.25,
-        "yearLow": 2532.3601,
+        "yearLow": 2494.3999,
         "spark30": [
+          4267.7598,
           4331.8501,
           4329.54,
           4204.7598,
@@ -1868,8 +1869,7 @@
           4310.8398,
           4263.8701,
           4309.0298,
-          4327.8701,
-          4328.0498
+          4327.8701
         ]
       }
     },
@@ -1881,20 +1881,21 @@
       "countryMarketCapUsdTn": 2.73,
       "currencyCode": "SAR",
       "quote": {
-        "price": 11109.5898,
-        "previousClose": 11244.9902,
-        "change": -135.4004,
-        "changePct": -1.2041,
-        "changePct1w": -3.8477,
-        "changePct1m": 1.4632,
-        "changePct1y": -4.8927,
+        "price": 11244.9902,
+        "previousClose": 11344.96,
+        "change": -99.9697,
+        "changePct": -0.8812,
+        "changePct1w": -2.6758,
+        "changePct1m": 2.6998,
+        "changePct1y": -3.7336,
         "currency": "SAR",
         "exchange": "SAU",
-        "dayHigh": 11250.1201,
-        "dayLow": 11102.3096,
+        "dayHigh": null,
+        "dayLow": null,
         "yearHigh": 11809.4004,
         "yearLow": 10193.8301,
         "spark30": [
+          10776.3203,
           11007.1904,
           10830.7305,
           10930.0498,
@@ -1923,8 +1924,7 @@
           11464.54,
           11366.79,
           11344.96,
-          11244.9902,
-          11109.5898
+          11244.9902
         ]
       }
     },
@@ -2156,19 +2156,19 @@
       "countryMarketCapUsdTn": 0.16,
       "currencyCode": "NZD",
       "quote": {
-        "price": 12884.9297,
+        "price": 12875.7402,
         "previousClose": 12945.5996,
-        "change": -60.6699,
-        "changePct": -0.4687,
-        "changePct1w": -1.3863,
-        "changePct1m": 1.4422,
-        "changePct1y": 7.7653,
+        "change": -69.8594,
+        "changePct": -0.5396,
+        "changePct1w": -0.2319,
+        "changePct1m": -0.4142,
+        "changePct1y": 7.1386,
         "currency": "NZD",
         "exchange": "NZE",
-        "dayHigh": 13013.0996,
-        "dayLow": 12861.9004,
+        "dayHigh": 12893.8604,
+        "dayLow": 12862.4297,
         "yearHigh": 13757.71,
-        "yearLow": 11836.6904,
+        "yearLow": 11901.8301,
         "spark30": [
           13293.1299,
           13199.29,
@@ -2199,7 +2199,7 @@
           12915.4502,
           12932.3301,
           12945.5996,
-          12884.9297
+          12875.7402
         ]
       }
     },
@@ -2211,17 +2211,17 @@
       "countryMarketCapUsdTn": 0.1,
       "currencyCode": "ARS",
       "quote": {
-        "price": 2854763.75,
+        "price": 2831848.5,
         "previousClose": 2898692.0,
-        "change": -43928.25,
-        "changePct": -1.5155,
-        "changePct1w": -2.3623,
-        "changePct1m": 2.7623,
-        "changePct1y": 27.4788,
+        "change": -66843.5,
+        "changePct": -2.306,
+        "changePct1w": -3.146,
+        "changePct1m": 1.9375,
+        "changePct1y": 26.4556,
         "currency": "",
         "exchange": "BUE",
         "dayHigh": 2904281.75,
-        "dayLow": 2839618.5,
+        "dayLow": 2830075.25,
         "yearHigh": 3296502.0,
         "yearLow": 1635451.0,
         "spark30": [
@@ -2254,7 +2254,7 @@
           2931701.0,
           2940100.0,
           2898692.0,
-          2854763.75
+          2831848.5
         ]
       }
     },
@@ -2317,143 +2317,143 @@
   "fx": {
     "ARSUSD": {
       "price": 0.0007,
-      "changePct": -1.2408,
-      "changePct1w": -2.4069,
-      "changePct1m": -0.0362,
-      "changePct1y": -20.7611
+      "changePct": -0.272,
+      "changePct1w": -1.4495,
+      "changePct1m": 0.9444,
+      "changePct1y": -19.9838
     },
     "ARSGBP": {
       "price": 0.0005,
-      "changePct": -1.8587,
-      "changePct1w": -2.583,
-      "changePct1m": -2.7624,
-      "changePct1y": -22.694
+      "changePct": -0.1859,
+      "changePct1w": -0.9225,
+      "changePct1m": -1.105,
+      "changePct1y": -21.3763
     },
     "AUDUSD": {
-      "price": 0.7144,
-      "changePct": -0.1707,
-      "changePct1w": -0.4434,
-      "changePct1m": 1.9432,
-      "changePct1y": 12.0413
+      "price": 0.7133,
+      "changePct": -0.3561,
+      "changePct1w": -0.37,
+      "changePct1m": 1.8044,
+      "changePct1y": 12.0532
     },
     "AUDGBP": {
-      "price": 0.5299,
-      "changePct": 0.0474,
-      "changePct1w": 0.2708,
-      "changePct1m": 0.8183,
-      "changePct1y": 10.3402
+      "price": 0.5296,
+      "changePct": -0.1043,
+      "changePct1w": 0.0731,
+      "changePct1m": 1.4883,
+      "changePct1y": 10.385
     },
     "BRLUSD": {
-      "price": 0.2009,
-      "changePct": 0.635,
-      "changePct1w": 0.3215,
-      "changePct1m": 6.7418,
-      "changePct1y": 14.9405
+      "price": 0.2006,
+      "changePct": 0.4634,
+      "changePct1w": 0.1505,
+      "changePct1m": 6.5598,
+      "changePct1y": 14.7445
     },
     "BRLGBP": {
-      "price": 0.1488,
+      "price": 0.1475,
       "changePct": 0.0,
       "changePct1w": null,
       "changePct1m": null,
       "changePct1y": null
     },
     "CADUSD": {
-      "price": 0.7305,
-      "changePct": -0.2367,
-      "changePct1w": 0.3017,
-      "changePct1m": 0.1446,
-      "changePct1y": 1.1476
+      "price": 0.73,
+      "changePct": -0.2124,
+      "changePct1w": 0.0117,
+      "changePct1m": 0.2329,
+      "changePct1y": 1.2797
     },
     "CADGBP": {
-      "price": 0.5418,
-      "changePct": -0.0238,
-      "changePct1w": 0.9899,
-      "changePct1m": -0.9649,
-      "changePct1y": -0.3859
+      "price": 0.542,
+      "changePct": 0.0423,
+      "changePct1w": 0.5097,
+      "changePct1m": -0.0463,
+      "changePct1y": -0.2339
     },
     "CHFUSD": {
-      "price": 1.2811,
-      "changePct": -0.2613,
-      "changePct1w": 0.0461,
-      "changePct1m": 1.0441,
-      "changePct1y": 3.6513
+      "price": 1.2717,
+      "changePct": -0.1958,
+      "changePct1w": -0.4019,
+      "changePct1m": 0.0051,
+      "changePct1y": 5.5242
     },
     "CHFGBP": {
-      "price": 0.9444,
-      "changePct": -0.3959,
-      "changePct1w": 0.1714,
-      "changePct1m": -0.7893,
-      "changePct1y": 3.5896
+      "price": 0.9443,
+      "changePct": 0.0616,
+      "changePct1w": 0.0478,
+      "changePct1m": -0.265,
+      "changePct1y": 3.9535
     },
     "CNYUSD": {
       "price": 0.1465,
-      "changePct": -0.0689,
-      "changePct1w": -0.1099,
-      "changePct1m": 0.882,
-      "changePct1y": 7.1248
+      "changePct": -0.0498,
+      "changePct1w": -0.0909,
+      "changePct1m": 0.9012,
+      "changePct1y": 7.1452
     },
     "CNYGBP": {
-      "price": 0.1086,
-      "changePct": 0.13,
-      "changePct1w": 0.5433,
-      "changePct1m": -0.2598,
-      "changePct1y": 5.443
+      "price": 0.1085,
+      "changePct": 0.0267,
+      "changePct1w": 0.4396,
+      "changePct1m": -0.3626,
+      "changePct1y": 5.3343
     },
     "DKKUSD": {
-      "price": 0.1565,
-      "changePct": -0.4296,
-      "changePct1w": -0.96,
-      "changePct1m": 1.1259,
-      "changePct1y": 2.9456
+      "price": 0.1564,
+      "changePct": -0.2026,
+      "changePct1w": -0.8248,
+      "changePct1m": 0.6484,
+      "changePct1y": 3.0552
     },
     "DKKGBP": {
       "price": 0.1161,
-      "changePct": -0.2029,
-      "changePct1w": -0.2475,
-      "changePct1m": 0.0241,
-      "changePct1y": 1.364
+      "changePct": 0.0621,
+      "changePct1w": -0.3844,
+      "changePct1m": 0.331,
+      "changePct1y": 1.5135
     },
     "EURUSD": {
-      "price": 1.1697,
-      "changePct": -0.4,
-      "changePct1w": -0.9475,
-      "changePct1m": 1.1861,
-      "changePct1y": 3.0483
+      "price": 1.1688,
+      "changePct": -0.1566,
+      "changePct1w": -0.8065,
+      "changePct1m": 0.6942,
+      "changePct1y": 3.1814
     },
     "EURGBP": {
-      "price": 0.8675,
-      "changePct": -0.2094,
-      "changePct1w": -0.2713,
-      "changePct1m": 0.0438,
-      "changePct1y": 1.4395
+      "price": 0.8676,
+      "changePct": 0.0611,
+      "changePct1w": -0.3915,
+      "changePct1m": 0.3447,
+      "changePct1y": 1.5997
     },
     "GBPUSD": {
-      "price": 1.348,
-      "changePct": -0.2205,
-      "changePct1w": -0.6911,
-      "changePct1m": 1.1126,
-      "changePct1y": 1.5575
+      "price": 1.3466,
+      "changePct": -0.2512,
+      "changePct1w": -0.441,
+      "changePct1m": 0.3144,
+      "changePct1y": 1.5224
     },
     "HKDUSD": {
       "price": 0.1277,
-      "changePct": -0.0232,
-      "changePct1w": 0.0033,
-      "changePct1m": 0.0188,
-      "changePct1y": -0.9419
+      "changePct": -0.0003,
+      "changePct1w": -0.1202,
+      "changePct1m": 0.0361,
+      "changePct1y": -0.9266
     },
     "HKDGBP": {
-      "price": 0.0947,
-      "changePct": 0.2095,
-      "changePct1w": 0.7092,
-      "changePct1m": -1.0747,
-      "changePct1y": -2.455
+      "price": 0.0948,
+      "changePct": 0.2464,
+      "changePct1w": 0.3238,
+      "changePct1m": -0.2861,
+      "changePct1y": -2.4168
     },
     "IDRUSD": {
       "price": 0.0001,
-      "changePct": -0.9819,
-      "changePct1w": -0.9068,
-      "changePct1m": -1.9864,
-      "changePct1y": -2.5712
+      "changePct": -0.3861,
+      "changePct1w": -0.3105,
+      "changePct1m": -1.3965,
+      "changePct1y": -1.9849
     },
     "IDRGBP": {
       "price": 0.0,
@@ -2463,179 +2463,179 @@
       "changePct1y": null
     },
     "ILSUSD": {
-      "price": 0.3334,
-      "changePct": 0.1387,
-      "changePct1w": -0.104,
-      "changePct1m": 3.6054,
-      "changePct1y": 23.3003
+      "price": 0.3335,
+      "changePct": 0.1888,
+      "changePct1w": -0.054,
+      "changePct1m": 3.6572,
+      "changePct1y": 23.362
     },
     "ILSGBP": {
-      "price": 0.2465,
+      "price": 0.2469,
       "changePct": 0.0,
       "changePct1w": null,
       "changePct1m": null,
       "changePct1y": null
     },
     "INRUSD": {
-      "price": 0.0106,
-      "changePct": -0.4913,
-      "changePct1w": -0.7421,
-      "changePct1m": -0.2016,
-      "changePct1y": -9.4091
+      "price": 0.0107,
+      "changePct": -0.1894,
+      "changePct1w": -0.441,
+      "changePct1m": 0.1011,
+      "changePct1y": -9.1344
     },
     "INRGBP": {
       "price": 0.0079,
-      "changePct": -0.3919,
-      "changePct1w": -0.1394,
-      "changePct1m": -1.3892,
-      "changePct1y": -10.8811
+      "changePct": -0.177,
+      "changePct1w": 0.076,
+      "changePct1m": -1.1765,
+      "changePct1y": -10.6888
     },
     "JPYUSD": {
       "price": 0.0063,
-      "changePct": -0.1028,
-      "changePct1w": -0.4563,
-      "changePct1m": -0.1899,
-      "changePct1y": -10.5612
+      "changePct": -0.1546,
+      "changePct1w": -0.3381,
+      "changePct1m": -0.7863,
+      "changePct1y": -10.3371
     },
     "JPYGBP": {
       "price": 0.0046,
-      "changePct": 0.4542,
-      "changePct1w": 0.5629,
-      "changePct1m": -0.9172,
-      "changePct1y": -11.692
+      "changePct": 0.4325,
+      "changePct1w": 0.4325,
+      "changePct1m": -0.7692,
+      "changePct1y": -11.4416
     },
     "KRWUSD": {
       "price": 0.0007,
-      "changePct": 0.2409,
-      "changePct1w": -0.5512,
-      "changePct1m": 1.4829,
-      "changePct1y": -3.5764
+      "changePct": 0.5305,
+      "changePct1w": -0.2639,
+      "changePct1m": 1.7761,
+      "changePct1y": -3.2978
     },
     "KRWGBP": {
-      "price": 0.0005,
-      "changePct": 9800.0,
-      "changePct1w": 9800.0,
-      "changePct1m": 9800.0,
-      "changePct1y": 9800.0
+      "price": 0.0,
+      "changePct": 0.0,
+      "changePct1w": 0.0,
+      "changePct1m": 0.0,
+      "changePct1y": 0.0
     },
     "MXNUSD": {
-      "price": 0.0575,
-      "changePct": -0.3985,
-      "changePct1w": -0.8396,
-      "changePct1m": 3.1571,
-      "changePct1y": 12.7984
+      "price": 0.0574,
+      "changePct": -0.4158,
+      "changePct1w": -0.9401,
+      "changePct1m": 2.128,
+      "changePct1y": 12.6991
     },
     "MXNGBP": {
       "price": 0.0426,
-      "changePct": -0.2457,
-      "changePct1w": -0.2154,
-      "changePct1m": 1.9909,
-      "changePct1y": 10.9948
+      "changePct": -0.2717,
+      "changePct1w": -0.6161,
+      "changePct1m": 1.7271,
+      "changePct1y": 10.8843
     },
     "MYRUSD": {
-      "price": 0.2525,
-      "changePct": -0.1894,
-      "changePct1w": -0.1894,
-      "changePct1m": -0.5934,
-      "changePct1y": 10.8207
+      "price": 0.2528,
+      "changePct": -0.0632,
+      "changePct1w": -0.0632,
+      "changePct1m": -0.4678,
+      "changePct1y": 10.9608
     },
     "MYRGBP": {
-      "price": 0.1872,
-      "changePct": 0.0754,
-      "changePct1w": 0.5225,
-      "changePct1m": -1.5939,
-      "changePct1y": 9.6326
+      "price": 0.1871,
+      "changePct": 0.0016,
+      "changePct1w": 0.4484,
+      "changePct1m": -1.6665,
+      "changePct1y": 9.5518
     },
     "NZDUSD": {
-      "price": 0.5867,
-      "changePct": -0.5245,
-      "changePct1w": -0.7616,
-      "changePct1m": 0.6167,
-      "changePct1y": -1.5689
+      "price": 0.5856,
+      "changePct": -0.8404,
+      "changePct1w": -0.5083,
+      "changePct1m": 0.0439,
+      "changePct1y": -1.6169
     },
     "NZDGBP": {
-      "price": 0.4351,
-      "changePct": -0.3139,
-      "changePct1w": -0.0827,
-      "changePct1m": -0.4985,
-      "changePct1y": -3.085
+      "price": 0.4347,
+      "changePct": -0.5968,
+      "changePct1w": -0.0736,
+      "changePct1m": -0.2249,
+      "changePct1y": -3.1027
     },
     "PHPUSD": {
-      "price": 0.0165,
-      "changePct": -0.5873,
-      "changePct1w": -0.6683,
-      "changePct1m": -1.6543,
-      "changePct1y": -6.493
+      "price": 0.0166,
+      "changePct": -0.0997,
+      "changePct1w": -0.1812,
+      "changePct1m": -1.172,
+      "changePct1y": -6.0344
     },
     "PHPGBP": {
-      "price": 0.0122,
-      "changePct": -0.828,
-      "changePct1w": -0.4401,
-      "changePct1m": -0.8038,
-      "changePct1y": -7.8727
+      "price": 0.0123,
+      "changePct": -0.0812,
+      "changePct1w": 0.3097,
+      "changePct1m": -0.0568,
+      "changePct1y": -7.1789
     },
     "SARUSD": {
-      "price": 0.2666,
-      "changePct": -0.1184,
-      "changePct1w": -0.0901,
-      "changePct1m": -0.0044,
-      "changePct1y": -0.1041
+      "price": 0.2669,
+      "changePct": -0.0036,
+      "changePct1w": 0.0247,
+      "changePct1m": 0.1105,
+      "changePct1y": 0.0107
     },
     "SARGBP": {
-      "price": 0.1953,
+      "price": 0.1955,
       "changePct": 0.0,
       "changePct1w": null,
       "changePct1m": null,
       "changePct1y": null
     },
     "SEKUSD": {
-      "price": 0.1082,
-      "changePct": -0.6758,
-      "changePct1w": -0.9943,
-      "changePct1m": 1.0869,
-      "changePct1y": 3.8774
+      "price": 0.1081,
+      "changePct": -0.5686,
+      "changePct1w": -0.6799,
+      "changePct1m": 0.7924,
+      "changePct1y": 4.6818
     },
     "SEKGBP": {
       "price": 0.0802,
-      "changePct": -0.4221,
-      "changePct1w": -0.3008,
-      "changePct1m": 0.0811,
-      "changePct1y": 3.0142
+      "changePct": -0.2935,
+      "changePct1w": -0.2252,
+      "changePct1m": 0.5178,
+      "changePct1y": 3.1508
     },
     "SGDUSD": {
-      "price": 0.7831,
-      "changePct": -0.2897,
-      "changePct1w": -0.4965,
-      "changePct1m": 0.39,
-      "changePct1y": 2.8896
+      "price": 0.7825,
+      "changePct": -0.1698,
+      "changePct1w": -0.3733,
+      "changePct1m": -0.2113,
+      "changePct1y": 2.9846
     },
     "SGDGBP": {
-      "price": 0.5809,
-      "changePct": -0.0613,
-      "changePct1w": 0.1991,
-      "changePct1m": -0.707,
-      "changePct1y": 1.3211
+      "price": 0.581,
+      "changePct": 0.0756,
+      "changePct1w": 0.0618,
+      "changePct1m": -0.5258,
+      "changePct1y": 1.4385
     },
     "THBUSD": {
-      "price": 0.0309,
-      "changePct": -0.6177,
-      "changePct1w": -1.2044,
-      "changePct1m": 1.5534,
-      "changePct1y": 3.6442
+      "price": 0.0308,
+      "changePct": -0.555,
+      "changePct1w": -1.2026,
+      "changePct1m": -0.0617,
+      "changePct1y": 3.4536
     },
     "THBGBP": {
       "price": 0.0229,
-      "changePct": -0.4831,
-      "changePct1w": -0.5784,
-      "changePct1m": 2.1764,
-      "changePct1y": 1.9759
+      "changePct": -0.3444,
+      "changePct1w": -0.8459,
+      "changePct1m": -0.4313,
+      "changePct1y": 1.8628
     },
     "TRYUSD": {
-      "price": 0.0223,
-      "changePct": 0.0381,
-      "changePct1w": -0.3882,
-      "changePct1m": -1.3569,
-      "changePct1y": -14.747
+      "price": 0.0222,
+      "changePct": -0.1214,
+      "changePct1w": -0.2806,
+      "changePct1m": -1.4144,
+      "changePct1y": -14.873
     },
     "TRYGBP": {
       "price": 0.0165,
@@ -2645,39 +2645,39 @@
       "changePct1y": null
     },
     "TWDUSD": {
-      "price": 0.0317,
-      "changePct": -0.1712,
-      "changePct1w": 0.1617,
-      "changePct1m": 1.5402,
-      "changePct1y": 3.2902
+      "price": 0.0318,
+      "changePct": 0.0483,
+      "changePct1w": 0.382,
+      "changePct1m": 1.7634,
+      "changePct1y": 3.5174
     },
     "TWDGBP": {
       "price": 0.0235,
-      "changePct": -0.0341,
-      "changePct1w": 0.7508,
-      "changePct1m": 0.3847,
-      "changePct1y": 1.9626
+      "changePct": -0.0638,
+      "changePct1w": 0.4531,
+      "changePct1m": 0.6165,
+      "changePct1y": 1.5075
     },
     "USDGBP": {
-      "price": 0.7419,
-      "changePct": 0.2263,
-      "changePct1w": 0.7012,
-      "changePct1m": -1.0952,
-      "changePct1y": -1.5284
+      "price": 0.7426,
+      "changePct": 0.2518,
+      "changePct1w": 0.443,
+      "changePct1m": -0.3135,
+      "changePct1y": -1.4996
     },
     "ZARUSD": {
-      "price": 0.0603,
-      "changePct": -0.6346,
-      "changePct1w": -1.3366,
-      "changePct1m": 3.0561,
-      "changePct1y": 12.2863
+      "price": 0.0602,
+      "changePct": -0.9692,
+      "changePct1w": -1.3482,
+      "changePct1m": 1.2621,
+      "changePct1y": 12.2477
     },
     "ZARGBP": {
       "price": 0.0447,
-      "changePct": -0.3474,
-      "changePct1w": -0.5821,
-      "changePct1m": 2.0643,
-      "changePct1y": 10.6451
+      "changePct": -0.6452,
+      "changePct1w": -0.8217,
+      "changePct1m": 1.0339,
+      "changePct1y": 10.7482
     }
   },
   "summary": {
