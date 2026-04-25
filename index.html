@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Atlas — Global Markets</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,8 +55,121 @@
     height: 100vh;
     position: relative;
   }
-  @media (max-width: 860px) {
-    .app { grid-template-columns: 1fr; grid-template-rows: 1fr auto; }
+
+  /* =========================================================================
+     MOBILE LAYOUT (≤768px)
+     Stack vertically: globe on top half, panel scrolls beneath. Globe is
+     fixed at 50vh so it stays the visual anchor; panel naturally scrolls
+     within its own section so the country detail / top-10 / heat-strip
+     can all fit even on a small viewport.
+     ========================================================================= */
+  @media (max-width: 768px) {
+    .app {
+      grid-template-columns: 1fr;
+      grid-template-rows: 50vh 50vh;
+      height: 100vh;
+    }
+    .stage { min-height: 0; }
+    .panel {
+      width: 100% !important;          /* override desktop fixed width */
+      max-width: 100%;
+      border-left: none;
+      border-top: 1px solid var(--line);
+      overflow-y: auto;
+    }
+    /* Header in the globe area: less padding, smaller eyebrow + title */
+    .header {
+      padding: 14px 16px 0 16px !important;
+    }
+    .title {
+      font-size: 28px !important;
+      line-height: 1.05;
+    }
+    .eyebrow { font-size: 9px !important; }
+
+    /* Top-right controls: compact horizontal row */
+    .controls {
+      top: 10px !important;
+      right: 12px !important;
+      gap: 4px !important;
+    }
+    .ctrl-btn {
+      font-size: 9px !important;
+      padding: 5px 7px !important;
+    }
+
+    /* Panel padding tighter */
+    .panel-body { padding: 14px 16px 24px !important; }
+    .panel-head { padding: 14px 16px 8px !important; }
+
+    /* Heat-strip: Global on its own row at top, then 4 region cells below */
+    .heat-strip {
+      grid-template-columns: 1fr 1fr 1fr 1fr;  /* default 4-col for regions */
+      gap: 4px;
+    }
+    /* The Global cell spans the full width on mobile */
+    .heat-cell.is-global {
+      grid-column: 1 / -1;
+      padding: 14px 12px;
+    }
+    .heat-cell.is-global .heat-value {
+      font-size: 22px;
+    }
+    .heat-cell { padding: 10px 8px; }
+    .heat-label { font-size: 7px; letter-spacing: 0.1em; }
+    .heat-value { font-size: 13px; }
+    .heat-count { font-size: 7px; }
+
+    /* Global timeline: smaller readout, shorter chart */
+    .tl-readout { font-size: 18px !important; }
+    .tl-chart   { height: 60px !important; }
+
+    /* Top-10 table: drop the 1y column on narrow screens to keep rows
+       readable. Order in CSS: name | price | 1d | 1w | 1m | 1y → hide last */
+    .top-row {
+      grid-template-columns: 1fr 64px 44px 44px 44px !important;
+      gap: 6px !important;
+      padding: 10px 0 !important;
+    }
+    .top-row > :nth-child(6) { display: none; }   /* hide 1y column */
+    .top-row.top-row-head > :nth-child(6) { display: none; }
+    .top-name { font-size: 13px !important; }
+    .top-sub  { font-size: 9px !important; }
+    .top-cell { font-size: 11px !important; }
+    .top-price { font-size: 12px !important; }
+
+    /* Country detail: status bar wraps cleanly */
+    .market-status {
+      gap: 6px 10px;
+      padding: 10px 12px;
+      font-size: 9px;
+    }
+    .market-status .ms-local { margin-left: 0; }   /* don't push to right edge */
+
+    /* Currency block: 1 column instead of 2 */
+    .currency-grid {
+      grid-template-columns: 1fr;
+    }
+
+    /* Tap targets: ensure interactive elements meet 44px minimum */
+    .ctrl-btn, .heat-cell, .top-row, .heat-clear, .news-item, .header-back-btn {
+      min-height: 44px;
+    }
+
+    /* Country header back-button — visible at top of the panel */
+    .header-back { padding: 10px 16px !important; }
+  }
+
+  /* Tighter still on very small phones (≤380px wide) */
+  @media (max-width: 380px) {
+    .heat-cell { padding: 8px 6px; }
+    .heat-cell.is-global .heat-value { font-size: 18px; }
+    .top-row {
+      grid-template-columns: 1fr 56px 40px 40px !important;
+    }
+    /* Drop the 1m column too on tiny screens */
+    .top-row > :nth-child(5) { display: none; }
+    .top-row.top-row-head > :nth-child(5) { display: none; }
   }
 
   .stage { position: relative; overflow: hidden; }
@@ -1532,6 +1646,16 @@
     panelStatus.textContent = `— ${markets.length} ${markets.length === 1 ? 'index' : 'indices'}`;
     document.getElementById('header-back').classList.add('visible');
     renderMarketsForCountry(markets);
+
+    // On mobile (≤768px), the panel sits below the globe with its own
+    // internal scroll. When a country is selected, we want the user to
+    // immediately see the new content from the top — reset the panel's
+    // scroll position to 0 so the status bar / market block / sparkline
+    // are visible without manual scrolling.
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      const panel = document.querySelector('.panel');
+      if (panel) panel.scrollTop = 0;
+    }
   }
 
   function renderMarketsForCountry(markets) {
@@ -1771,6 +1895,15 @@
     panelTitle.innerHTML = 'Global <em>indices</em>';
     document.getElementById('header-back').classList.remove('visible');
     renderTopTable();
+
+    // On mobile, reset the panel's scroll position so the heat-strip
+    // and global timeline are visible at the top of the panel. The
+    // globe stays put at the top of the screen because the layout is
+    // a fixed-height 50vh+50vh grid (no page scroll).
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      const panel = document.querySelector('.panel');
+      if (panel) panel.scrollTop = 0;
+    }
   }
 
   // Render the top-10 table shown on the main (no-country-selected) view.
