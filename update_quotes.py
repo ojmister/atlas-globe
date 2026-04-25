@@ -39,6 +39,7 @@ MARKETS = [
     ('392', 'Japan',                'Nikkei 225',            '^N225',        7.59),
     ('344', 'Hong Kong',            'Hang Seng',             '^HSI',         6.17),
     ('826', 'United Kingdom',       'FTSE 100',              '^FTSE',        3.14),
+    ('826', 'United Kingdom',       'FTSE 250',              '^FTMC',        3.14),
     ('276', 'Germany',              'DAX',                   '^GDAXI',       2.04),
     ('250', 'France',               'CAC 40',                '^FCHI',        1.20),  # Paris via Euronext share
     ('356', 'India',                'BSE Sensex',            '^BSESN',      10.57),
