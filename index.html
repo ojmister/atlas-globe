@@ -426,6 +426,52 @@
   .top-cell.flat { color: var(--ink-dim); }
   .top-cell.na { color: var(--ink-dim); opacity: 0.4; }
 
+  /* Exchange open/closed status badge — sits above the market blocks
+     in the country detail panel. Live-updated every 60s. */
+  .market-status {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    padding: 10px 14px;
+    margin-bottom: 20px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.015);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+  }
+  .market-status .ms-dot {
+    font-size: 12px;
+    line-height: 1;
+  }
+  .market-status .ms-name {
+    color: var(--ink);
+    letter-spacing: 0.05em;
+  }
+  .market-status .ms-state {
+    padding: 2px 8px;
+    border: 1px solid var(--line);
+    letter-spacing: 0.2em;
+  }
+  .market-status .ms-next {
+    opacity: 0.85;
+    letter-spacing: 0.05em;
+    text-transform: none;
+  }
+  .market-status .ms-local {
+    margin-left: auto;
+    opacity: 0.55;
+    text-transform: none;
+    letter-spacing: 0.05em;
+  }
+  .market-status.ms-open  .ms-dot   { color: var(--up); }
+  .market-status.ms-open  .ms-state { color: var(--up); border-color: rgba(74, 222, 128, 0.3); }
+  .market-status.ms-closed .ms-dot   { color: var(--ink-dim); opacity: 0.6; }
+  .market-status.ms-closed .ms-state { color: var(--ink-dim); }
+
   /* Market detail view */
   .market-block {
     padding-bottom: 24px;
@@ -577,16 +623,21 @@
 
   .heat-strip {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 6px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
     margin-bottom: 12px;
   }
   .heat-cell {
-    padding: 14px 12px;
+    padding: 12px 10px;
     border: 1px solid var(--line);
     cursor: pointer;
     transition: background 0.15s, border-color 0.15s, opacity 0.15s;
     position: relative;
+  }
+  /* GLOBAL cell is visually distinct: accent top-border, can't be
+     "filtered away" since it represents everything. */
+  .heat-cell.is-global {
+    border-top: 2px solid var(--accent);
   }
   .heat-cell:hover {
     border-color: var(--accent);
@@ -603,15 +654,20 @@
 
   .heat-label {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.2em;
+    font-size: 8px;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--ink-dim);
     margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  .heat-cell.is-global .heat-label {
+    color: var(--accent);
+    opacity: 0.9;
   }
   .heat-value {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 18px;
+    font-size: 15px;
     letter-spacing: -0.01em;
     color: var(--ink);
   }
@@ -619,7 +675,7 @@
   .heat-cell.down .heat-value { color: var(--down); }
   .heat-count {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
+    font-size: 8px;
     letter-spacing: 0.1em;
     color: var(--ink-dim);
     opacity: 0.7;
@@ -662,27 +718,6 @@
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--ink-dim);
-  }
-  .tl-toggles {
-    display: flex;
-    gap: 2px;
-  }
-  .tl-toggle-btn {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    background: transparent;
-    border: 1px solid var(--line);
-    color: var(--ink-dim);
-    padding: 4px 8px;
-    cursor: pointer;
-    transition: color 0.15s, border-color 0.15s;
-  }
-  .tl-toggle-btn:hover { color: var(--accent); }
-  .tl-toggle-btn.active {
-    color: var(--accent);
-    border-color: var(--accent);
-    background: rgba(228, 179, 99, 0.04);
   }
   .tl-readout {
     font-family: 'JetBrains Mono', monospace;
@@ -964,13 +999,20 @@
   const QUOTES_URL = 'quotes.json';  // relative — served from same GitHub Pages origin
 
 
-  // Regional grouping — each active country ID mapped to one of three
-  // macro regions. Used for the heat-strip at the top of the main view
-  // (weighted by market cap) and for filtering the top-10 table.
+  // Regional grouping — each active country ID mapped to one of four
+  // macro regions. US is split from the rest of the Americas because
+  // it dwarfs everything else; without the split, "Americas" just reads
+  // as a noisier version of the US indicator. A fifth pseudo-region
+  // "GLOBAL" is computed as the weighted average of ALL countries and
+  // shown as a separate cell so the user can see world-wide sentiment
+  // at a glance.
   const COUNTRY_REGION = {
-    // Americas
-    '840':'AMERICAS','124':'AMERICAS','484':'AMERICAS','076':'AMERICAS',
-    '032':'AMERICAS','152':'AMERICAS','170':'AMERICAS','604':'AMERICAS',
+    // United States (broken out)
+    '840':'US',
+    // Americas excluding US
+    '124':'AMERICAS_EX_US','484':'AMERICAS_EX_US','076':'AMERICAS_EX_US',
+    '032':'AMERICAS_EX_US','152':'AMERICAS_EX_US','170':'AMERICAS_EX_US',
+    '604':'AMERICAS_EX_US',
     // EMEA (Europe, Middle East, Africa)
     '826':'EMEA','276':'EMEA','250':'EMEA','756':'EMEA','724':'EMEA',
     '380':'EMEA','528':'EMEA','752':'EMEA','056':'EMEA','578':'EMEA',
@@ -983,10 +1025,142 @@
   };
 
   const REGION_LABELS = {
-    AMERICAS: 'Americas',
-    EMEA:     'EMEA',
-    APAC:     'Asia-Pacific',
+    US:              'United States',
+    AMERICAS_EX_US:  'Americas (ex-US)',
+    EMEA:            'EMEA',
+    APAC:            'Asia-Pacific',
+    GLOBAL:          'Global',
   };
+
+  // Order in which to render the cells in the heat-strip, left→right.
+  const REGION_ORDER = ['GLOBAL', 'US', 'AMERICAS_EX_US', 'EMEA', 'APAC'];
+
+  // Trading hours per exchange, in the exchange's LOCAL time zone.
+  // `tz` is an IANA zone that Intl.DateTimeFormat understands. `open`/
+  // `close` are local "HH:MM" strings. `days` is 0-6 with Sun=0, for the
+  // trading week (most are Mon-Fri = [1,2,3,4,5]; Gulf exchanges trade
+  // Sun-Thu). Keyed by ISO numeric country id.
+  //
+  // This ignores holidays and half-days — accepted tradeoff. The panel
+  // shows "open / closed" not "trading / not trading", so it's right in
+  // spirit most of the time. We don't display hardcoded dates that would
+  // be wrong on real closures.
+  const TRADING_HOURS = {
+    '840': { name: 'NYSE/Nasdaq', tz: 'America/New_York',   open: '09:30', close: '16:00', days: [1,2,3,4,5] },
+    '124': { name: 'TSX',         tz: 'America/Toronto',    open: '09:30', close: '16:00', days: [1,2,3,4,5] },
+    '484': { name: 'BMV',         tz: 'America/Mexico_City',open: '08:30', close: '15:00', days: [1,2,3,4,5] },
+    '076': { name: 'B3',          tz: 'America/Sao_Paulo',  open: '10:00', close: '17:30', days: [1,2,3,4,5] },
+    '032': { name: 'BYMA',        tz: 'America/Argentina/Buenos_Aires', open: '11:00', close: '17:00', days: [1,2,3,4,5] },
+    '152': { name: 'Santiago SE', tz: 'America/Santiago',   open: '09:30', close: '16:00', days: [1,2,3,4,5] },
+    '170': { name: 'BVC',         tz: 'America/Bogota',     open: '09:30', close: '15:55', days: [1,2,3,4,5] },
+    '604': { name: 'BVL',         tz: 'America/Lima',       open: '09:00', close: '16:00', days: [1,2,3,4,5] },
+
+    '826': { name: 'LSE',         tz: 'Europe/London',      open: '08:00', close: '16:30', days: [1,2,3,4,5] },
+    '276': { name: 'Xetra',       tz: 'Europe/Berlin',      open: '09:00', close: '17:30', days: [1,2,3,4,5] },
+    '250': { name: 'Euronext Paris', tz: 'Europe/Paris',    open: '09:00', close: '17:30', days: [1,2,3,4,5] },
+    '756': { name: 'SIX Swiss',   tz: 'Europe/Zurich',      open: '09:00', close: '17:30', days: [1,2,3,4,5] },
+    '724': { name: 'BME',         tz: 'Europe/Madrid',      open: '09:00', close: '17:30', days: [1,2,3,4,5] },
+    '380': { name: 'Borsa Italiana', tz: 'Europe/Rome',     open: '09:00', close: '17:30', days: [1,2,3,4,5] },
+    '528': { name: 'Euronext Amsterdam', tz: 'Europe/Amsterdam', open: '09:00', close: '17:30', days: [1,2,3,4,5] },
+    '752': { name: 'Nasdaq Stockholm', tz: 'Europe/Stockholm', open: '09:00', close: '17:30', days: [1,2,3,4,5] },
+    '056': { name: 'Euronext Brussels', tz: 'Europe/Brussels', open: '09:00', close: '17:30', days: [1,2,3,4,5] },
+    '578': { name: 'Oslo Børs',   tz: 'Europe/Oslo',        open: '09:00', close: '16:30', days: [1,2,3,4,5] },
+    '246': { name: 'Nasdaq Helsinki', tz: 'Europe/Helsinki', open: '10:00', close: '18:30', days: [1,2,3,4,5] },
+    '208': { name: 'Nasdaq Copenhagen', tz: 'Europe/Copenhagen', open: '09:00', close: '17:00', days: [1,2,3,4,5] },
+    '040': { name: 'Wiener Börse', tz: 'Europe/Vienna',     open: '09:00', close: '17:30', days: [1,2,3,4,5] },
+    '620': { name: 'Euronext Lisbon', tz: 'Europe/Lisbon',  open: '08:00', close: '16:30', days: [1,2,3,4,5] },
+    '300': { name: 'ATHEX',       tz: 'Europe/Athens',      open: '10:15', close: '17:20', days: [1,2,3,4,5] },
+    '372': { name: 'Euronext Dublin', tz: 'Europe/Dublin',  open: '08:00', close: '16:30', days: [1,2,3,4,5] },
+    '792': { name: 'BIST',        tz: 'Europe/Istanbul',    open: '10:00', close: '18:00', days: [1,2,3,4,5] },
+    '376': { name: 'TASE',        tz: 'Asia/Jerusalem',     open: '09:45', close: '17:25', days: [0,1,2,3,4] }, // Sun-Thu
+    '682': { name: 'Tadawul',     tz: 'Asia/Riyadh',        open: '10:00', close: '15:00', days: [0,1,2,3,4] }, // Sun-Thu
+    '710': { name: 'JSE',         tz: 'Africa/Johannesburg',open: '09:00', close: '17:00', days: [1,2,3,4,5] },
+
+    '392': { name: 'TSE',         tz: 'Asia/Tokyo',         open: '09:00', close: '15:00', days: [1,2,3,4,5] },
+    '344': { name: 'HKEX',        tz: 'Asia/Hong_Kong',     open: '09:30', close: '16:00', days: [1,2,3,4,5] },
+    '156': { name: 'SSE',         tz: 'Asia/Shanghai',      open: '09:30', close: '15:00', days: [1,2,3,4,5] },
+    '356': { name: 'NSE India',   tz: 'Asia/Kolkata',       open: '09:15', close: '15:30', days: [1,2,3,4,5] },
+    '410': { name: 'KRX',         tz: 'Asia/Seoul',         open: '09:00', close: '15:30', days: [1,2,3,4,5] },
+    '036': { name: 'ASX',         tz: 'Australia/Sydney',   open: '10:00', close: '16:00', days: [1,2,3,4,5] },
+    '158': { name: 'TWSE',        tz: 'Asia/Taipei',        open: '09:00', close: '13:30', days: [1,2,3,4,5] },
+    '702': { name: 'SGX',         tz: 'Asia/Singapore',     open: '09:00', close: '17:00', days: [1,2,3,4,5] },
+    '360': { name: 'IDX',         tz: 'Asia/Jakarta',       open: '09:00', close: '15:50', days: [1,2,3,4,5] },
+    '458': { name: 'Bursa Malaysia', tz: 'Asia/Kuala_Lumpur', open: '09:00', close: '17:00', days: [1,2,3,4,5] },
+    '764': { name: 'SET',         tz: 'Asia/Bangkok',       open: '10:00', close: '16:30', days: [1,2,3,4,5] },
+    '608': { name: 'PSE',         tz: 'Asia/Manila',        open: '09:30', close: '15:30', days: [1,2,3,4,5] },
+    '554': { name: 'NZX',         tz: 'Pacific/Auckland',   open: '10:00', close: '16:45', days: [1,2,3,4,5] },
+  };
+
+  // Given a trading-hours entry, return { state: 'open'|'closed',
+  // nextEvent: 'closes'|'opens', in: ms-until-event }. Purely
+  // calendar math using the exchange's local time zone.
+  function getMarketStatus(hours, now = new Date()) {
+    if (!hours) return null;
+    // Extract the current time IN the exchange's local zone. The
+    // `en-GB` + 24h format is stable and parseable.
+    const fmt = new Intl.DateTimeFormat('en-GB', {
+      timeZone: hours.tz, hour12: false,
+      weekday: 'short', hour: '2-digit', minute: '2-digit',
+    });
+    const parts = fmt.formatToParts(now);
+    const get = k => parts.find(p => p.type === k)?.value;
+    const weekdayMap = { Sun:0, Mon:1, Tue:2, Wed:3, Thu:4, Fri:5, Sat:6 };
+    const dow = weekdayMap[get('weekday')];
+    const [hh, mm] = [+get('hour'), +get('minute')];
+    const nowMin = hh * 60 + mm;
+
+    const [oH, oM] = hours.open.split(':').map(Number);
+    const [cH, cM] = hours.close.split(':').map(Number);
+    const openMin = oH * 60 + oM;
+    const closeMin = cH * 60 + cM;
+
+    const isTradingDay = hours.days.includes(dow);
+    const isOpen = isTradingDay && nowMin >= openMin && nowMin < closeMin;
+
+    if (isOpen) {
+      // Time until close (same day)
+      const mins = closeMin - nowMin;
+      return { state: 'open', nextEvent: 'closes', minsUntil: mins };
+    }
+    // Market is closed. Find minutes until next open.
+    // Start from "today's open" and walk forward day by day until we
+    // hit a trading day AND a time at/after open.
+    let dayOffset = 0;
+    let minsUntil;
+    // If today is a trading day AND we're before today's open, next
+    // event is today's open.
+    if (isTradingDay && nowMin < openMin) {
+      minsUntil = openMin - nowMin;
+    } else {
+      // Start looking tomorrow
+      dayOffset = 1;
+      // Minutes from now to midnight
+      const toMidnight = (24 * 60) - nowMin;
+      while (dayOffset <= 7) {
+        const d = (dow + dayOffset) % 7;
+        if (hours.days.includes(d)) {
+          minsUntil = toMidnight + (dayOffset - 1) * 24 * 60 + openMin;
+          break;
+        }
+        dayOffset++;
+      }
+    }
+    return { state: 'closed', nextEvent: 'opens', minsUntil };
+  }
+
+  // Format a minutes-until number as "2h 14m" / "14m" / "3d 2h".
+  function fmtUntil(mins) {
+    if (mins == null || !isFinite(mins) || mins < 0) return '';
+    if (mins < 60) return `${mins}m`;
+    if (mins < 24 * 60) {
+      const h = Math.floor(mins / 60);
+      const m = mins % 60;
+      return m ? `${h}h ${m}m` : `${h}h`;
+    }
+    const d = Math.floor(mins / (24 * 60));
+    const remH = Math.floor((mins % (24 * 60)) / 60);
+    return remH ? `${d}d ${remH}h` : `${d}d`;
+  }
 
   const state = {
     selectedId: null,
@@ -999,8 +1173,7 @@
     fx: {},                 // FX pairs from quotes.json, e.g. { EURUSD: {price, changePct}, ... }
     generatedAt: null,
     // Main-view filters / view settings
-    regionFilter: null,     // null = all regions; else 'AMERICAS' | 'EMEA' | 'APAC'
-    timelineWindow: 30,     // days — toggle between 30 / 90 / 365
+    regionFilter: null,     // null = all regions; else 'US' | 'AMERICAS_EX_US' | 'EMEA' | 'APAC' | 'GLOBAL'
   };
 
   // =========================================================================
@@ -1146,6 +1319,22 @@
       loadingEl.textContent = 'Failed to load data: ' + err.message;
       console.error(err);
     });
+
+  // Every 60s, refresh the market-status badge if a country is open.
+  // Targeted update (only swap the badge's innerHTML) so we don't
+  // re-render the whole panel and interrupt any scroll position.
+  setInterval(() => {
+    if (!state.selectedId) return;
+    const el = document.querySelector('[data-country-status]');
+    if (!el) return;
+    const fresh = renderMarketStatus(state.selectedId);
+    if (!fresh) return;
+    // Swap the old element with the fresh one (same class/attrs rebuilt)
+    const tmp = document.createElement('div');
+    tmp.innerHTML = fresh;
+    const newEl = tmp.firstElementChild;
+    if (newEl) el.replaceWith(newEl);
+  }, 60_000);
 
   function updateAllPaths() {
     projection.rotate(state.rotation).scale(state.scale);
@@ -1426,8 +1615,36 @@
     }).join('');
 
     panelBody.innerHTML =
+      renderMarketStatus(markets[0]?.id) +
       marketBlocks +
       renderCurrencyBlock(markets[0]?.id);
+  }
+
+  // Render the exchange's open/closed status for a country. Pure
+  // client-side math from TRADING_HOURS + the user's clock. Returns
+  // empty string if we don't have hours for this country.
+  function renderMarketStatus(countryId) {
+    if (!countryId) return '';
+    const hours = TRADING_HOURS[countryId];
+    if (!hours) return '';
+    const status = getMarketStatus(hours);
+    if (!status) return '';
+    const cls = status.state === 'open' ? 'ms-open' : 'ms-closed';
+    const dot = status.state === 'open' ? '●' : '○';
+    const verb = status.nextEvent;  // 'closes' or 'opens'
+    const timeStr = fmtUntil(status.minsUntil);
+    const localTimeStr = new Intl.DateTimeFormat('en-GB', {
+      timeZone: hours.tz, hour12: false,
+      hour: '2-digit', minute: '2-digit',
+    }).format(new Date());
+    return `
+      <div class="market-status ${cls}" data-country-status="${countryId}">
+        <span class="ms-dot">${dot}</span>
+        <span class="ms-name">${escapeHtml(hours.name)}</span>
+        <span class="ms-state">${status.state === 'open' ? 'Open' : 'Closed'}</span>
+        <span class="ms-next">${verb} in ${timeStr}</span>
+        <span class="ms-local">${localTimeStr} local</span>
+      </div>`;
   }
 
   // Render a 30-day sparkline as an inline SVG from a list of closes.
@@ -1563,13 +1780,16 @@
   // listed (e.g. US has S&P/Dow/Nasdaq), the first in the file is the
   // primary and is what the table shows.
   // Compute weighted-average 1d % change per region. Weights are market
-  // caps (USD trillions). Returns { AMERICAS: {pct, count}, EMEA: ..., APAC: ... }
-  // 'count' is the number of countries in that region that returned a quote.
+  // caps (USD trillions). Returns one entry per region plus a GLOBAL
+  // entry aggregating everything.
   function computeRegionStats() {
-    const stats = { AMERICAS: {w: 0, wpct: 0, count: 0},
-                    EMEA:     {w: 0, wpct: 0, count: 0},
-                    APAC:     {w: 0, wpct: 0, count: 0} };
-    // Dedup to one index per country so we don't double-count (e.g. US has 3).
+    const acc = {
+      US:             { w: 0, wpct: 0, count: 0 },
+      AMERICAS_EX_US: { w: 0, wpct: 0, count: 0 },
+      EMEA:           { w: 0, wpct: 0, count: 0 },
+      APAC:           { w: 0, wpct: 0, count: 0 },
+      GLOBAL:         { w: 0, wpct: 0, count: 0 },
+    };
     const seen = new Set();
     for (const m of state.markets) {
       if (seen.has(m.id)) continue;
@@ -1580,24 +1800,29 @@
       if (cp == null || !isFinite(cp)) continue;
       const w = m.countryMarketCapUsdTn || 0;
       if (w <= 0) continue;
-      const s = stats[region];
-      s.w    += w;
-      s.wpct += w * cp;
-      s.count += 1;
+      // Add to the specific region
+      acc[region].w    += w;
+      acc[region].wpct += w * cp;
+      acc[region].count += 1;
+      // Also add to GLOBAL aggregate
+      acc.GLOBAL.w    += w;
+      acc.GLOBAL.wpct += w * cp;
+      acc.GLOBAL.count += 1;
     }
-    return {
-      AMERICAS: { pct: stats.AMERICAS.w ? stats.AMERICAS.wpct / stats.AMERICAS.w : null, count: stats.AMERICAS.count },
-      EMEA:     { pct: stats.EMEA.w     ? stats.EMEA.wpct     / stats.EMEA.w     : null, count: stats.EMEA.count },
-      APAC:     { pct: stats.APAC.w     ? stats.APAC.wpct     / stats.APAC.w     : null, count: stats.APAC.count },
-    };
+    const out = {};
+    for (const [k, s] of Object.entries(acc)) {
+      out[k] = { pct: s.w ? s.wpct / s.w : null, count: s.count };
+    }
+    return out;
   }
 
-  // Render the regional heat-strip: three clickable cells colored by
-  // weighted-average performance. Active filter (if any) gets an
-  // outline. Clicks toggle the filter — handled by renderTopTable.
+  // Render the regional heat-strip: five cells — GLOBAL first, then US,
+  // then Americas-ex-US, EMEA, Asia-Pacific. Cells colored by weighted-
+  // average performance. GLOBAL is a read-only summary; clicking it
+  // clears any active filter. The others toggle a filter on the
+  // top-10 table.
   function renderHeatStrip(stats) {
-    const regions = ['AMERICAS', 'EMEA', 'APAC'];
-    const cells = regions.map(r => {
+    const cells = REGION_ORDER.map(r => {
       const s = stats[r];
       const pct = s?.pct;
       let dir = 'flat', pctStr = '—';
@@ -1606,12 +1831,13 @@
         pctStr = `${pct >= 0 ? '+' : ''}${pct.toFixed(2)}%`;
       }
       const active = state.regionFilter === r ? ' active' : '';
-      const dimmed = (state.regionFilter && state.regionFilter !== r) ? ' dim' : '';
+      const dimmed = (state.regionFilter && state.regionFilter !== r && r !== 'GLOBAL') ? ' dim' : '';
+      const isGlobal = r === 'GLOBAL' ? ' is-global' : '';
       return `
-        <div class="heat-cell ${dir}${active}${dimmed}" data-region="${r}" title="Click to filter">
+        <div class="heat-cell ${dir}${active}${dimmed}${isGlobal}" data-region="${r}" title="${r === 'GLOBAL' ? 'Weighted-average of all markets' : 'Click to filter'}">
           <div class="heat-label">${REGION_LABELS[r]}</div>
           <div class="heat-value">${pctStr}</div>
-          <div class="heat-count">${s.count} markets</div>
+          <div class="heat-count">${s.count} ${s.count === 1 ? 'market' : 'markets'}</div>
         </div>`;
     }).join('');
     const clearBtn = state.regionFilter
@@ -1622,14 +1848,12 @@
       ${clearBtn}`;
   }
 
-  // Compute a weighted-average global "index" series for the current
-  // timelineWindow (30/90/365 days). We align all markets by tail index
-  // (last N closes from each) and compute the weighted mean of
-  // normalized values at each step. Result: a single line showing the
-  // weighted-average percentage change of global markets vs. the
-  // starting point of the window.
-  function computeGlobalTimeline(days) {
-    // One entry per country (dedup like elsewhere).
+  // Compute a weighted-average global "index" series over the trailing
+  // 30 trading days. Each market's 30 closes are normalized to % change
+  // from the first close, then weighted by country market cap. Result
+  // is one series of 30 values: the weighted-average % change of global
+  // markets vs. the start of the window.
+  function computeGlobalTimeline() {
     const seen = new Set();
     const series = [];
     for (const m of state.markets) {
@@ -1637,24 +1861,16 @@
       seen.add(m.id);
       const q = m.quote;
       if (!q || !Array.isArray(q.spark30)) continue;
-      // spark30 is 30 closes. For 90d/1y views we just stretch the same
-      // 30-point series across the visual window — more accurate would
-      // require more history in quotes.json, which would inflate file
-      // size. So: the line's SHAPE is always the last 30 trading days,
-      // but the window toggle changes the label context. Acceptable
-      // compromise given we already have the 30d data.
       const closes = q.spark30;
       if (closes.length < 2) continue;
       const w = m.countryMarketCapUsdTn || 0;
       if (w <= 0) continue;
-      // Normalize to % change from the first close in the series
       const base = closes[0];
       if (!base) continue;
       const norm = closes.map(v => ((v - base) / base) * 100);
       series.push({ weight: w, pcts: norm });
     }
     if (!series.length) return [];
-    // Align lengths to the shortest (should all be 30 but defensive).
     const minLen = Math.min(...series.map(s => s.pcts.length));
     const result = [];
     for (let i = 0; i < minLen; i++) {
@@ -1669,11 +1885,11 @@
   }
 
   // Render the global timeline: single weighted-average line over the
-  // current window, plus a 30/90/1y toggle. The line is colored by the
-  // direction of the overall change from start→end.
+  // trailing 30 trading days. Colored by the direction of the overall
+  // change from start→end. No window toggle — we only have 30d of
+  // data per market in quotes.json.
   function renderGlobalTimeline() {
-    const days = state.timelineWindow;
-    const series = computeGlobalTimeline(days);
+    const series = computeGlobalTimeline();
     if (series.length < 2) return '';
 
     const w = 580, h = 80, pad = 4;
@@ -1693,13 +1909,6 @@
     const endVal = series[series.length - 1];
     const dir = endVal > 0.05 ? 'up' : endVal < -0.05 ? 'down' : 'flat';
     const sign = endVal >= 0 ? '+' : '';
-    const label = days === 365 ? '1Y' : `${days}D`;
-
-    const toggles = [30, 90, 365].map(d => `
-      <button class="tl-toggle-btn ${d === days ? 'active' : ''}"
-              type="button" data-window="${d}">
-        ${d === 365 ? '1Y' : d + 'D'}
-      </button>`).join('');
 
     // Draw a zero baseline (only if 0 is within the visible range)
     const baseline = (min <= 0 && max >= 0)
@@ -1712,12 +1921,11 @@
     return `
       <div class="tl-section">
         <div class="tl-header">
-          <div class="tl-title">— Global index · weighted by market cap</div>
-          <div class="tl-toggles">${toggles}</div>
+          <div class="tl-title">— Global index · 30d · weighted by market cap</div>
         </div>
         <div class="tl-readout ${dir}">
           ${sign}${endVal.toFixed(2)}%
-          <span class="tl-readout-window">last ${label}</span>
+          <span class="tl-readout-window">last 30d</span>
         </div>
         <svg class="tl-chart ${dir}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" aria-label="Global index timeline">
           ${baseline}
@@ -1823,19 +2031,16 @@
       });
     });
 
-    // Region cell clicks toggle the filter
+    // Region cell clicks toggle the filter. Clicking GLOBAL clears
+    // any active filter (since GLOBAL IS all markets).
     panelBody.querySelectorAll('.heat-cell').forEach(el => {
       el.addEventListener('click', () => {
         const r = el.dataset.region;
-        state.regionFilter = (state.regionFilter === r) ? null : r;
-        renderTopTable();
-      });
-    });
-
-    // Timeline window toggles
-    panelBody.querySelectorAll('.tl-toggle-btn').forEach(el => {
-      el.addEventListener('click', () => {
-        state.timelineWindow = parseInt(el.dataset.window, 10);
+        if (r === 'GLOBAL') {
+          state.regionFilter = null;
+        } else {
+          state.regionFilter = (state.regionFilter === r) ? null : r;
+        }
         renderTopTable();
       });
     });
