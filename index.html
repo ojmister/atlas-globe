@@ -66,7 +66,11 @@
   @media (max-width: 768px) {
     .app {
       grid-template-columns: 1fr;
-      grid-template-rows: 50vh 50vh;
+      /* Globe gets ~37.5vh (3/8 of screen), panel gets ~62.5vh (5/8).
+         Previous 50/50 split made the globe dominate on phones; this
+         ratio keeps the globe meaningfully visible while giving the
+         heat-strip + top-10 table enough room to be readable below. */
+      grid-template-rows: 37.5vh 62.5vh;
       height: 100vh;
     }
     .stage { min-height: 0; }
