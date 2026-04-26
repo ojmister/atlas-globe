@@ -234,6 +234,18 @@
       grid-template-columns: 1fr;
     }
 
+    /* Correlation rows: shrink the bar width to keep rows readable on
+       narrow screens. Bar still gives a visual sense of strength but
+       doesn't crowd the country name. */
+    .corr-row {
+      grid-template-columns: 1fr 56px 40px !important;
+      gap: 8px !important;
+      padding: 10px 0 !important;
+      min-height: 44px;
+    }
+    .corr-name { font-size: 12px !important; }
+    .corr-value { font-size: 11px !important; }
+
     /* Tap targets: ensure interactive elements meet 44px minimum */
     .ctrl-btn, .heat-cell, .top-row, .heat-clear, .news-item, .header-back-btn {
       min-height: 44px;
@@ -1094,6 +1106,128 @@
   .fx-pct.flat,      .fx-pct-mini.flat { color: var(--ink-dim); }
   .fx-pct.na,        .fx-pct-mini.na   { color: var(--ink-dim); opacity: 0.4; }
 
+  /* =========================================================================
+     CORRELATIONS — "Moves with" section in country detail panel
+     ========================================================================= */
+  .corr-section {
+    margin-top: 24px;
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+  .corr-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+  .corr-header .corr-window {
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    opacity: 0.5;
+  }
+  .corr-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .corr-row {
+    display: grid;
+    grid-template-columns: 1fr 80px 48px;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    cursor: pointer;
+    border-bottom: 1px solid var(--line);
+    transition: padding-left 0.15s, background-color 0.15s;
+  }
+  .corr-row:hover {
+    padding-left: 4px;
+    background: rgba(255, 255, 255, 0.015);
+  }
+  .corr-row:last-child { border-bottom: none; }
+  .corr-name {
+    font-size: 13px;
+    color: var(--ink);
+  }
+  .corr-bar-wrap {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+  .corr-bar {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.3s ease-out;
+  }
+  /* Color by sign+strength: green-leaning for positive, red for negative.
+     Strong correlations get the strong accent shade; moderate get dimmed. */
+  .corr-bar.pos.strong   { background: var(--up); }
+  .corr-bar.pos.moderate { background: var(--up); opacity: 0.55; }
+  .corr-bar.pos.weak     { background: var(--up); opacity: 0.30; }
+  .corr-bar.neg.strong   { background: var(--down); }
+  .corr-bar.neg.moderate { background: var(--down); opacity: 0.55; }
+  .corr-bar.neg.weak     { background: var(--down); opacity: 0.30; }
+  .corr-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    text-align: right;
+    letter-spacing: 0.02em;
+  }
+  .corr-value.pos.strong   { color: var(--up); }
+  .corr-value.pos.moderate { color: var(--up); opacity: 0.75; }
+  .corr-value.pos.weak     { color: var(--ink-dim); }
+  .corr-value.neg.strong   { color: var(--down); }
+  .corr-value.neg.moderate { color: var(--down); opacity: 0.75; }
+  .corr-value.neg.weak     { color: var(--ink-dim); }
+
+  /* =========================================================================
+     CORRELATION PULSES on the globe — applied to the top-3 correlated
+     countries when one is selected. Slow pulse animation gives the
+     "echo" effect of related markets rippling outward.
+     ========================================================================= */
+  .countries .country.corr-pulse-strong {
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    animation: corrPulseStrong 2s ease-in-out infinite;
+  }
+  .countries .country.corr-pulse-moderate {
+    stroke: var(--accent);
+    stroke-width: 1;
+    animation: corrPulseModerate 2s ease-in-out infinite;
+  }
+  /* Negative correlations: red-tinted pulse instead of gold */
+  .countries .country.corr-pulse-strong.corr-pulse-neg {
+    stroke: var(--down);
+    animation-name: corrPulseStrongNeg;
+  }
+  .countries .country.corr-pulse-moderate.corr-pulse-neg {
+    stroke: var(--down);
+    animation-name: corrPulseModerateNeg;
+  }
+  @keyframes corrPulseStrong {
+    0%, 100% { fill-opacity: 0.18; stroke-opacity: 0.95; }
+    50%      { fill-opacity: 0.34; stroke-opacity: 0.50; }
+  }
+  @keyframes corrPulseModerate {
+    0%, 100% { fill-opacity: 0.10; stroke-opacity: 0.65; }
+    50%      { fill-opacity: 0.20; stroke-opacity: 0.30; }
+  }
+  @keyframes corrPulseStrongNeg {
+    0%, 100% { fill-opacity: 0.16; stroke-opacity: 0.85; }
+    50%      { fill-opacity: 0.30; stroke-opacity: 0.45; }
+  }
+  @keyframes corrPulseModerateNeg {
+    0%, 100% { fill-opacity: 0.10; stroke-opacity: 0.55; }
+    50%      { fill-opacity: 0.18; stroke-opacity: 0.25; }
+  }
+
   .error-msg {
     padding: 14px;
     border: 1px solid rgba(248, 113, 113, 0.3);
@@ -1404,6 +1538,7 @@
     markets: [],            // populated from quotes.json
     marketsByCountry: {},
     fx: {},                 // FX pairs from quotes.json, e.g. { EURUSD: {price, changePct}, ... }
+    correlations: {},       // sparse Pearson matrix from quotes.json: { id: { otherId: corr, ... } }
     generatedAt: null,
     // Main-view filters / view settings
     regionFilter: null,     // null = all regions; else 'US' | 'AMERICAS_EX_US' | 'EMEA' | 'APAC' | 'GLOBAL'
@@ -1510,6 +1645,7 @@
       state.countries = countries;
       state.markets = Array.isArray(quotesData.markets) ? quotesData.markets : [];
       state.fx = (quotesData.fx && typeof quotesData.fx === 'object') ? quotesData.fx : {};
+      state.correlations = (quotesData.correlations && typeof quotesData.correlations === 'object') ? quotesData.correlations : {};
       state.generatedAt = quotesData.generated_at || null;
 
       // Group markets by country id for fast lookup
@@ -1621,6 +1757,43 @@
       el.classed('up',   avg !== null && avg >  0.05);
       el.classed('down', avg !== null && avg < -0.05);
       el.classed('flat', avg !== null && Math.abs(avg) <= 0.05);
+    });
+  }
+
+  // Apply visual "pulse" classes to the top-3 correlated countries on
+  // the globe. Pass null to clear all pulses.
+  // Strength tiers: strong (>0.7), moderate (>0.4). Weak (<0.4)
+  // correlations are NOT pulsed because the visual would be noisy and
+  // the correlation isn't really meaningful at that level.
+  function pulseCorrelatedCountries(countryId) {
+    // Always clear first so we never carry pulses between selections.
+    countriesLayer.selectAll('path')
+      .classed('corr-pulse-strong', false)
+      .classed('corr-pulse-moderate', false)
+      .classed('corr-pulse-neg', false);
+    if (!countryId) return;
+
+    const row = state.correlations[countryId];
+    if (!row) return;
+
+    // Sort by absolute strength desc, take top 3 with |c| ≥ 0.4.
+    const top = Object.entries(row)
+      .filter(([, c]) => Number.isFinite(c) && Math.abs(c) >= 0.4)
+      .sort(([,a], [,b]) => Math.abs(b) - Math.abs(a))
+      .slice(0, 3);
+
+    const byId = {};
+    for (const [id, c] of top) byId[id] = c;
+
+    countriesLayer.selectAll('path').each(function(d) {
+      const c = byId[d.id];
+      if (c == null) return;
+      const el = d3.select(this);
+      const tier = Math.abs(c) > 0.7 ? 'strong' : 'moderate';
+      el.classed(`corr-pulse-${tier}`, true);
+      // Negative correlations get an extra class so we can color them
+      // differently (e.g. red-tinted pulse) — same strength, opposite sign.
+      if (c < 0) el.classed('corr-pulse-neg', true);
     });
   }
 
@@ -1886,7 +2059,75 @@
     panelBody.innerHTML =
       renderMarketStatus(markets[0]?.id) +
       marketBlocks +
-      renderCurrencyBlock(markets[0]?.id);
+      renderCurrencyBlock(markets[0]?.id) +
+      renderCorrelationsBlock(markets[0]?.id);
+
+    // Click a correlation row to jump to that country (same UX as
+    // top-10 rows on the main view).
+    panelBody.querySelectorAll('.corr-row').forEach(el => {
+      el.addEventListener('click', () => {
+        const id = el.dataset.corrTarget;
+        const feature = state.countries.find(c => String(c.id) === id);
+        if (feature) showCountryMarkets(feature);
+      });
+    });
+
+    // Pulse the top-3 correlated countries on the globe so the user
+    // can visually see the connections. Stored in state so we can clear
+    // them on the next selection / clearSelection.
+    pulseCorrelatedCountries(markets[0]?.id);
+  }
+
+  // Render the "Moves with" correlation block. Lists the top-5 most
+  // correlated countries with this one over the last 90 trading days.
+  // Tapping a row navigates to that country.
+  function renderCorrelationsBlock(countryId) {
+    if (!countryId) return '';
+    const row = state.correlations[countryId];
+    if (!row || typeof row !== 'object') return '';
+
+    // Sort by absolute correlation strength descending. Both strong
+    // positive and strong negative correlations are interesting — a
+    // country that moves opposite to another is just as informative as
+    // one that moves with it.
+    const entries = Object.entries(row)
+      .filter(([id, c]) => Number.isFinite(c))
+      .sort(([,a], [,b]) => Math.abs(b) - Math.abs(a))
+      .slice(0, 5);
+
+    if (!entries.length) return '';
+
+    // Find country name for each id by scanning the markets list.
+    const nameFor = (id) => {
+      const m = (state.marketsByCountry[id] || [])[0];
+      return m ? m.country : id;
+    };
+
+    const items = entries.map(([id, c]) => {
+      const sign = c >= 0 ? '+' : '';
+      // Color by strength: strong (>0.7) gold, moderate (>0.4) ink,
+      // weak (<0.4) ink-dim. Negative correlations also colored.
+      const strengthClass = Math.abs(c) > 0.7 ? 'strong'
+                           : Math.abs(c) > 0.4 ? 'moderate'
+                           : 'weak';
+      const dirClass = c >= 0 ? 'pos' : 'neg';
+      // Bar width as a visual indicator of |c|. 100% = perfect correlation.
+      const barWidth = Math.min(100, Math.abs(c) * 100);
+      return `
+        <div class="corr-row" data-corr-target="${escapeAttr(id)}">
+          <div class="corr-name">${escapeHtml(nameFor(id))}</div>
+          <div class="corr-bar-wrap">
+            <div class="corr-bar ${dirClass} ${strengthClass}" style="width:${barWidth.toFixed(1)}%"></div>
+          </div>
+          <div class="corr-value ${dirClass} ${strengthClass}">${sign}${c.toFixed(2)}</div>
+        </div>`;
+    }).join('');
+
+    return `
+      <div class="corr-section">
+        <div class="corr-header">— Moves with <span class="corr-window">90-day correlation</span></div>
+        <div class="corr-list">${items}</div>
+      </div>`;
   }
 
   // Render the exchange's open/closed status for a country. Pure
@@ -2036,6 +2277,7 @@
   function clearSelection() {
     state.selectedId = null;
     updateCountryStyles();
+    pulseCorrelatedCountries(null);   // remove any active correlation pulses
     panelStatus.textContent = '— Top 10 markets';
     panelTitle.innerHTML = 'Global <em>indices</em>';
     document.getElementById('header-back').classList.remove('visible');
@@ -2407,6 +2649,7 @@
       const data = await loadQuotes();
       state.markets = data.markets || [];
       state.fx = (data.fx && typeof data.fx === 'object') ? data.fx : {};
+      state.correlations = (data.correlations && typeof data.correlations === 'object') ? data.correlations : {};
       state.generatedAt = data.generated_at || null;
       state.marketsByCountry = state.markets.reduce((acc, m) => {
         (acc[m.id] = acc[m.id] || []).push(m);
