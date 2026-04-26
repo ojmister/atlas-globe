@@ -66,82 +66,30 @@
   @media (max-width: 768px) {
     .app {
       grid-template-columns: 1fr;
-      /* On mobile we abandon CSS-grid for the rows because the panel
-         needs to be JS-resized smoothly. The panel is absolutely
-         positioned over the bottom of the screen and its height is
-         driven by --panel-height (default 62.5vh — see below). The
-         globe (.stage) fills the screen behind it. */
-      grid-template-rows: 1fr;
+      /* Globe gets ~37.5vh (3/8 of screen), panel gets ~62.5vh (5/8).
+         Previous 50/50 split made the globe dominate on phones; this
+         ratio keeps the globe meaningfully visible while giving the
+         heat-strip + top-10 table enough room to be readable below. */
+      grid-template-rows: 37.5vh 62.5vh;
       height: 100vh;
-      /* Default height the panel snaps to. Set as a CSS custom
-         property so JS can update it via setProperty(). */
-      --panel-height: 62.5vh;
     }
-    .stage {
-      /* Take the full screen — the panel sits ON TOP of the bottom of
-         the globe area, and the globe is given padding-bottom to keep
-         its visual content above the panel at default height. */
-      grid-row: 1;
-      min-height: 0;
-      height: 100vh;
-      padding-bottom: var(--panel-height);
-      box-sizing: border-box;
-      transition: padding-bottom 0.2s ease-out;
-    }
+    .stage { min-height: 0; }
     .panel {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      width: 100% !important;
+      width: 100% !important;          /* override desktop fixed width */
       max-width: 100%;
-      height: var(--panel-height);
       border-left: none;
       border-top: 1px solid var(--line);
       overflow-y: auto;
-      transition: height 0.2s ease-out;
-      /* Don't fight the globe for clicks on the area above the handle */
-      box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.4);
-      z-index: 5;
     }
-    /* Suppress JS animation while a drag is active — set by JS */
-    .app.is-dragging .panel,
-    .app.is-dragging .stage { transition: none !important; }
-
-    /* Drag handle: a small horizontal bar at the very top of the panel
-       that the user grabs to resize. ~24px tall — generous tap target. */
-    .panel-drag-handle {
-      position: sticky;
-      top: 0;
-      z-index: 6;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 24px;
-      cursor: ns-resize;
-      touch-action: none;       /* let JS handle pointer movement */
-      background: var(--bg);
-      border-bottom: 1px solid transparent;
+    /* Header in the globe area: less padding, smaller eyebrow + title */
+    .header {
+      padding: 14px 16px 0 16px !important;
     }
-    .panel-drag-bar {
-      width: 44px;
-      height: 4px;
-      border-radius: 2px;
-      background: var(--ink-dim);
-      opacity: 0.4;
-      transition: opacity 0.15s, background 0.15s;
+    .title {
+      font-size: 28px !important;
+      line-height: 1.05;
     }
-    .panel-drag-handle:active .panel-drag-bar,
-    .panel-drag-handle:hover  .panel-drag-bar {
-      opacity: 0.9;
-      background: var(--accent);
-    }
-
-    /* Hide the title text in the globe header on mobile to recover
-       vertical space. The eyebrow ("— Atlas / Global Markets") stays
-       as a small label so the section still has identity. */
-    .header .title { display: none; }
-    .header { padding-top: 10px !important; padding-bottom: 4px !important; }
+    .eyebrow { font-size: 9px !important; }
 
     /* Top-right controls: compact horizontal row */
     .controls {
@@ -160,14 +108,17 @@
 
     /* Heat-strip: Global on its own row at top, then 4 region cells below */
     .heat-strip {
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;  /* default 4-col for regions */
       gap: 4px;
     }
+    /* The Global cell spans the full width on mobile */
     .heat-cell.is-global {
       grid-column: 1 / -1;
       padding: 14px 12px;
     }
-    .heat-cell.is-global .heat-value { font-size: 22px; }
+    .heat-cell.is-global .heat-value {
+      font-size: 22px;
+    }
     .heat-cell { padding: 10px 8px; }
     .heat-label { font-size: 7px; letter-spacing: 0.1em; }
     .heat-value { font-size: 13px; }
@@ -177,13 +128,14 @@
     .tl-readout { font-size: 18px !important; }
     .tl-chart   { height: 60px !important; }
 
-    /* Top-10 table: drop the 1y column on narrow screens */
+    /* Top-10 table: drop the 1y column on narrow screens to keep rows
+       readable. Order in CSS: name | price | 1d | 1w | 1m | 1y → hide last */
     .top-row {
       grid-template-columns: 1fr 64px 44px 44px 44px !important;
       gap: 6px !important;
       padding: 10px 0 !important;
     }
-    .top-row > :nth-child(6) { display: none; }
+    .top-row > :nth-child(6) { display: none; }   /* hide 1y column */
     .top-row.top-row-head > :nth-child(6) { display: none; }
     .top-name { font-size: 13px !important; }
     .top-sub  { font-size: 9px !important; }
@@ -196,21 +148,20 @@
       padding: 10px 12px;
       font-size: 9px;
     }
-    .market-status .ms-local { margin-left: 0; }
+    .market-status .ms-local { margin-left: 0; }   /* don't push to right edge */
 
     /* Currency block: 1 column instead of 2 */
-    .currency-grid { grid-template-columns: 1fr; }
+    .currency-grid {
+      grid-template-columns: 1fr;
+    }
 
-    /* Tap targets ≥44px */
-    .ctrl-btn, .heat-cell, .top-row, .heat-clear, .header-back-btn {
+    /* Tap targets: ensure interactive elements meet 44px minimum */
+    .ctrl-btn, .heat-cell, .top-row, .heat-clear, .news-item, .header-back-btn {
       min-height: 44px;
     }
-    .header-back { padding: 10px 16px !important; }
-  }
 
-  /* On desktop, hide the drag handle entirely */
-  @media (min-width: 769px) {
-    .panel-drag-handle { display: none; }
+    /* Country header back-button — visible at top of the panel */
+    .header-back { padding: 10px 16px !important; }
   }
 
   /* Tighter still on very small phones (≤380px wide) */
@@ -1503,77 +1454,6 @@
     if (newEl) el.replaceWith(newEl);
   }, 60_000);
 
-  // =========================================================================
-  // MOBILE PANEL DRAG (≤768px only)
-  // The user can drag the handle bar at the top of the panel to resize
-  // it. Release snaps to the nearest of three sizes. Snap points are in
-  // viewport-height units so they translate cleanly across phone sizes.
-  // =========================================================================
-  // Snap heights in vh: collapsed (just shows heat-strip / "peek"
-  // globe), default (overview), country-detail (~70%), expanded (full).
-  const PANEL_SNAPS = [37.5, 62.5, 75, 90];
-  const PANEL_DEFAULT_VH = 62.5;
-  const PANEL_DETAIL_VH  = 75;
-  const appEl = document.querySelector('.app');
-  const dragHandle = document.getElementById('panel-drag-handle');
-
-  function setPanelHeight(vh) {
-    appEl.style.setProperty('--panel-height', vh + 'vh');
-  }
-
-  function snapToNearest(currentVh) {
-    let best = PANEL_SNAPS[0];
-    let bestDist = Infinity;
-    for (const s of PANEL_SNAPS) {
-      const d = Math.abs(s - currentVh);
-      if (d < bestDist) { bestDist = d; best = s; }
-    }
-    return best;
-  }
-
-  // Pointer drag: track the user's vertical movement and translate to
-  // a panel height change. The handle has touch-action:none so the
-  // browser doesn't try to scroll while we're dragging.
-  let drag = null;   // { startY, startVh } while active
-
-  if (dragHandle) {
-    dragHandle.addEventListener('pointerdown', (e) => {
-      // Only track on mobile breakpoints — the handle is hidden via CSS
-      // on desktop but defensive check doesn't hurt.
-      if (!window.matchMedia('(max-width: 768px)').matches) return;
-      e.preventDefault();
-      dragHandle.setPointerCapture(e.pointerId);
-
-      const computed = getComputedStyle(appEl).getPropertyValue('--panel-height') || (PANEL_DEFAULT_VH + 'vh');
-      const currentVh = parseFloat(computed) || PANEL_DEFAULT_VH;
-      drag = { startY: e.clientY, startVh: currentVh, pointerId: e.pointerId };
-      appEl.classList.add('is-dragging');
-    });
-
-    dragHandle.addEventListener('pointermove', (e) => {
-      if (!drag || e.pointerId !== drag.pointerId) return;
-      // Drag UP = panel grows; drag DOWN = panel shrinks.
-      const dy = drag.startY - e.clientY;             // pixels moved upward
-      const dvh = (dy / window.innerHeight) * 100;    // → vh units
-      let next = drag.startVh + dvh;
-      // Clamp to the snap range (small allowance beyond endpoints for
-      // a slight rubber-band feel)
-      next = Math.max(PANEL_SNAPS[0] - 5, Math.min(PANEL_SNAPS[PANEL_SNAPS.length - 1] + 2, next));
-      setPanelHeight(next);
-    });
-
-    const finishDrag = (e) => {
-      if (!drag || e.pointerId !== drag.pointerId) return;
-      const computed = getComputedStyle(appEl).getPropertyValue('--panel-height');
-      const currentVh = parseFloat(computed) || PANEL_DEFAULT_VH;
-      appEl.classList.remove('is-dragging');
-      setPanelHeight(snapToNearest(currentVh));
-      drag = null;
-    };
-    dragHandle.addEventListener('pointerup',     finishDrag);
-    dragHandle.addEventListener('pointercancel', finishDrag);
-  }
-
   function updateAllPaths() {
     projection.rotate(state.rotation).scale(state.scale);
     sphere.attr('d', path);
@@ -1772,12 +1652,11 @@
     renderMarketsForCountry(markets);
 
     // On mobile (≤768px), the panel sits below the globe with its own
-    // internal scroll. When a country is selected, expand the panel to
-    // ~75% of viewport so the user can see the status bar, market
-    // block, sparkline, perf grid AND currency block without scrolling.
-    // Reset the panel's scroll position to top.
+    // internal scroll. When a country is selected, we want the user to
+    // immediately see the new content from the top — reset the panel's
+    // scroll position to 0 so the status bar / market block / sparkline
+    // are visible without manual scrolling.
     if (window.matchMedia('(max-width: 768px)').matches) {
-      setPanelHeight(PANEL_DETAIL_VH);
       const panel = document.querySelector('.panel');
       if (panel) panel.scrollTop = 0;
     }
@@ -2021,11 +1900,11 @@
     document.getElementById('header-back').classList.remove('visible');
     renderTopTable();
 
-    // On mobile, return the panel to the default size and reset its
-    // scroll position so the heat-strip / global timeline / top-10
-    // are visible at the top.
+    // On mobile, reset the panel's scroll position so the heat-strip
+    // and global timeline are visible at the top of the panel. The
+    // globe stays put at the top of the screen because the layout is
+    // a fixed-height 37.5vh+62.5vh grid (no page scroll).
     if (window.matchMedia('(max-width: 768px)').matches) {
-      setPanelHeight(PANEL_DEFAULT_VH);
       const panel = document.querySelector('.panel');
       if (panel) panel.scrollTop = 0;
     }
