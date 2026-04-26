@@ -1766,6 +1766,43 @@
   // Strength tiers: strong (>0.7), moderate (>0.4). Weak (<0.4)
   // correlations are NOT pulsed because the visual would be noisy and
   // the correlation isn't really meaningful at that level.
+  // Compute the centroid of a country's MAINLAND, not the whole
+  // feature. The world-atlas dataset includes overseas territories as
+  // part of the parent country (France includes Réunion + French
+  // Guiana, Netherlands includes Caribbean ABC islands, US includes
+  // Hawaii/Alaska/Guam, etc.). d3.geoCentroid averages over the entire
+  // MultiPolygon, which for these countries lands somewhere in the
+  // ocean or a neighboring country. Using the largest polygon's
+  // centroid instead gives the mainland reliably.
+  function mainlandCentroid(feature) {
+    if (!feature || !feature.geometry) return [0, 0];
+    const g = feature.geometry;
+
+    // Polygon: only one ring set, just use d3.geoCentroid directly.
+    if (g.type === 'Polygon') return d3.geoCentroid(feature);
+
+    // MultiPolygon: pick the polygon with the largest area, then
+    // centroid only that one.
+    if (g.type === 'MultiPolygon' && Array.isArray(g.coordinates)) {
+      let bestArea = -1;
+      let bestPolygon = null;
+      for (const poly of g.coordinates) {
+        // Build a temporary GeoJSON Polygon to measure its area on
+        // the sphere. d3.geoArea returns steradians; we don't care
+        // about the units, just the comparison.
+        const candidate = { type: 'Polygon', coordinates: poly };
+        const area = d3.geoArea(candidate);
+        if (area > bestArea) {
+          bestArea = area;
+          bestPolygon = candidate;
+        }
+      }
+      if (bestPolygon) return d3.geoCentroid(bestPolygon);
+    }
+    // Fallback: whatever d3 says
+    return d3.geoCentroid(feature);
+  }
+
   // Draw great-circle arcs from a country to its top-3 correlated
   // countries. Arcs use D3's geoPath, so they curve along the globe
   // surface and re-render on rotation via updateAllPaths().
@@ -1796,14 +1833,14 @@
       // Find the centroid of the SOURCE country (the one selected).
       const srcFeature = state.countries.find(c => String(c.id) === String(countryId));
       if (!srcFeature) return;
-      const srcCentroid = d3.geoCentroid(srcFeature);
+      const srcCentroid = mainlandCentroid(srcFeature);
 
       // For each correlated country, find its centroid and draw an arc.
       // Arc strength encoded by stroke-width (1.5–3.5px) and opacity.
       for (const [otherId, c] of top) {
         const dstFeature = state.countries.find(f => String(f.id) === String(otherId));
         if (!dstFeature) continue;
-        const dstCentroid = d3.geoCentroid(dstFeature);
+        const dstCentroid = mainlandCentroid(dstFeature);
 
         // Build a GeoJSON LineString. d3.geoPath turns this into a
         // proper great-circle arc on the projected sphere — D3 samples
@@ -2655,7 +2692,7 @@
   }
 
   function flyToCountry(feature) {
-    const centroid = d3.geoCentroid(feature);
+    const centroid = mainlandCentroid(feature);
     const target = [-centroid[0], -centroid[1], 0];
     const start = [...state.rotation];
     const interp = d3.interpolate(start, target);
