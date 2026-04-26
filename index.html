@@ -69,16 +69,36 @@
       /* Globe gets ~37.5vh (3/8 of screen), panel gets ~62.5vh (5/8).
          Previous 50/50 split made the globe dominate on phones; this
          ratio keeps the globe meaningfully visible while giving the
-         heat-strip + top-10 table enough room to be readable below. */
+         heat-strip + top-10 table enough room to be readable below.
+
+         IMPORTANT: use dvh (dynamic viewport height) not vh, so the
+         layout matches the *currently visible* area excluding the
+         mobile browser's URL bar / toolbar. Without this, the bottom
+         of the panel sits behind the bottom toolbar and the user
+         can't scroll content into view. dvh is supported in iOS
+         Safari 15.4+ and Chrome 108+ (effectively all current phones);
+         the @supports check below provides a vh fallback for older
+         browsers. */
       grid-template-rows: 37.5vh 62.5vh;
       height: 100vh;
       transition: grid-template-rows 0.25s ease-out;
+    }
+    @supports (height: 100dvh) {
+      .app {
+        grid-template-rows: 37.5dvh 62.5dvh;
+        height: 100dvh;
+      }
     }
     /* When the user taps "Expand", we add the .panel-expanded class to
        .app and the panel grows to 90vh while the globe shrinks to a
        small banner at the top. Tapping again restores the default. */
     .app.panel-expanded {
       grid-template-rows: 10vh 90vh;
+    }
+    @supports (height: 100dvh) {
+      .app.panel-expanded {
+        grid-template-rows: 10dvh 90dvh;
+      }
     }
     .stage { min-height: 0; }
     .panel {
@@ -88,6 +108,13 @@
       border-top: 1px solid var(--line);
       overflow-y: auto;
       position: relative;
+      /* Safety: ensure scroll content can clear iOS Safari's bottom
+         home-indicator bar and any browser chrome that dvh might miss
+         on edge cases. env(safe-area-inset-bottom) is the iOS notch /
+         home-indicator inset; the +24 gives a small visual buffer so
+         the last item isn't flush against the bottom edge. */
+      padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+      box-sizing: border-box;
     }
     /* Expand/collapse button — sticky to top of panel so it's always
        visible while the panel scrolls. Designed as a "thumb-friendly"
