@@ -1195,44 +1195,30 @@
   .corr-value.neg.weak     { color: var(--ink-dim); }
 
   /* =========================================================================
-     CORRELATION PULSES on the globe — applied to the top-3 correlated
-     countries when one is selected. Slow pulse animation gives the
-     "echo" effect of related markets rippling outward.
+     CORRELATION ARCS on the globe — great-circle lines drawn between a
+     selected country and its top-3 most correlated partners. Gold for
+     positive correlations, red for negative. The lines are clipped by
+     the projection's clipAngle so arcs going through the far hemisphere
+     simply don't render — no need for explicit visibility checks.
      ========================================================================= */
-  .countries .country.corr-pulse-strong {
-    stroke: var(--accent);
-    stroke-width: 1.5;
-    animation: corrPulseStrong 2s ease-in-out infinite;
+  .corr-arc {
+    fill: none;
+    pointer-events: none;          /* arcs are decorative, never block clicks */
+    stroke-linecap: round;
   }
-  .countries .country.corr-pulse-moderate {
-    stroke: var(--accent);
-    stroke-width: 1;
-    animation: corrPulseModerate 2s ease-in-out infinite;
+  .corr-arc.arc-pos { stroke: var(--accent); }
+  .corr-arc.arc-neg { stroke: var(--down); }
+  .corr-arc.arc-strong   { opacity: 0.85; }
+  .corr-arc.arc-moderate { opacity: 0.55; }
+
+  /* Subtle glow for strong arcs to make them read against country fills.
+     SVG drop-shadow filter would be ideal but is heavier — use a stroke
+     under-layer effect via filter instead. Cheap and looks good. */
+  .corr-arc.arc-strong {
+    filter: drop-shadow(0 0 3px rgba(228, 179, 99, 0.45));
   }
-  /* Negative correlations: red-tinted pulse instead of gold */
-  .countries .country.corr-pulse-strong.corr-pulse-neg {
-    stroke: var(--down);
-    animation-name: corrPulseStrongNeg;
-  }
-  .countries .country.corr-pulse-moderate.corr-pulse-neg {
-    stroke: var(--down);
-    animation-name: corrPulseModerateNeg;
-  }
-  @keyframes corrPulseStrong {
-    0%, 100% { fill-opacity: 0.18; stroke-opacity: 0.95; }
-    50%      { fill-opacity: 0.34; stroke-opacity: 0.50; }
-  }
-  @keyframes corrPulseModerate {
-    0%, 100% { fill-opacity: 0.10; stroke-opacity: 0.65; }
-    50%      { fill-opacity: 0.20; stroke-opacity: 0.30; }
-  }
-  @keyframes corrPulseStrongNeg {
-    0%, 100% { fill-opacity: 0.16; stroke-opacity: 0.85; }
-    50%      { fill-opacity: 0.30; stroke-opacity: 0.45; }
-  }
-  @keyframes corrPulseModerateNeg {
-    0%, 100% { fill-opacity: 0.10; stroke-opacity: 0.55; }
-    50%      { fill-opacity: 0.18; stroke-opacity: 0.25; }
+  .corr-arc.arc-strong.arc-neg {
+    filter: drop-shadow(0 0 3px rgba(248, 113, 113, 0.45));
   }
 
   .error-msg {
@@ -1615,7 +1601,14 @@
     .attr('d', path);
 
   const countriesLayer = g.append('g');
-  const bordersLayer = g.append('g');
+  const bordersLayer   = g.append('g');
+  // Arcs layer for correlation lines — appended LAST so it renders on
+  // top of country fills and borders. Lines drawn into this group use
+  // d3.geoPath with the same projection, so they curve along the globe
+  // surface and re-render correctly on rotation. The projection's
+  // clipAngle:90 (set elsewhere) automatically hides arcs whose
+  // endpoints are on the far hemisphere.
+  const arcsLayer = g.append('g').attr('class', 'arcs');
 
   // Load country geometry
   // Using the 50m resolution atlas (~800KB) instead of 110m (~110KB).
@@ -1746,6 +1739,7 @@
     equatorPath.attr('d', path);
     countriesLayer.selectAll('path').attr('d', path);
     bordersLayer.select('path').attr('d', path);
+    arcsLayer.selectAll('path').attr('d', path);   // re-project correlation arcs
     atmoCircle.attr('r', state.scale * 1.15);
   }
 
@@ -1772,41 +1766,74 @@
   // Strength tiers: strong (>0.7), moderate (>0.4). Weak (<0.4)
   // correlations are NOT pulsed because the visual would be noisy and
   // the correlation isn't really meaningful at that level.
-  function pulseCorrelatedCountries(countryId) {
-    // Always clear first so we never carry pulses between selections.
-    // Wrap in a try/catch — the entire feature is non-essential, so a
-    // failure here must NOT block the country panel from opening.
+  // Draw great-circle arcs from a country to its top-3 correlated
+  // countries. Arcs use D3's geoPath, so they curve along the globe
+  // surface and re-render on rotation via updateAllPaths().
+  //
+  // Replaced the previous pulse-class approach because pulses were
+  // hard to see on tightly-clustered regions (e.g. Europe) and
+  // didn't show "directionality" — i.e. that selected→A and selected→B
+  // are both connections from the SAME country. Arcs make this obvious.
+  //
+  // Pass null/undefined countryId to clear all arcs.
+  function drawCorrelationArcs(countryId) {
     try {
-      countriesLayer.selectAll('path')
-        .classed('corr-pulse-strong', false)
-        .classed('corr-pulse-moderate', false)
-        .classed('corr-pulse-neg', false);
+      // Always clear first
+      arcsLayer.selectAll('*').remove();
       if (!countryId) return;
       if (!state.correlations || typeof state.correlations !== 'object') return;
 
       const row = state.correlations[countryId];
       if (!row || typeof row !== 'object') return;
 
-      // Sort by absolute strength desc, take top 3 with |c| ≥ 0.4.
+      // Top 3 correlations with |c| ≥ 0.4 — same threshold as before.
       const top = Object.entries(row)
         .filter(([, c]) => Number.isFinite(c) && Math.abs(c) >= 0.4)
         .sort(([,a], [,b]) => Math.abs(b) - Math.abs(a))
         .slice(0, 3);
+      if (!top.length) return;
 
-      const byId = {};
-      for (const [id, c] of top) byId[id] = c;
+      // Find the centroid of the SOURCE country (the one selected).
+      const srcFeature = state.countries.find(c => String(c.id) === String(countryId));
+      if (!srcFeature) return;
+      const srcCentroid = d3.geoCentroid(srcFeature);
 
-      countriesLayer.selectAll('path').each(function(d) {
-        const c = byId[d.id];
-        if (c == null) return;
-        const el = d3.select(this);
-        const tier = Math.abs(c) > 0.7 ? 'strong' : 'moderate';
-        el.classed(`corr-pulse-${tier}`, true);
-        if (c < 0) el.classed('corr-pulse-neg', true);
-      });
+      // For each correlated country, find its centroid and draw an arc.
+      // Arc strength encoded by stroke-width (1.5–3.5px) and opacity.
+      for (const [otherId, c] of top) {
+        const dstFeature = state.countries.find(f => String(f.id) === String(otherId));
+        if (!dstFeature) continue;
+        const dstCentroid = d3.geoCentroid(dstFeature);
+
+        // Build a GeoJSON LineString. d3.geoPath turns this into a
+        // proper great-circle arc on the projected sphere — D3 samples
+        // the line segment densely so curvature is correct.
+        const arcGeometry = {
+          type: 'LineString',
+          coordinates: [srcCentroid, dstCentroid],
+        };
+
+        // Strength → stroke width. Strong (>0.7) = 3px, moderate = 1.8px
+        const strong = Math.abs(c) > 0.7;
+        const width  = strong ? 3 : 1.8;
+        const dirCls = c >= 0 ? 'arc-pos' : 'arc-neg';
+        const strCls = strong ? 'arc-strong' : 'arc-moderate';
+
+        arcsLayer.append('path')
+          .datum(arcGeometry)
+          .attr('class', `corr-arc ${dirCls} ${strCls}`)
+          .attr('d', path)
+          .attr('stroke-width', width);
+      }
     } catch (e) {
-      console.warn('pulseCorrelatedCountries failed:', e);
+      console.warn('drawCorrelationArcs failed:', e);
     }
+  }
+
+  // Backwards-compatible alias — old callers used `pulseCorrelatedCountries`.
+  // Keep the name working so we don't have to touch every call site.
+  function pulseCorrelatedCountries(countryId) {
+    drawCorrelationArcs(countryId);
   }
 
   // =========================================================================
