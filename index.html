@@ -72,6 +72,13 @@
          heat-strip + top-10 table enough room to be readable below. */
       grid-template-rows: 37.5vh 62.5vh;
       height: 100vh;
+      transition: grid-template-rows 0.25s ease-out;
+    }
+    /* When the user taps "Expand", we add the .panel-expanded class to
+       .app and the panel grows to 90vh while the globe shrinks to a
+       small banner at the top. Tapping again restores the default. */
+    .app.panel-expanded {
+      grid-template-rows: 10vh 90vh;
     }
     .stage { min-height: 0; }
     .panel {
@@ -80,7 +87,49 @@
       border-left: none;
       border-top: 1px solid var(--line);
       overflow-y: auto;
+      position: relative;
     }
+    /* Expand/collapse button — sticky to top of panel so it's always
+       visible while the panel scrolls. Designed as a "thumb-friendly"
+       full-width pill rather than a fiddly handle. */
+    .panel-toggle {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      min-height: 36px;
+      padding: 8px 14px;
+      background: var(--bg);
+      border: none;
+      border-bottom: 1px solid var(--line);
+      cursor: pointer;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      transition: color 0.15s, background 0.15s;
+    }
+    .panel-toggle:hover,
+    .panel-toggle:active {
+      color: var(--accent);
+      background: rgba(228, 179, 99, 0.04);
+    }
+    .panel-toggle-arrow {
+      display: inline-block;
+      font-size: 11px;
+      line-height: 1;
+      transition: transform 0.2s ease-out;
+    }
+    /* Flip the arrow when expanded (↓ for "collapse") */
+    .app.panel-expanded .panel-toggle-arrow {
+      transform: rotate(180deg);
+    }
+
     /* Header in the globe area: less padding, smaller eyebrow + title */
     .header {
       padding: 14px 16px 0 16px !important;
@@ -90,6 +139,12 @@
       line-height: 1.05;
     }
     .eyebrow { font-size: 9px !important; }
+    /* When the panel is expanded, hide the globe header to maximize the
+       tiny remaining globe space. */
+    .app.panel-expanded .header {
+      opacity: 0;
+      pointer-events: none;
+    }
 
     /* Top-right controls: compact horizontal row */
     .controls {
@@ -162,6 +217,35 @@
 
     /* Country header back-button — visible at top of the panel */
     .header-back { padding: 10px 16px !important; }
+
+    /* === COMPACT PANEL HEADER ON MOBILE ===
+       Halve the vertical real estate the panel header consumes.
+       Back-button row, "100 stock markets" eyebrow, "Yahoo Finance"
+       sub line, and "Pick a country" title all condensed. */
+    .panel-header {
+      padding: 10px 16px 8px !important;
+    }
+    .panel-eyebrow {
+      font-size: 9px !important;
+      margin-bottom: 4px !important;
+    }
+    .panel-eyebrow .refresh {
+      font-size: 9px !important;
+    }
+    .panel-title {
+      font-size: 18px !important;
+      line-height: 1.1 !important;
+    }
+    .panel-sub {
+      font-size: 9px !important;
+      margin-top: 4px !important;
+    }
+    .header-back {
+      padding: 4px 16px !important;
+      font-size: 9px !important;
+      min-height: 32px !important;
+    }
+
   }
 
   /* Tighter still on very small phones (≤380px wide) */
@@ -1061,7 +1145,15 @@
     <div class="hint">Drag to rotate — scroll to zoom</div>
   </div>
 
-  <aside class="panel">
+  <aside class="panel" id="panel">
+    <!-- Mobile-only expand/collapse toggle. Hidden on desktop via CSS.
+         Tapping switches the panel between default (62.5vh) and expanded
+         (90vh) so the user can see country detail / top-10 etc. without
+         scrolling the panel internally. -->
+    <button class="panel-toggle" id="panel-toggle" type="button" aria-label="Expand panel">
+      <span class="panel-toggle-arrow">↑</span>
+      <span class="panel-toggle-label">Expand</span>
+    </button>
     <div class="panel-header">
       <button class="header-back" id="header-back" aria-label="Back to top 10">
         <span class="arrow">←</span> Back
@@ -1454,6 +1546,33 @@
     if (newEl) el.replaceWith(newEl);
   }, 60_000);
 
+  // =========================================================================
+  // MOBILE PANEL TOGGLE (≤768px only)
+  // The "↑ Expand" / "↓ Collapse" button at the top of the panel swaps
+  // a class on .app, which CSS uses to switch between two grid layouts:
+  //   default:  37.5vh globe / 62.5vh panel
+  //   expanded: 10vh globe   / 90vh panel
+  // No JS pointer-event drag — just a class toggle. Reliable on every
+  // mobile browser without conflicting with scroll behavior.
+  // =========================================================================
+  const appEl = document.querySelector('.app');
+  const panelToggle = document.getElementById('panel-toggle');
+
+  function setPanelExpanded(expanded) {
+    appEl.classList.toggle('panel-expanded', !!expanded);
+    if (panelToggle) {
+      panelToggle.setAttribute('aria-label', expanded ? 'Collapse panel' : 'Expand panel');
+      const lbl = panelToggle.querySelector('.panel-toggle-label');
+      if (lbl) lbl.textContent = expanded ? 'Collapse' : 'Expand';
+    }
+  }
+
+  if (panelToggle) {
+    panelToggle.addEventListener('click', () => {
+      setPanelExpanded(!appEl.classList.contains('panel-expanded'));
+    });
+  }
+
   function updateAllPaths() {
     projection.rotate(state.rotation).scale(state.scale);
     sphere.attr('d', path);
@@ -1651,12 +1770,11 @@
     document.getElementById('header-back').classList.add('visible');
     renderMarketsForCountry(markets);
 
-    // On mobile (≤768px), the panel sits below the globe with its own
-    // internal scroll. When a country is selected, we want the user to
-    // immediately see the new content from the top — reset the panel's
-    // scroll position to 0 so the status bar / market block / sparkline
-    // are visible without manual scrolling.
+    // On mobile (≤768px), the panel sits below the globe. Auto-expand
+    // it so the user immediately sees country detail without scrolling
+    // or tapping. Reset the panel's internal scroll position to top.
     if (window.matchMedia('(max-width: 768px)').matches) {
+      setPanelExpanded(true);
       const panel = document.querySelector('.panel');
       if (panel) panel.scrollTop = 0;
     }
@@ -1900,11 +2018,11 @@
     document.getElementById('header-back').classList.remove('visible');
     renderTopTable();
 
-    // On mobile, reset the panel's scroll position so the heat-strip
-    // and global timeline are visible at the top of the panel. The
-    // globe stays put at the top of the screen because the layout is
-    // a fixed-height 37.5vh+62.5vh grid (no page scroll).
+    // On mobile, collapse the panel back to the default size and reset
+    // its scroll position so the heat-strip / global timeline / top-10
+    // are visible at the top.
     if (window.matchMedia('(max-width: 768px)').matches) {
+      setPanelExpanded(false);
       const panel = document.querySelector('.panel');
       if (panel) panel.scrollTop = 0;
     }
