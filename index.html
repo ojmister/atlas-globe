@@ -296,6 +296,13 @@
     .top-row.top-row-head > :nth-child(5) { display: none; }
   }
 
+  /* The expand/collapse panel toggle is mobile-only. On desktop the
+     panel is always at full height in the side-by-side layout, so the
+     toggle has no purpose and would just be visual clutter. Hide it. */
+  @media (min-width: 769px) {
+    .panel-toggle { display: none !important; }
+  }
+
   .stage { position: relative; overflow: hidden; }
 
   #globe {
@@ -1767,34 +1774,39 @@
   // the correlation isn't really meaningful at that level.
   function pulseCorrelatedCountries(countryId) {
     // Always clear first so we never carry pulses between selections.
-    countriesLayer.selectAll('path')
-      .classed('corr-pulse-strong', false)
-      .classed('corr-pulse-moderate', false)
-      .classed('corr-pulse-neg', false);
-    if (!countryId) return;
+    // Wrap in a try/catch — the entire feature is non-essential, so a
+    // failure here must NOT block the country panel from opening.
+    try {
+      countriesLayer.selectAll('path')
+        .classed('corr-pulse-strong', false)
+        .classed('corr-pulse-moderate', false)
+        .classed('corr-pulse-neg', false);
+      if (!countryId) return;
+      if (!state.correlations || typeof state.correlations !== 'object') return;
 
-    const row = state.correlations[countryId];
-    if (!row) return;
+      const row = state.correlations[countryId];
+      if (!row || typeof row !== 'object') return;
 
-    // Sort by absolute strength desc, take top 3 with |c| ≥ 0.4.
-    const top = Object.entries(row)
-      .filter(([, c]) => Number.isFinite(c) && Math.abs(c) >= 0.4)
-      .sort(([,a], [,b]) => Math.abs(b) - Math.abs(a))
-      .slice(0, 3);
+      // Sort by absolute strength desc, take top 3 with |c| ≥ 0.4.
+      const top = Object.entries(row)
+        .filter(([, c]) => Number.isFinite(c) && Math.abs(c) >= 0.4)
+        .sort(([,a], [,b]) => Math.abs(b) - Math.abs(a))
+        .slice(0, 3);
 
-    const byId = {};
-    for (const [id, c] of top) byId[id] = c;
+      const byId = {};
+      for (const [id, c] of top) byId[id] = c;
 
-    countriesLayer.selectAll('path').each(function(d) {
-      const c = byId[d.id];
-      if (c == null) return;
-      const el = d3.select(this);
-      const tier = Math.abs(c) > 0.7 ? 'strong' : 'moderate';
-      el.classed(`corr-pulse-${tier}`, true);
-      // Negative correlations get an extra class so we can color them
-      // differently (e.g. red-tinted pulse) — same strength, opposite sign.
-      if (c < 0) el.classed('corr-pulse-neg', true);
-    });
+      countriesLayer.selectAll('path').each(function(d) {
+        const c = byId[d.id];
+        if (c == null) return;
+        const el = d3.select(this);
+        const tier = Math.abs(c) > 0.7 ? 'strong' : 'moderate';
+        el.classed(`corr-pulse-${tier}`, true);
+        if (c < 0) el.classed('corr-pulse-neg', true);
+      });
+    } catch (e) {
+      console.warn('pulseCorrelatedCountries failed:', e);
+    }
   }
 
   // =========================================================================
@@ -1977,6 +1989,13 @@
   }
 
   function renderMarketsForCountry(markets) {
+    // Defensive guard — should always be set by callers, but if a click
+    // somehow reaches here for a country with no quote data, fall back
+    // to an empty state rather than crashing.
+    if (!Array.isArray(markets) || !markets.length) {
+      panelBody.innerHTML = `<div class="empty-state">No market data for this country.</div>`;
+      return;
+    }
     const marketBlocks = markets.map(m => {
       if (!m.quote) {
         return `
@@ -2083,6 +2102,9 @@
   // Tapping a row navigates to that country.
   function renderCorrelationsBlock(countryId) {
     if (!countryId) return '';
+    // Defensive: state.correlations defaults to {} but could in rare
+    // cases (very old cached quotes.json) be missing entirely.
+    if (!state.correlations || typeof state.correlations !== 'object') return '';
     const row = state.correlations[countryId];
     if (!row || typeof row !== 'object') return '';
 
