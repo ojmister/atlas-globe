@@ -134,11 +134,35 @@
     .header {
       padding: 14px 16px 0 16px !important;
     }
+    /* Hide the "Monitoring the situation" title on mobile to recover
+       vertical space for the globe. The eyebrow stays as a small
+       identifying label. */
     .title {
-      font-size: 28px !important;
-      line-height: 1.05;
+      display: none !important;
     }
     .eyebrow { font-size: 9px !important; }
+
+    /* Legend (color key) on mobile: pinned to the bottom-right of the
+       globe area — i.e. just above the top edge of the panel. The
+       legend is a child of .stage, so positioning it relative to that
+       container puts it exactly where we want. Made compact and a
+       touch transparent so it doesn't crowd the globe. */
+    .legend {
+      top: auto !important;
+      bottom: 8px !important;
+      left: auto !important;
+      right: 12px !important;
+      font-size: 8px !important;
+      letter-spacing: 0.1em !important;
+      line-height: 1.5 !important;
+      text-align: right;
+      opacity: 0.85;
+    }
+    .legend .swatch {
+      width: 8px !important;
+      height: 8px !important;
+      margin-right: 4px !important;
+    }
     /* When the panel is expanded, hide the globe header to maximize the
        tiny remaining globe space. */
     .app.panel-expanded .header {
@@ -1112,7 +1136,6 @@
 
   @media (max-width: 860px) {
     .hint { display: none; }
-    .legend { bottom: auto; top: 110px; }
   }
 </style>
 </head>
