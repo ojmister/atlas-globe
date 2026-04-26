@@ -2136,7 +2136,7 @@
       // Bar width as a visual indicator of |c|. 100% = perfect correlation.
       const barWidth = Math.min(100, Math.abs(c) * 100);
       return `
-        <div class="corr-row" data-corr-target="${escapeAttr(id)}">
+        <div class="corr-row" data-corr-target="${escapeHtml(id)}">
           <div class="corr-name">${escapeHtml(nameFor(id))}</div>
           <div class="corr-bar-wrap">
             <div class="corr-bar ${dirClass} ${strengthClass}" style="width:${barWidth.toFixed(1)}%"></div>
