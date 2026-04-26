@@ -179,6 +179,20 @@ def fetch_one(symbol: str) -> dict | None:
             if v is not None and math.isfinite(float(v))
         ]
 
+        # 90-day daily returns for correlation analysis. Returns (not
+        # prices) is what correlation should be computed on — prices are
+        # non-stationary and would just measure shared trends, not
+        # co-movement. We compute pct_change on the last ~91 closes to
+        # get 90 returns. Stored under '_returns90' (leading underscore
+        # = private; main() uses these but does NOT emit them in the
+        # final JSON to keep file size down).
+        returns_series = closes.pct_change().dropna()
+        returns90 = [
+            round(float(v), 6)
+            for v in returns_series.iloc[-90:].tolist()
+            if v is not None and math.isfinite(float(v))
+        ]
+
         return {
             'price': round(price, 4),
             'previousClose': round(prev, 4),
@@ -194,6 +208,7 @@ def fetch_one(symbol: str) -> dict | None:
             'yearHigh': year_high,
             'yearLow': year_low,
             'spark30': spark30,
+            '_returns90': returns90,   # private: stripped before JSON write
         }
     except Exception as e:
         print(f'  ! {symbol}: {type(e).__name__}: {e}', file=sys.stderr)
@@ -336,6 +351,82 @@ COUNTRY_CURRENCY = {
 }
 
 
+def _compute_correlation_matrix(markets: list) -> dict:
+    """Build a sparse correlation matrix from per-market 90-day returns.
+
+    Pearson correlation on returns (NOT prices — prices share trends
+    that aren't real co-movement). Symmetric, so we only need the upper
+    triangle, but we emit both directions for cheap client-side lookup.
+
+    Output shape: { country_id: { other_id: corr_float, ... }, ... }
+    Diagonal (self-correlation = 1.0) is omitted.
+
+    Only the FIRST index per country contributes — e.g. US has S&P 500
+    + Nasdaq + Dow, but for "how does the US move with Germany" we use
+    just the S&P 500. Keeps the matrix one-row-per-country.
+    """
+    # Step 1: collect one returns array per country, keyed by id.
+    series = {}
+    for m in markets:
+        cid = m['id']
+        if cid in series:
+            continue   # already have a primary index for this country
+        q = m.get('quote') or {}
+        r = q.get('_returns90')
+        if not r or len(r) < 30:
+            # Need at least 30 overlapping days for a meaningful correlation.
+            continue
+        series[cid] = r
+
+    # Step 2: align lengths. Take the minimum length across all series so
+    # all correlations use the same window. Pandas would handle this but
+    # we want zero deps in the corr step (it's already plenty fast in pure
+    # Python for 37×37).
+    if not series:
+        return {}
+    min_len = min(len(r) for r in series.values())
+    if min_len < 30:
+        return {}
+    aligned = {cid: r[-min_len:] for cid, r in series.items()}
+
+    # Step 3: pairwise Pearson correlation. n^2 / 2 pairs * 90 mults each
+    # = ~60K mults for 37 countries. Trivial.
+    def pearson(a, b):
+        n = len(a)
+        if n != len(b) or n < 2:
+            return None
+        ma = sum(a) / n
+        mb = sum(b) / n
+        num = 0.0
+        sa = 0.0
+        sb = 0.0
+        for x, y in zip(a, b):
+            dx = x - ma
+            dy = y - mb
+            num += dx * dy
+            sa += dx * dx
+            sb += dy * dy
+        denom = (sa * sb) ** 0.5
+        if denom == 0:
+            return None
+        return num / denom
+
+    ids = list(aligned.keys())
+    matrix = {cid: {} for cid in ids}
+    for i in range(len(ids)):
+        for j in range(i + 1, len(ids)):
+            a, b = ids[i], ids[j]
+            c = pearson(aligned[a], aligned[b])
+            if c is None or not math.isfinite(c):
+                continue
+            c = round(c, 3)
+            matrix[a][b] = c
+            matrix[b][a] = c   # mirror so client-side lookup is one hop
+
+    # Drop empty rows
+    return {k: v for k, v in matrix.items() if v}
+
+
 def main():
     now = datetime.now(timezone.utc)
     output = {
@@ -394,6 +485,20 @@ def main():
                 fx[pair] = fx_quote
             time.sleep(0.15)
     output['fx'] = fx
+
+    # --- Correlations -----------------------------------------------
+    # For each pair of countries (one primary index per country),
+    # compute the Pearson correlation of their last 90 daily returns.
+    # Output is a sparse matrix: { '826': { '276': 0.85, '250': 0.92, ... }, ... }
+    # We dedup to one entry per country (the first index listed for that
+    # country in MARKETS) so a country has exactly one correlation row.
+    output['correlations'] = _compute_correlation_matrix(output['markets'])
+
+    # Strip private fields before serialization. _returns90 was needed
+    # for the correlation calculation but shouldn't bloat the public JSON.
+    for m in output['markets']:
+        if 'quote' in m and isinstance(m['quote'], dict):
+            m['quote'].pop('_returns90', None)
 
     output['summary'] = {'ok': ok, 'failed': fail, 'total': len(MARKETS)}
 
