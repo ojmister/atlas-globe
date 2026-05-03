@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-03T07:31:27.215659+00:00",
-  "generated_at_unix": 1777793487,
+  "generated_at": "2026-05-03T11:30:21.041777+00:00",
+  "generated_at_unix": 1777807821,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -1936,16 +1936,16 @@
       "countryMarketCapUsdTn": 2.73,
       "currencyCode": "SAR",
       "quote": {
-        "price": 11202.2002,
+        "price": 11202.0596,
         "previousClose": 11187.6602,
-        "change": 14.54,
-        "changePct": 0.13,
-        "changePct1w": 0.7251,
-        "changePct1m": -0.5873,
-        "changePct1y": -2.9581,
+        "change": 14.3994,
+        "changePct": 0.1287,
+        "changePct1w": 0.7238,
+        "changePct1m": -0.5886,
+        "changePct1y": -2.9593,
         "currency": "SAR",
         "exchange": "SAU",
-        "dayHigh": 11203.1699,
+        "dayHigh": 11224.1104,
         "dayLow": 11159.0996,
         "yearHigh": 11781.6797,
         "yearLow": 10193.8301,
@@ -1979,7 +1979,7 @@
           11179.9502,
           11238.0703,
           11187.6602,
-          11202.2002
+          11202.0596
         ]
       }
     },
