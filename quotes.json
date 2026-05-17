@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-17T12:06:06.017050+00:00",
-  "generated_at_unix": 1779019566,
+  "generated_at": "2026-05-17T18:14:07.530100+00:00",
+  "generated_at_unix": 1779041647,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -1936,13 +1936,13 @@
       "countryMarketCapUsdTn": 2.73,
       "currencyCode": "SAR",
       "quote": {
-        "price": 10968.7998,
+        "price": 10967.9404,
         "previousClose": 10995.4404,
-        "change": -26.6406,
-        "changePct": -0.2423,
-        "changePct1w": -1.316,
-        "changePct1m": -5.0662,
-        "changePct1y": -4.495,
+        "change": -27.5,
+        "changePct": -0.2501,
+        "changePct1w": -1.3237,
+        "changePct1m": -5.0737,
+        "changePct1y": -4.5025,
         "currency": "SAR",
         "exchange": "SAU",
         "dayHigh": 10996.46,
@@ -1979,7 +1979,7 @@
           11039.2305,
           11020.0703,
           10995.4404,
-          10968.7998
+          10967.9404
         ]
       }
     },
@@ -2374,7 +2374,7 @@
       "price": 0.0007,
       "changePct": -0.1962,
       "changePct1w": 0.0709,
-      "changePct1m": -2.5818,
+      "changePct1m": -2.7436,
       "changePct1y": -18.3937
     },
     "ARSGBP": {
@@ -2399,11 +2399,11 @@
       "changePct1y": 11.3696
     },
     "BRLUSD": {
-      "price": 0.1978,
-      "changePct": -1.005,
-      "changePct1w": -2.1761,
-      "changePct1m": -1.2364,
-      "changePct1y": 12.3919
+      "price": 0.1973,
+      "changePct": -1.2862,
+      "changePct1w": -2.454,
+      "changePct1m": -1.6217,
+      "changePct1y": 12.0727
     },
     "BRLGBP": {
       "price": 0.1478,
@@ -2444,7 +2444,7 @@
       "price": 0.1469,
       "changePct": -0.3466,
       "changePct1w": -0.1072,
-      "changePct1m": 0.1366,
+      "changePct1m": 0.1821,
       "changePct1y": 5.8425
     },
     "CNYGBP": {
@@ -2493,7 +2493,7 @@
       "price": 0.1277,
       "changePct": 0.0378,
       "changePct1w": 0.0572,
-      "changePct1m": 0.04,
+      "changePct1m": -0.0861,
       "changePct1y": -0.3053
     },
     "HKDGBP": {
@@ -2507,7 +2507,7 @@
       "price": 0.0001,
       "changePct": 0.2264,
       "changePct1w": -1.1211,
-      "changePct1m": -1.9719,
+      "changePct1m": -2.1039,
       "changePct1y": -5.5983
     },
     "IDRGBP": {
@@ -2521,7 +2521,7 @@
       "price": 0.3431,
       "changePct": -0.4587,
       "changePct1w": -0.4885,
-      "changePct1m": 2.7986,
+      "changePct1m": 2.7712,
       "changePct1y": 21.9465
     },
     "ILSGBP": {
@@ -2535,7 +2535,7 @@
       "price": 0.0104,
       "changePct": -0.2554,
       "changePct1w": -1.7738,
-      "changePct1m": -2.6765,
+      "changePct1m": -3.0297,
       "changePct1y": -10.9532
     },
     "INRGBP": {
@@ -2563,7 +2563,7 @@
       "price": 0.0007,
       "changePct": -0.2951,
       "changePct1w": -2.8689,
-      "changePct1m": -1.5824,
+      "changePct1m": -1.3246,
       "changePct1y": -6.726
     },
     "KRWGBP": {
@@ -2577,7 +2577,7 @@
       "price": 0.0577,
       "changePct": -0.5631,
       "changePct1w": -0.2914,
-      "changePct1m": -0.4871,
+      "changePct1m": -0.4536,
       "changePct1y": 12.3696
     },
     "MXNGBP": {
@@ -2591,7 +2591,7 @@
       "price": 0.2534,
       "changePct": -0.4561,
       "changePct1w": -1.0008,
-      "changePct1m": 0.1393,
+      "changePct1m": 0.114,
       "changePct1y": 8.4368
     },
     "MYRGBP": {
@@ -2631,10 +2631,10 @@
     },
     "SARUSD": {
       "price": 0.2665,
-      "changePct": -1.7005,
-      "changePct1w": -1.3328,
-      "changePct1m": -0.1407,
-      "changePct1y": -0.1804
+      "changePct": -1.6979,
+      "changePct1w": -1.3302,
+      "changePct1m": -0.143,
+      "changePct1y": -0.1778
     },
     "SARGBP": {
       "price": 0.1975,
@@ -2675,7 +2675,7 @@
       "price": 0.0306,
       "changePct": -0.7443,
       "changePct1w": -1.2251,
-      "changePct1m": -2.0214,
+      "changePct1m": -1.8683,
       "changePct1y": 1.6233
     },
     "THBGBP": {
@@ -2687,10 +2687,10 @@
     },
     "TRYUSD": {
       "price": 0.022,
-      "changePct": 0.0582,
-      "changePct1w": -0.641,
-      "changePct1m": -1.4654,
-      "changePct1y": -14.6748
+      "changePct": 0.1141,
+      "changePct1w": -0.5855,
+      "changePct1m": -1.4104,
+      "changePct1y": -14.6271
     },
     "TRYGBP": {
       "price": 0.016,
@@ -2701,17 +2701,17 @@
     },
     "TWDUSD": {
       "price": 0.0317,
-      "changePct": 0.0139,
-      "changePct1w": -0.532,
-      "changePct1m": 0.0856,
-      "changePct1y": -4.4138
+      "changePct": -0.0336,
+      "changePct1w": -0.5793,
+      "changePct1m": -0.0538,
+      "changePct1y": -4.4592
     },
     "TWDGBP": {
       "price": 0.0237,
-      "changePct": 1.4228,
-      "changePct1w": 1.0515,
-      "changePct1m": 1.566,
-      "changePct1y": -4.3827
+      "changePct": 0.4105,
+      "changePct1w": 1.0004,
+      "changePct1m": 1.4149,
+      "changePct1y": -4.6653
     },
     "USDGBP": {
       "price": 0.7504,
@@ -2956,7 +2956,7 @@
       "372": -0.011,
       "792": 0.152,
       "376": 0.052,
-      "682": 0.092,
+      "682": 0.093,
       "360": -0.183,
       "458": 0.122,
       "764": 0.3,
@@ -2994,7 +2994,7 @@
       "372": 0.076,
       "792": 0.199,
       "376": 0.052,
-      "682": 0.027,
+      "682": 0.028,
       "360": -0.153,
       "458": 0.199,
       "764": 0.276,
@@ -3222,7 +3222,7 @@
       "372": 0.191,
       "792": 0.193,
       "376": 0.182,
-      "682": 0.058,
+      "682": 0.059,
       "360": 0.182,
       "458": 0.377,
       "764": 0.119,
@@ -3526,7 +3526,7 @@
       "372": 0.064,
       "792": 0.191,
       "376": -0.065,
-      "682": 0.106,
+      "682": 0.107,
       "360": -0.16,
       "458": 0.175,
       "764": 0.297,
@@ -3882,14 +3882,14 @@
       "392": 0.031,
       "344": -0.122,
       "826": 0.079,
-      "276": 0.092,
-      "250": 0.027,
+      "276": 0.093,
+      "250": 0.028,
       "356": -0.025,
       "124": 0.078,
       "410": 0.018,
       "036": 0.064,
       "756": -0.043,
-      "158": 0.058,
+      "158": 0.059,
       "724": 0.201,
       "076": 0.095,
       "380": 0.143,
@@ -3897,7 +3897,7 @@
       "702": -0.022,
       "484": -0.074,
       "752": -0.136,
-      "056": 0.106,
+      "056": 0.107,
       "710": -0.14,
       "246": -0.107,
       "208": 0.088,
@@ -3909,7 +3909,7 @@
       "376": 0.229,
       "360": 0.015,
       "458": 0.125,
-      "764": -0.109,
+      "764": -0.108,
       "608": -0.059,
       "554": -0.007,
       "032": 0.086
@@ -4021,7 +4021,7 @@
       "372": -0.025,
       "792": 0.094,
       "376": 0.002,
-      "682": -0.109,
+      "682": -0.108,
       "360": -0.061,
       "458": 0.225,
       "608": 0.048,
