@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-24T13:51:32.085849+00:00",
-  "generated_at_unix": 1779630692,
+  "generated_at": "2026-05-24T16:08:08.364520+00:00",
+  "generated_at_unix": 1779638888,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -2413,11 +2413,11 @@
       "changePct1y": null
     },
     "CADUSD": {
-      "price": 0.7239,
-      "changePct": -0.283,
-      "changePct1w": -0.6609,
-      "changePct1m": -0.844,
-      "changePct1y": 0.3113
+      "price": 0.7236,
+      "changePct": -0.3191,
+      "changePct1w": -0.6968,
+      "changePct1m": -0.8799,
+      "changePct1y": 0.275
     },
     "CADGBP": {
       "price": 0.5382,
@@ -2491,10 +2491,10 @@
     },
     "HKDUSD": {
       "price": 0.1276,
-      "changePct": -0.0011,
-      "changePct1w": -0.0222,
-      "changePct1m": -0.0212,
-      "changePct1y": -0.0743
+      "changePct": -0.005,
+      "changePct1w": -0.026,
+      "changePct1m": -0.025,
+      "changePct1y": -0.0781
     },
     "HKDGBP": {
       "price": 0.095,
@@ -2722,10 +2722,10 @@
     },
     "ZARUSD": {
       "price": 0.0607,
-      "changePct": -0.1573,
-      "changePct1w": 0.1294,
-      "changePct1m": 0.9897,
-      "changePct1y": 9.3712
+      "changePct": -0.1585,
+      "changePct1w": 0.1282,
+      "changePct1m": 0.9885,
+      "changePct1y": 9.3699
     },
     "ZARGBP": {
       "price": 0.0451,
