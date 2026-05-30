@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-30T10:50:35.749811+00:00",
-  "generated_at_unix": 1780138235,
+  "generated_at": "2026-05-30T13:57:26.964201+00:00",
+  "generated_at_unix": 1780149446,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -2427,11 +2427,11 @@
       "changePct1y": 0.1842
     },
     "CHFUSD": {
-      "price": 1.2825,
-      "changePct": 0.5079,
-      "changePct1w": 0.8721,
-      "changePct1m": 1.3929,
-      "changePct1y": 5.4213
+      "price": 1.2808,
+      "changePct": 0.9107,
+      "changePct1w": 0.7365,
+      "changePct1m": 1.0554,
+      "changePct1y": 6.6346
     },
     "CHFGBP": {
       "price": 0.9514,
@@ -2596,10 +2596,10 @@
     },
     "MYRGBP": {
       "price": 0.187,
-      "changePct": -0.3039,
-      "changePct1w": -0.4164,
-      "changePct1m": 0.0155,
-      "changePct1y": 6.4998
+      "changePct": -0.3092,
+      "changePct1w": -0.4217,
+      "changePct1m": 0.0102,
+      "changePct1y": 6.4941
     },
     "NZDUSD": {
       "price": 0.599,
