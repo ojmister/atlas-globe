@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-07T14:11:14.359097+00:00",
-  "generated_at_unix": 1780841474,
+  "generated_at": "2026-06-07T16:24:09.140643+00:00",
+  "generated_at_unix": 1780849449,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -2413,11 +2413,11 @@
       "changePct1y": null
     },
     "CADUSD": {
-      "price": 0.7175,
-      "changePct": -0.2224,
-      "changePct1w": -1.1057,
-      "changePct1m": -1.9825,
-      "changePct1y": -1.9394
+      "price": 0.7177,
+      "changePct": -0.1938,
+      "changePct1w": -1.0773,
+      "changePct1m": -1.9543,
+      "changePct1y": -1.9113
     },
     "CADGBP": {
       "price": 0.5374,
@@ -2722,10 +2722,10 @@
     },
     "ZARUSD": {
       "price": 0.0604,
-      "changePct": -1.4921,
-      "changePct1w": -2.0217,
-      "changePct1m": -0.6983,
-      "changePct1y": 6.9485
+      "changePct": -1.4933,
+      "changePct1w": -2.0229,
+      "changePct1m": -0.6995,
+      "changePct1y": 6.9472
     },
     "ZARGBP": {
       "price": 0.0452,
