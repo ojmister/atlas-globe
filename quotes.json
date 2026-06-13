@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-06-13T09:27:45.584974+00:00",
-  "generated_at_unix": 1781342865,
+  "generated_at": "2026-06-13T14:18:08.122367+00:00",
+  "generated_at_unix": 1781360288,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -2400,10 +2400,10 @@
     },
     "BRLUSD": {
       "price": 0.1975,
-      "changePct": 2.5539,
+      "changePct": 1.0074,
       "changePct1w": -0.0415,
-      "changePct1m": -3.024,
-      "changePct1y": 9.3427
+      "changePct1m": -0.7486,
+      "changePct1y": 9.3723
     },
     "BRLGBP": {
       "price": 0.1471,
@@ -2574,11 +2574,11 @@
       "changePct1y": 9620.0003
     },
     "MXNUSD": {
-      "price": 0.0581,
-      "changePct": 1.256,
-      "changePct1w": 0.4226,
-      "changePct1m": 0.1366,
-      "changePct1y": 9.8346
+      "price": 0.0579,
+      "changePct": -0.2221,
+      "changePct1w": -0.0422,
+      "changePct1m": -0.6804,
+      "changePct1y": 9.2462
     },
     "MXNGBP": {
       "price": 0.0431,
@@ -2687,10 +2687,10 @@
     },
     "TRYUSD": {
       "price": 0.0216,
-      "changePct": -0.2371,
-      "changePct1w": -0.4241,
-      "changePct1m": -1.8599,
-      "changePct1y": -15.415
+      "changePct": -0.0357,
+      "changePct1w": -0.417,
+      "changePct1m": -1.7874,
+      "changePct1y": -14.8338
     },
     "TRYGBP": {
       "price": 0.0156,
@@ -2728,11 +2728,11 @@
       "changePct1y": 9.0877
     },
     "ZARGBP": {
-      "price": 0.0458,
-      "changePct": 1.6186,
-      "changePct1w": 0.4383,
-      "changePct1m": 2.528,
-      "changePct1y": 10.0862
+      "price": 0.0457,
+      "changePct": 1.4412,
+      "changePct1w": 0.263,
+      "changePct1m": 2.349,
+      "changePct1y": 9.8941
     }
   },
   "correlations": {
