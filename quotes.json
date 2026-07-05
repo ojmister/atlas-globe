@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-07-05T16:15:14.404375+00:00",
-  "generated_at_unix": 1783268114,
+  "generated_at": "2026-07-05T19:36:01.643142+00:00",
+  "generated_at_unix": 1783280161,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -2379,24 +2379,24 @@
     },
     "ARSGBP": {
       "price": 0.0005,
-      "changePct": -1.581,
+      "changePct": -1.1905,
       "changePct1w": -2.924,
-      "changePct1m": -4.4146,
-      "changePct1y": -16.443
+      "changePct1m": -3.861,
+      "changePct1y": -16.1616
     },
     "AUDUSD": {
-      "price": 0.6943,
-      "changePct": 0.3903,
-      "changePct1w": 0.6158,
-      "changePct1m": -2.6522,
-      "changePct1y": 5.56
+      "price": 0.6947,
+      "changePct": 0.4531,
+      "changePct1w": 0.6788,
+      "changePct1m": -2.5914,
+      "changePct1y": 5.626
     },
     "AUDGBP": {
-      "price": 0.5193,
-      "changePct": 0.1736,
-      "changePct1w": -0.7473,
-      "changePct1m": -2.185,
-      "changePct1y": 7.9222
+      "price": 0.5197,
+      "changePct": 0.2508,
+      "changePct1w": -0.6709,
+      "changePct1m": -2.1096,
+      "changePct1y": 8.0053
     },
     "BRLUSD": {
       "price": 0.1935,
@@ -2406,25 +2406,25 @@
       "changePct1y": 4.6711
     },
     "BRLGBP": {
-      "price": 0.1447,
+      "price": 0.1446,
       "changePct": 0.0,
       "changePct1w": null,
       "changePct1m": null,
       "changePct1y": null
     },
     "CADUSD": {
-      "price": 0.7043,
-      "changePct": -0.0542,
-      "changePct1w": 0.0183,
-      "changePct1m": -2.0566,
-      "changePct1y": -4.402
+      "price": 0.7042,
+      "changePct": -0.0683,
+      "changePct1w": 0.0042,
+      "changePct1m": -2.0704,
+      "changePct1y": -4.4155
     },
     "CADGBP": {
-      "price": 0.527,
-      "changePct": -0.1894,
-      "changePct1w": -1.2979,
-      "changePct1m": -1.5873,
-      "changePct1y": -2.2118
+      "price": 0.5268,
+      "changePct": -0.2273,
+      "changePct1w": -1.3354,
+      "changePct1m": -1.6247,
+      "changePct1y": -2.2489
     },
     "CHFUSD": {
       "price": 1.2458,
@@ -2441,18 +2441,18 @@
       "changePct1y": 0.7101
     },
     "CNYUSD": {
-      "price": 0.1477,
-      "changePct": 0.2718,
-      "changePct1w": 0.2925,
-      "changePct1m": 0.0488,
-      "changePct1y": 5.83
+      "price": 0.1475,
+      "changePct": 0.1387,
+      "changePct1w": 0.1593,
+      "changePct1m": -0.0841,
+      "changePct1y": 5.6894
     },
     "CNYGBP": {
-      "price": 0.1103,
-      "changePct": -0.0752,
-      "changePct1w": -1.1813,
-      "changePct1m": 0.3346,
-      "changePct1y": 8.061
+      "price": 0.1104,
+      "changePct": -0.0027,
+      "changePct1w": -1.1096,
+      "changePct1m": 0.4074,
+      "changePct1y": 8.1393
     },
     "DKKUSD": {
       "price": 0.153,
@@ -2469,18 +2469,18 @@
       "changePct1y": -1.5106
     },
     "EURUSD": {
-      "price": 1.144,
-      "changePct": 0.548,
-      "changePct1w": 0.6921,
-      "changePct1m": -1.5639,
-      "changePct1y": -3.05
+      "price": 1.1434,
+      "changePct": 0.0972,
+      "changePct1w": 0.6346,
+      "changePct1m": -1.5401,
+      "changePct1y": -2.8687
     },
     "EURGBP": {
-      "price": 0.8566,
-      "changePct": 0.007,
-      "changePct1w": -0.5503,
-      "changePct1m": -0.8335,
-      "changePct1y": -0.907
+      "price": 0.8557,
+      "changePct": -0.0502,
+      "changePct1w": -0.6571,
+      "changePct1m": -1.0672,
+      "changePct1y": -0.6398
     },
     "GBPUSD": {
       "price": 1.335,
@@ -2491,10 +2491,10 @@
     },
     "HKDUSD": {
       "price": 0.1275,
-      "changePct": -0.0024,
-      "changePct1w": -0.044,
-      "changePct1m": -0.1109,
-      "changePct1y": 0.0599
+      "changePct": 0.0027,
+      "changePct1w": -0.0389,
+      "changePct1m": -0.1058,
+      "changePct1y": 0.065
     },
     "HKDGBP": {
       "price": 0.0954,
@@ -2525,7 +2525,7 @@
       "changePct1y": 11.5457
     },
     "ILSGBP": {
-      "price": 0.2491,
+      "price": 0.2494,
       "changePct": 0.0,
       "changePct1w": null,
       "changePct1m": null,
@@ -2540,10 +2540,10 @@
     },
     "INRGBP": {
       "price": 0.0079,
-      "changePct": -0.3928,
-      "changePct1w": -2.0924,
-      "changePct1m": 0.8596,
-      "changePct1y": -8.0477
+      "changePct": 0.1784,
+      "changePct1w": -2.1049,
+      "changePct1m": 1.0673,
+      "changePct1y": -8.3489
     },
     "JPYUSD": {
       "price": 0.0062,
@@ -2568,24 +2568,24 @@
     },
     "KRWGBP": {
       "price": 0.0005,
-      "changePct": 9580.0,
-      "changePct1w": 9580.0,
-      "changePct1m": 9580.0,
-      "changePct1y": 9580.0
+      "changePct": 9600.0002,
+      "changePct1w": 9600.0002,
+      "changePct1m": 9600.0002,
+      "changePct1y": 9600.0002
     },
     "MXNUSD": {
-      "price": 0.0573,
-      "changePct": 0.1335,
-      "changePct1w": 0.326,
-      "changePct1m": -1.0044,
-      "changePct1y": 6.835
+      "price": 0.0572,
+      "changePct": -0.0212,
+      "changePct1w": 0.1711,
+      "changePct1m": -1.1573,
+      "changePct1y": 6.67
     },
     "MXNGBP": {
       "price": 0.0426,
-      "changePct": -0.5969,
-      "changePct1w": -1.5155,
-      "changePct1m": -0.7566,
-      "changePct1y": 9.2909
+      "changePct": -0.7671,
+      "changePct1w": -1.6772,
+      "changePct1m": -1.2598,
+      "changePct1y": 8.5078
     },
     "MYRUSD": {
       "price": 0.2459,
@@ -2595,25 +2595,25 @@
       "changePct1y": 3.762
     },
     "MYRGBP": {
-      "price": 0.184,
-      "changePct": -0.025,
-      "changePct1w": -0.012,
-      "changePct1m": -1.6903,
-      "changePct1y": 6.1255
+      "price": 0.1839,
+      "changePct": 0.2212,
+      "changePct1w": -0.0337,
+      "changePct1m": -0.8427,
+      "changePct1y": 6.0797
     },
     "NZDUSD": {
-      "price": 0.5712,
-      "changePct": 0.3353,
-      "changePct1w": 1.2172,
-      "changePct1m": -2.6898,
-      "changePct1y": -6.0542
+      "price": 0.5714,
+      "changePct": 0.3754,
+      "changePct1w": 1.2577,
+      "changePct1m": -2.6509,
+      "changePct1y": -6.0166
     },
     "NZDGBP": {
-      "price": 0.4272,
-      "changePct": 0.1242,
-      "changePct1w": -0.1379,
-      "changePct1m": -2.2806,
-      "changePct1y": -3.9396
+      "price": 0.4276,
+      "changePct": 0.218,
+      "changePct1w": -0.0444,
+      "changePct1m": -2.1891,
+      "changePct1y": -3.8496
     },
     "PHPUSD": {
       "price": 0.0163,
@@ -2624,17 +2624,17 @@
     },
     "PHPGBP": {
       "price": 0.0121,
-      "changePct": -0.402,
-      "changePct1w": -1.6764,
-      "changePct1m": 0.9479,
-      "changePct1y": -5.5836
+      "changePct": 0.5214,
+      "changePct1w": -1.6278,
+      "changePct1m": 0.5297,
+      "changePct1y": -5.808
     },
     "SARUSD": {
-      "price": 0.2663,
-      "changePct": -2.426,
-      "changePct1w": -0.0133,
-      "changePct1m": -1.66,
-      "changePct1y": -0.2229
+      "price": 0.2664,
+      "changePct": -2.3948,
+      "changePct1w": 0.0187,
+      "changePct1m": -1.6285,
+      "changePct1y": -0.191
     },
     "SARGBP": {
       "price": 0.197,
@@ -2644,18 +2644,18 @@
       "changePct1y": null
     },
     "SEKUSD": {
-      "price": 0.1037,
-      "changePct": 0.4293,
-      "changePct1w": 1.0146,
-      "changePct1m": -2.7804,
-      "changePct1y": -0.7898
+      "price": 0.1038,
+      "changePct": 0.4721,
+      "changePct1w": 1.0575,
+      "changePct1m": -2.739,
+      "changePct1y": -0.7476
     },
     "SEKGBP": {
-      "price": 0.0773,
-      "changePct": -0.1111,
-      "changePct1w": -0.6273,
-      "changePct1m": -2.9135,
-      "changePct1y": 0.4248
+      "price": 0.0774,
+      "changePct": 0.0259,
+      "changePct1w": -0.563,
+      "changePct1m": -2.5901,
+      "changePct1y": 1.2459
     },
     "SGDUSD": {
       "price": 0.7744,
@@ -2666,10 +2666,10 @@
     },
     "SGDGBP": {
       "price": 0.5796,
-      "changePct": -0.0466,
-      "changePct1w": -0.8621,
-      "changePct1m": -0.0362,
-      "changePct1y": 0.9299
+      "changePct": -0.0535,
+      "changePct1w": -0.8689,
+      "changePct1m": -0.0431,
+      "changePct1y": 0.9229
     },
     "THBUSD": {
       "price": 0.0302,
@@ -2680,17 +2680,17 @@
     },
     "THBGBP": {
       "price": 0.0225,
-      "changePct": -0.2259,
-      "changePct1w": -0.7533,
-      "changePct1m": -0.8101,
-      "changePct1y": -0.4199
+      "changePct": 0.0044,
+      "changePct1w": -0.7092,
+      "changePct1m": -1.0101,
+      "changePct1y": 0.0577
     },
     "TRYUSD": {
       "price": 0.0214,
-      "changePct": -0.1368,
-      "changePct1w": -0.445,
-      "changePct1m": -1.5455,
-      "changePct1y": -14.8905
+      "changePct": -0.1257,
+      "changePct1w": -0.4339,
+      "changePct1m": -1.5346,
+      "changePct1y": -14.8811
     },
     "TRYGBP": {
       "price": 0.0155,
@@ -2708,10 +2708,10 @@
     },
     "TWDGBP": {
       "price": 0.0234,
-      "changePct": -0.6995,
-      "changePct1w": -1.1979,
-      "changePct1m": -0.7121,
-      "changePct1y": -7.2868
+      "changePct": -0.1748,
+      "changePct1w": -1.2274,
+      "changePct1m": -0.8804,
+      "changePct1y": -7.3805
     },
     "USDGBP": {
       "price": 0.7491,
