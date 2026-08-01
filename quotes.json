@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-01T08:30:31.598400+00:00",
-  "generated_at_unix": 1785573031,
+  "generated_at": "2026-08-01T10:44:46.803511+00:00",
+  "generated_at_unix": 1785581086,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -2399,11 +2399,11 @@
       "changePct1y": 6.933
     },
     "BRLUSD": {
-      "price": 0.1969,
-      "changePct": -0.0157,
-      "changePct1w": 0.3544,
-      "changePct1m": 2.79,
-      "changePct1y": 10.2365
+      "price": 0.1971,
+      "changePct": 0.067,
+      "changePct1w": 0.4375,
+      "changePct1m": 2.8751,
+      "changePct1y": 10.3277
     },
     "BRLGBP": {
       "price": 0.1458,
@@ -2483,11 +2483,11 @@
       "changePct1y": -0.8062
     },
     "GBPUSD": {
-      "price": 1.3487,
-      "changePct": 0.8934,
-      "changePct1w": 1.3069,
-      "changePct1m": 1.7816,
-      "changePct1y": 1.7277
+      "price": 1.3482,
+      "changePct": 0.1564,
+      "changePct1w": 1.2714,
+      "changePct1m": 1.5262,
+      "changePct1y": 2.06
     },
     "HKDUSD": {
       "price": 0.1275,
@@ -2714,11 +2714,11 @@
       "changePct1y": -9.2679
     },
     "USDGBP": {
-      "price": 0.7415,
-      "changePct": -0.8855,
-      "changePct1w": -1.29,
-      "changePct1m": -1.7504,
-      "changePct1y": -1.6983
+      "price": 0.7417,
+      "changePct": -0.1562,
+      "changePct1w": -1.2554,
+      "changePct1m": -1.5032,
+      "changePct1y": -2.0185
     },
     "ZARUSD": {
       "price": 0.0604,
