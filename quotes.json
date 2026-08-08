@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-08T09:45:50.933283+00:00",
-  "generated_at_unix": 1786182350,
+  "generated_at": "2026-08-08T13:03:14.994628+00:00",
+  "generated_at_unix": 1786194194,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -2400,10 +2400,10 @@
     },
     "BRLUSD": {
       "price": 0.1967,
-      "changePct": 1.068,
+      "changePct": 0.7395,
       "changePct1w": -0.12,
-      "changePct1m": 1.7053,
-      "changePct1y": 7.3699
+      "changePct1m": 1.5597,
+      "changePct1y": 6.4927
     },
     "BRLGBP": {
       "price": 0.1456,
