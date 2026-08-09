@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-08T21:37:12.712439+00:00",
-  "generated_at_unix": 1786225032,
+  "generated_at": "2026-08-09T02:18:39.018004+00:00",
+  "generated_at_unix": 1786241919,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -2486,7 +2486,7 @@
       "price": 1.3492,
       "changePct": 0.2753,
       "changePct1w": 0.2334,
-      "changePct1m": 0.7178,
+      "changePct1m": 0.5721,
       "changePct1y": 0.3036
     },
     "HKDUSD": {
@@ -2717,7 +2717,7 @@
       "price": 0.7412,
       "changePct": -0.2745,
       "changePct1w": -0.2329,
-      "changePct1m": -0.7127,
+      "changePct1m": -0.5688,
       "changePct1y": -0.3027
     },
     "ZARUSD": {
