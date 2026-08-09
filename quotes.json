@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-09T04:23:16.773657+00:00",
-  "generated_at_unix": 1786249396,
+  "generated_at": "2026-08-09T07:06:52.893135+00:00",
+  "generated_at_unix": 1786259212,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -2500,7 +2500,7 @@
       "price": 0.0944,
       "changePct": -0.3272,
       "changePct1w": -0.3041,
-      "changePct1m": -0.8474,
+      "changePct1m": -0.739,
       "changePct1y": -0.2893
     },
     "IDRUSD": {
@@ -2612,7 +2612,7 @@
       "price": 0.4363,
       "changePct": 0.0665,
       "changePct1w": 0.0459,
-      "changePct1m": 2.2714,
+      "changePct1m": 1.5951,
       "changePct1y": -1.6611
     },
     "PHPUSD": {
@@ -2668,7 +2668,7 @@
       "price": 0.5795,
       "changePct": 0.0881,
       "changePct1w": 0.0242,
-      "changePct1m": 0.4106,
+      "changePct1m": 0.4489,
       "changePct1y": -0.0086
     },
     "THBUSD": {
@@ -2731,7 +2731,7 @@
       "price": 0.0459,
       "changePct": 0.9174,
       "changePct1w": 1.9243,
-      "changePct1m": 0.8021,
+      "changePct1m": 0.4401,
       "changePct1y": 9.3106
     }
   },
