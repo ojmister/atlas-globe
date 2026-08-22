@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-22T01:40:30.317697+00:00",
-  "generated_at_unix": 1787362830,
+  "generated_at": "2026-08-22T03:48:03.772236+00:00",
+  "generated_at_unix": 1787370483,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -1065,8 +1065,8 @@
         "changePct1y": 27.1507,
         "currency": "BRL",
         "exchange": "SAO",
-        "dayHigh": 171979.7812,
-        "dayLow": 167928.3281,
+        "dayHigh": 170448.875,
+        "dayLow": 170448.875,
         "yearHigh": 199355.0,
         "yearLow": 133874.0,
         "spark30": [
@@ -2082,17 +2082,17 @@
       "countryMarketCapUsdTn": 0.1,
       "currencyCode": "ARS",
       "quote": {
-        "price": 2913183.5,
+        "price": 2913184.0,
         "previousClose": 2875950.0,
-        "change": 37233.5,
+        "change": 37234.0,
         "changePct": 1.2947,
         "changePct1w": -1.1592,
         "changePct1m": -13.8053,
         "changePct1y": 38.5144,
         "currency": "",
         "exchange": "BUE",
-        "dayHigh": 2946378.5,
-        "dayLow": 2875949.5,
+        "dayHigh": 2946379.0,
+        "dayLow": 2875950.0,
         "yearHigh": 3395937.0,
         "yearLow": 1635451.0,
         "spark30": [
@@ -2125,7 +2125,7 @@
           2891651.0,
           2874493.0,
           2875950.0,
-          2913183.5
+          2913184.0
         ]
       }
     },
@@ -2257,11 +2257,11 @@
       "changePct1y": -0.9433
     },
     "CNYUSD": {
-      "price": 0.149,
-      "changePct": 0.2637,
-      "changePct1w": 0.4619,
-      "changePct1m": 0.8016,
-      "changePct1y": 6.9117
+      "price": 0.1488,
+      "changePct": 0.0298,
+      "changePct1w": 0.3318,
+      "changePct1m": 0.7737,
+      "changePct1y": 6.8358
     },
     "CNYGBP": {
       "price": 0.109,
@@ -2321,10 +2321,10 @@
     },
     "IDRUSD": {
       "price": 0.0001,
-      "changePct": 0.6898,
-      "changePct1w": 1.0065,
-      "changePct1m": 1.2779,
-      "changePct1y": -8.0373
+      "changePct": 0.3674,
+      "changePct1w": 0.978,
+      "changePct1m": 1.2832,
+      "changePct1y": -7.6331
     },
     "IDRGBP": {
       "price": 0.0,
@@ -2348,11 +2348,11 @@
       "changePct1y": null
     },
     "INRUSD": {
-      "price": 0.0105,
-      "changePct": -0.2027,
-      "changePct1w": -0.3018,
-      "changePct1m": 0.6802,
-      "changePct1y": -9.0624
+      "price": 0.0104,
+      "changePct": 0.065,
+      "changePct1w": -0.3226,
+      "changePct1m": 0.8851,
+      "changePct1y": -8.7939
     },
     "INRGBP": {
       "price": 0.0077,
@@ -2377,10 +2377,10 @@
     },
     "KRWUSD": {
       "price": 0.0007,
-      "changePct": 0.4181,
-      "changePct1w": 2.2996,
-      "changePct1m": 6.5437,
-      "changePct1y": 1.0549
+      "changePct": 0.4979,
+      "changePct1w": 2.3809,
+      "changePct1m": 6.6284,
+      "changePct1y": 1.1352
     },
     "KRWGBP": {
       "price": 0.0005,
@@ -2404,11 +2404,11 @@
       "changePct1y": 8.8776
     },
     "MYRUSD": {
-      "price": 0.2478,
-      "changePct": 0.1884,
-      "changePct1w": 1.2119,
-      "changePct1m": 1.3011,
-      "changePct1y": 4.6345
+      "price": 0.2477,
+      "changePct": 0.1511,
+      "changePct1w": 1.1743,
+      "changePct1m": 1.2635,
+      "changePct1y": 4.5956
     },
     "MYRGBP": {
       "price": 0.1814,
