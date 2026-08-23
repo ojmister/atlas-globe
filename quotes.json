@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-23T09:34:37.048682+00:00",
-  "generated_at_unix": 1787477677,
+  "generated_at": "2026-08-23T12:53:46.402876+00:00",
+  "generated_at_unix": 1787489626,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -1065,10 +1065,10 @@
         "changePct1y": 27.1507,
         "currency": "BRL",
         "exchange": "SAO",
-        "dayHigh": 170448.875,
-        "dayLow": 170448.875,
+        "dayHigh": 0.0,
+        "dayLow": 0.0,
         "yearHigh": 199355.0,
-        "yearLow": 133874.0,
+        "yearLow": 0.0,
         "spark30": [
           175739.0,
           176641.0,
