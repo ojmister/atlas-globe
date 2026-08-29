@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-08-29T09:56:11.342871+00:00",
-  "generated_at_unix": 1787997371,
+  "generated_at": "2026-08-29T16:37:32.759693+00:00",
+  "generated_at_unix": 1788021452,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -2222,7 +2222,7 @@
       "changePct1y": 3.9882
     },
     "BRLGBP": {
-      "price": 0.1422,
+      "price": 0.1423,
       "changePct": 0.0,
       "changePct1w": null,
       "changePct1m": null,
@@ -2258,10 +2258,10 @@
     },
     "CNYUSD": {
       "price": 0.1488,
-      "changePct": 0.0298,
-      "changePct1w": 0.0298,
-      "changePct1m": 0.6785,
-      "changePct1y": 6.4355
+      "changePct": 0.0253,
+      "changePct1w": 0.0253,
+      "changePct1m": 0.674,
+      "changePct1y": 6.4308
     },
     "CNYGBP": {
       "price": 0.1097,
@@ -2460,18 +2460,18 @@
       "changePct1y": null
     },
     "SEKUSD": {
-      "price": 0.1043,
-      "changePct": -0.8104,
-      "changePct1w": -1.2179,
-      "changePct1m": 0.5127,
-      "changePct1y": -1.1817
+      "price": 0.1042,
+      "changePct": -0.7381,
+      "changePct1w": -1.2416,
+      "changePct1m": 1.0147,
+      "changePct1y": -0.6933
     },
     "SEKGBP": {
       "price": 0.0767,
-      "changePct": -0.7933,
-      "changePct1w": -0.8536,
-      "changePct1m": -1.1451,
-      "changePct1y": -1.7784
+      "changePct": -0.5856,
+      "changePct1w": -0.7501,
+      "changePct1m": -1.1223,
+      "changePct1y": -1.2139
     },
     "SGDUSD": {
       "price": 0.7846,
