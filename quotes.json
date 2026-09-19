@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-19T10:44:56.103673+00:00",
-  "generated_at_unix": 1789814696,
+  "generated_at": "2026-09-19T15:46:32.979783+00:00",
+  "generated_at_unix": 1789832792,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -2331,11 +2331,11 @@
       "changePct1y": -1.9835
     },
     "EURUSD": {
-      "price": 1.1489,
-      "changePct": 0.1666,
-      "changePct1w": -1.0421,
-      "changePct1m": -0.7813,
-      "changePct1y": -2.8527
+      "price": 1.149,
+      "changePct": 0.1781,
+      "changePct1w": -1.0307,
+      "changePct1m": -0.7698,
+      "changePct1y": -2.8415
     },
     "EURGBP": {
       "price": 0.8573,
@@ -2402,10 +2402,10 @@
     },
     "INRGBP": {
       "price": 0.0078,
-      "changePct": 0.0643,
-      "changePct1w": 0.5948,
-      "changePct1m": 0.8817,
-      "changePct1y": -6.7705
+      "changePct": 0.0772,
+      "changePct1w": 0.6077,
+      "changePct1m": 0.8947,
+      "changePct1y": -6.7585
     },
     "JPYUSD": {
       "price": 0.0064,
@@ -2458,10 +2458,10 @@
     },
     "MYRGBP": {
       "price": 0.1829,
-      "changePct": -0.1676,
-      "changePct1w": 0.5376,
-      "changePct1m": 0.5371,
-      "changePct1y": 4.4793
+      "changePct": -0.1621,
+      "changePct1w": 0.5431,
+      "changePct1m": 0.5426,
+      "changePct1y": 4.485
     },
     "NZDUSD": {
       "price": 0.5724,
