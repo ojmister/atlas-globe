@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-10T09:41:12.154023+00:00",
-  "generated_at_unix": 1791625272,
+  "generated_at": "2026-10-10T17:15:28.432567+00:00",
+  "generated_at_unix": 1791652528,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -2261,11 +2261,11 @@
       "changePct1y": 6.956
     },
     "BRLUSD": {
-      "price": 0.2003,
-      "changePct": 0.5189,
-      "changePct1w": 4.6236,
-      "changePct1m": 2.2357,
-      "changePct1y": 7.7207
+      "price": 0.2009,
+      "changePct": 0.8137,
+      "changePct1w": 4.9305,
+      "changePct1m": 2.5356,
+      "changePct1y": 8.0366
     },
     "BRLGBP": {
       "price": 0.1513,
@@ -2345,11 +2345,11 @@
       "changePct1y": -2.4983
     },
     "GBPUSD": {
-      "price": 1.3233,
-      "changePct": 0.1376,
-      "changePct1w": 0.2541,
-      "changePct1m": -2.2999,
-      "changePct1y": -1.2558
+      "price": 1.3234,
+      "changePct": 0.0357,
+      "changePct1w": 0.2594,
+      "changePct1m": -2.3477,
+      "changePct1y": -0.5346
     },
     "HKDUSD": {
       "price": 0.1274,
@@ -2402,10 +2402,10 @@
     },
     "INRGBP": {
       "price": 0.0078,
-      "changePct": -0.243,
-      "changePct1w": -0.9397,
-      "changePct1m": 0.1798,
-      "changePct1y": -7.1862
+      "changePct": -0.2558,
+      "changePct1w": -0.9524,
+      "changePct1m": 0.1669,
+      "changePct1y": -7.1981
     },
     "JPYUSD": {
       "price": 0.0063,
@@ -2576,11 +2576,11 @@
       "changePct1y": -3.1242
     },
     "USDGBP": {
-      "price": 0.7557,
-      "changePct": -0.1374,
-      "changePct1w": -0.2534,
-      "changePct1m": 2.3541,
-      "changePct1y": 1.2718
+      "price": 0.7556,
+      "changePct": -0.0357,
+      "changePct1w": -0.2587,
+      "changePct1m": 2.4041,
+      "changePct1y": 0.5375
     },
     "ZARUSD": {
       "price": 0.0606,
