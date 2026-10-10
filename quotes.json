@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-10T17:15:28.432567+00:00",
-  "generated_at_unix": 1791652528,
+  "generated_at": "2026-10-10T21:29:32.314361+00:00",
+  "generated_at_unix": 1791667772,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -2278,7 +2278,7 @@
       "price": 0.7016,
       "changePct": -0.2126,
       "changePct1w": -0.2357,
-      "changePct1m": -3.1514,
+      "changePct1m": -2.9374,
       "changePct1y": -1.6501
     },
     "CADGBP": {
@@ -2320,7 +2320,7 @@
       "price": 0.1499,
       "changePct": -0.1117,
       "changePct1w": -0.402,
-      "changePct1m": -3.7136,
+      "changePct1m": -3.5147,
       "changePct1y": -3.2565
     },
     "DKKGBP": {
@@ -2355,7 +2355,7 @@
       "price": 0.1274,
       "changePct": 0.0031,
       "changePct1w": -0.0102,
-      "changePct1m": -0.0637,
+      "changePct1m": -0.0766,
       "changePct1y": -0.8271
     },
     "HKDGBP": {
@@ -2509,7 +2509,7 @@
       "price": 0.1001,
       "changePct": -0.3187,
       "changePct1w": 0.4857,
-      "changePct1m": -4.0406,
+      "changePct1m": -3.0843,
       "changePct1y": -4.6236
     },
     "SEKGBP": {
@@ -2523,7 +2523,7 @@
       "price": 0.781,
       "changePct": 0.0195,
       "changePct1w": -0.0164,
-      "changePct1m": -1.2644,
+      "changePct1m": -0.9646,
       "changePct1y": 1.4659
     },
     "SGDGBP": {
@@ -2586,7 +2586,7 @@
       "price": 0.0606,
       "changePct": 0.532,
       "changePct1w": 1.2059,
-      "changePct1m": -2.7908,
+      "changePct1m": -1.8027,
       "changePct1y": 4.1917
     },
     "ZARGBP": {
