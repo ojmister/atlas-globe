@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-11T12:35:27.166495+00:00",
-  "generated_at_unix": 1791722127,
+  "generated_at": "2026-10-11T19:26:54.331617+00:00",
+  "generated_at_unix": 1791746814,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -2236,7 +2236,7 @@
       "price": 0.0007,
       "changePct": -0.0002,
       "changePct1w": 0.5524,
-      "changePct1m": -0.1817,
+      "changePct1m": -0.2467,
       "changePct1y": -6.2643
     },
     "ARSGBP": {
@@ -2264,7 +2264,7 @@
       "price": 0.2009,
       "changePct": 0.8137,
       "changePct1w": 4.9305,
-      "changePct1m": 2.5356,
+      "changePct1m": 2.5235,
       "changePct1y": 8.0366
     },
     "BRLGBP": {
@@ -2275,11 +2275,11 @@
       "changePct1y": null
     },
     "CADUSD": {
-      "price": 0.7016,
-      "changePct": -0.2126,
-      "changePct1w": -0.2357,
-      "changePct1m": -2.9374,
-      "changePct1y": -1.6501
+      "price": 0.7017,
+      "changePct": -0.1916,
+      "changePct1w": -0.2147,
+      "changePct1m": -2.917,
+      "changePct1y": -1.6294
     },
     "CADGBP": {
       "price": 0.5296,
@@ -2289,11 +2289,11 @@
       "changePct1y": -1.2106
     },
     "CHFUSD": {
-      "price": 1.2048,
-      "changePct": 0.359,
-      "changePct1w": 0.0639,
-      "changePct1m": -2.5169,
-      "changePct1y": -3.4337
+      "price": 1.207,
+      "changePct": 0.3476,
+      "changePct1w": 0.245,
+      "changePct1m": -1.8443,
+      "changePct1y": -2.6952
     },
     "CHFGBP": {
       "price": 0.9095,
@@ -2303,11 +2303,11 @@
       "changePct1y": -2.2905
     },
     "CNYUSD": {
-      "price": 0.1494,
-      "changePct": 0.1479,
-      "changePct1w": 0.1838,
-      "changePct1m": 0.2077,
-      "changePct1y": 6.5046
+      "price": 0.1496,
+      "changePct": 0.2858,
+      "changePct1w": 0.3217,
+      "changePct1m": 0.3457,
+      "changePct1y": 6.6512
     },
     "CNYGBP": {
       "price": 0.1127,
@@ -2353,10 +2353,10 @@
     },
     "HKDUSD": {
       "price": 0.1274,
-      "changePct": 0.0031,
-      "changePct1w": -0.0102,
-      "changePct1m": -0.0766,
-      "changePct1y": -0.8271
+      "changePct": 0.0069,
+      "changePct1w": -0.0064,
+      "changePct1m": -0.0728,
+      "changePct1y": -0.8233
     },
     "HKDGBP": {
       "price": 0.0962,
@@ -2367,10 +2367,10 @@
     },
     "IDRUSD": {
       "price": 0.0001,
-      "changePct": -0.3776,
-      "changePct1w": 0.2674,
-      "changePct1m": -1.605,
-      "changePct1y": -7.2576
+      "changePct": -0.3999,
+      "changePct1w": 0.245,
+      "changePct1m": -1.627,
+      "changePct1y": -7.2784
     },
     "IDRGBP": {
       "price": 0.0,
@@ -2383,7 +2383,7 @@
       "price": 0.3268,
       "changePct": 0.0811,
       "changePct1w": 0.8268,
-      "changePct1m": -1.3157,
+      "changePct1m": -0.4657,
       "changePct1y": 6.5786
     },
     "ILSGBP": {
@@ -2395,10 +2395,10 @@
     },
     "INRUSD": {
       "price": 0.0103,
-      "changePct": 0.0964,
-      "changePct1w": -0.5223,
-      "changePct1m": -1.0705,
-      "changePct1y": -8.1305
+      "changePct": 0.0447,
+      "changePct1w": -0.5737,
+      "changePct1m": -1.1216,
+      "changePct1y": -8.1779
     },
     "INRGBP": {
       "price": 0.0078,
@@ -2423,10 +2423,10 @@
     },
     "KRWUSD": {
       "price": 0.0007,
-      "changePct": 0.1559,
-      "changePct1w": 1.4684,
-      "changePct1m": 0.5422,
-      "changePct1y": 6.0116
+      "changePct": 0.2216,
+      "changePct1w": 1.535,
+      "changePct1m": 0.6082,
+      "changePct1y": 6.0812
     },
     "KRWGBP": {
       "price": 0.0006,
@@ -2436,11 +2436,11 @@
       "changePct1y": 11080.0004
     },
     "MXNUSD": {
-      "price": 0.0544,
-      "changePct": -1.0947,
-      "changePct1w": -0.4006,
-      "changePct1m": -8.1445,
-      "changePct1y": -0.0249
+      "price": 0.0543,
+      "changePct": -1.2933,
+      "changePct1w": -0.6006,
+      "changePct1m": -7.8158,
+      "changePct1y": -0.2256
     },
     "MXNGBP": {
       "price": 0.0409,
@@ -2450,11 +2450,11 @@
       "changePct1y": 0.4768
     },
     "MYRUSD": {
-      "price": 0.2448,
-      "changePct": 0.0955,
-      "changePct1w": -0.0245,
-      "changePct1m": -0.5092,
-      "changePct1y": 3.1583
+      "price": 0.2449,
+      "changePct": 0.1322,
+      "changePct1w": 0.0122,
+      "changePct1m": -0.4727,
+      "changePct1y": 3.1962
     },
     "MYRGBP": {
       "price": 0.1848,
@@ -2493,10 +2493,10 @@
     },
     "SARUSD": {
       "price": 0.2663,
-      "changePct": -3.0978,
-      "changePct1w": -3.1242,
-      "changePct1m": -3.1579,
-      "changePct1y": -0.2471
+      "changePct": -3.0875,
+      "changePct1w": -3.1139,
+      "changePct1m": -3.0257,
+      "changePct1y": -0.2365
     },
     "SARGBP": {
       "price": 0.1987,
@@ -2537,7 +2537,7 @@
       "price": 0.0299,
       "changePct": 0.3674,
       "changePct1w": 0.4839,
-      "changePct1m": -1.6726,
+      "changePct1m": -0.9857,
       "changePct1y": -2.1207
     },
     "THBGBP": {
@@ -2548,11 +2548,11 @@
       "changePct1y": -1.7904
     },
     "TRYUSD": {
-      "price": 0.0203,
-      "changePct": 0.1186,
-      "changePct1w": -0.287,
-      "changePct1m": -1.5686,
-      "changePct1y": -15.0985
+      "price": 0.0204,
+      "changePct": 0.4831,
+      "changePct1w": 0.076,
+      "changePct1m": -0.9967,
+      "changePct1y": -14.7894
     },
     "TRYGBP": {
       "price": 0.0148,
@@ -2563,10 +2563,10 @@
     },
     "TWDUSD": {
       "price": 0.0313,
-      "changePct": 0.0294,
-      "changePct1w": -0.0915,
-      "changePct1m": -1.4162,
-      "changePct1y": -4.1757
+      "changePct": -0.0614,
+      "changePct1w": -0.1822,
+      "changePct1m": -0.9704,
+      "changePct1y": -4.2626
     },
     "TWDGBP": {
       "price": 0.0237,
@@ -2584,10 +2584,10 @@
     },
     "ZARUSD": {
       "price": 0.0606,
-      "changePct": 0.532,
-      "changePct1w": 1.2059,
-      "changePct1m": -1.8027,
-      "changePct1y": 4.1917
+      "changePct": 0.4687,
+      "changePct1w": 1.1421,
+      "changePct1m": -1.8645,
+      "changePct1y": 4.1261
     },
     "ZARGBP": {
       "price": 0.0457,
