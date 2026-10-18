@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-18T04:12:06.569851+00:00",
-  "generated_at_unix": 1792296726,
+  "generated_at": "2026-10-18T10:50:01.349856+00:00",
+  "generated_at_unix": 1792320601,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -2250,14 +2250,14 @@
       "price": 0.6949,
       "changePct": 0.4448,
       "changePct1w": -0.1398,
-      "changePct1m": -1.9587,
+      "changePct1m": -2.3361,
       "changePct1y": 7.2022
     },
     "AUDGBP": {
       "price": 0.5207,
       "changePct": -0.0576,
       "changePct1w": -1.0057,
-      "changePct1m": -1.662,
+      "changePct1m": -2.216,
       "changePct1y": 8.0089
     },
     "BRLUSD": {
@@ -2285,7 +2285,7 @@
       "price": 0.5301,
       "changePct": -0.1356,
       "changePct1w": -0.1883,
-      "changePct1m": -0.7694,
+      "changePct1m": -0.8974,
       "changePct1y": 0.1152
     },
     "CHFUSD": {
@@ -2327,7 +2327,7 @@
       "price": 0.1123,
       "changePct": -0.6124,
       "changePct1w": -0.9683,
-      "changePct1m": -2.0395,
+      "changePct1m": -2.2807,
       "changePct1y": -3.6035
     },
     "EURUSD": {
@@ -2362,7 +2362,7 @@
       "price": 0.0956,
       "changePct": -0.4802,
       "changePct1w": -0.7984,
-      "changePct1m": 0.3097,
+      "changePct1m": 0.1394,
       "changePct1y": -0.1578
     },
     "IDRUSD": {
@@ -2467,14 +2467,14 @@
       "price": 0.5655,
       "changePct": 0.5909,
       "changePct1w": 0.8889,
-      "changePct1m": -1.1433,
+      "changePct1m": -1.2864,
       "changePct1y": -1.266
     },
     "NZDGBP": {
       "price": 0.4236,
       "changePct": 0.0945,
       "changePct1w": 0.0142,
-      "changePct1m": -0.8613,
+      "changePct1m": -1.1666,
       "changePct1y": -0.519
     },
     "PHPUSD": {
@@ -2530,7 +2530,7 @@
       "price": 0.586,
       "changePct": -0.2713,
       "changePct1w": -0.7015,
-      "changePct1m": 0.2275,
+      "changePct1m": -0.0837,
       "changePct1y": 1.8828
     },
     "THBUSD": {
@@ -2593,7 +2593,7 @@
       "price": 0.0454,
       "changePct": -0.3224,
       "changePct1w": -0.2064,
-      "changePct1m": -0.3421,
+      "changePct1m": -1.2794,
       "changePct1y": 6.0132
     }
   },
