@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-07T12:49:32.567308+00:00",
-  "generated_at_unix": 1794055772,
+  "generated_at": "2026-11-07T19:19:29.829618+00:00",
+  "generated_at_unix": 1794079169,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -2303,11 +2303,11 @@
       "changePct1y": -3.6797
     },
     "CNYUSD": {
-      "price": 0.1499,
-      "changePct": 0.2548,
-      "changePct1w": -0.1499,
-      "changePct1m": 0.5022,
-      "changePct1y": 6.7096
+      "price": 0.15,
+      "changePct": 0.3481,
+      "changePct1w": -0.057,
+      "changePct1m": 0.5957,
+      "changePct1y": 6.8089
     },
     "CNYGBP": {
       "price": 0.1111,
