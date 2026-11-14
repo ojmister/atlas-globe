@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-14T17:53:06.849948+00:00",
-  "generated_at_unix": 1794678786,
+  "generated_at": "2026-11-14T22:14:19.906075+00:00",
+  "generated_at_unix": 1794694459,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -2278,7 +2278,7 @@
       "price": 0.7008,
       "changePct": -0.0561,
       "changePct1w": -1.7647,
-      "changePct1m": -0.3939,
+      "changePct1m": -0.5298,
       "changePct1y": -1.6364
     },
     "CADGBP": {
@@ -2292,7 +2292,7 @@
       "price": 1.193,
       "changePct": -0.2708,
       "changePct1w": -2.7225,
-      "changePct1m": -0.7874,
+      "changePct1m": -1.2467,
       "changePct1y": -5.3603
     },
     "CHFGBP": {
@@ -2311,16 +2311,16 @@
     },
     "CNYGBP": {
       "price": 0.1133,
-      "changePct": 0.3436,
-      "changePct1w": 1.972,
-      "changePct1m": 0.5128,
-      "changePct1y": 5.802
+      "changePct": -0.015,
+      "changePct1w": 1.9567,
+      "changePct1m": 0.3135,
+      "changePct1y": 5.9751
     },
     "DKKUSD": {
       "price": 0.1475,
       "changePct": -0.2569,
       "changePct1w": -1.8443,
-      "changePct1m": -1.544,
+      "changePct1m": -1.7118,
       "changePct1y": -5.3244
     },
     "DKKGBP": {
@@ -2355,7 +2355,7 @@
       "price": 0.1275,
       "changePct": -0.0154,
       "changePct1w": -0.0867,
-      "changePct1m": 0.0279,
+      "changePct1m": 0.0217,
       "changePct1y": -0.9496
     },
     "HKDGBP": {
@@ -2509,7 +2509,7 @@
       "price": 0.0993,
       "changePct": -0.4131,
       "changePct1w": -2.6165,
-      "changePct1m": -0.8794,
+      "changePct1m": -1.2103,
       "changePct1y": -6.636
     },
     "SEKGBP": {
@@ -2523,7 +2523,7 @@
       "price": 0.7766,
       "changePct": -0.0683,
       "changePct1w": -0.7541,
-      "changePct1m": -0.3091,
+      "changePct1m": -0.4784,
       "changePct1y": 1.0468
     },
     "SGDGBP": {
@@ -2586,7 +2586,7 @@
       "price": 0.0591,
       "changePct": -0.9747,
       "changePct1w": -2.617,
-      "changePct1m": -2.0091,
+      "changePct1m": -2.4587,
       "changePct1y": 0.6811
     },
     "ZARGBP": {
