@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-21T19:01:00.764364+00:00",
-  "generated_at_unix": 1795287660,
+  "generated_at": "2026-11-22T01:06:59.174987+00:00",
+  "generated_at_unix": 1795309619,
   "source": "Yahoo Finance via yfinance",
   "markets": [
     {
@@ -2232,7 +2232,7 @@
       "price": 0.6974,
       "changePct": 0.0244,
       "changePct1w": -0.5509,
-      "changePct1m": -2.0781,
+      "changePct1m": -2.3529,
       "changePct1y": -1.735
     },
     "CADGBP": {
@@ -2264,17 +2264,17 @@
       "changePct1y": 6.6824
     },
     "CNYGBP": {
-      "price": 0.1146,
-      "changePct": 0.4786,
-      "changePct1w": 1.1713,
-      "changePct1m": 2.3648,
-      "changePct1y": 6.4221
+      "price": 0.1144,
+      "changePct": -0.1605,
+      "changePct1w": 1.0089,
+      "changePct1m": 2.3733,
+      "changePct1y": 6.442
     },
     "DKKUSD": {
       "price": 0.1468,
       "changePct": -0.0044,
       "changePct1w": -0.7311,
-      "changePct1m": -2.367,
+      "changePct1m": -2.2507,
       "changePct1y": -4.9843
     },
     "DKKGBP": {
@@ -2302,14 +2302,14 @@
       "price": 1.3082,
       "changePct": -0.0353,
       "changePct1w": -1.1303,
-      "changePct1m": -2.3429,
+      "changePct1m": -2.4031,
       "changePct1y": -0.0235
     },
     "HKDUSD": {
       "price": 0.1276,
       "changePct": 0.0472,
       "changePct1w": 0.0688,
-      "changePct1m": 0.0958,
+      "changePct1m": -0.0344,
       "changePct1y": -0.7067
     },
     "HKDGBP": {
@@ -2463,7 +2463,7 @@
       "price": 0.0978,
       "changePct": -0.2816,
       "changePct1w": -1.8897,
-      "changePct1m": -3.282,
+      "changePct1m": -3.1185,
       "changePct1y": -6.7254
     },
     "SEKGBP": {
@@ -2477,7 +2477,7 @@
       "price": 0.7752,
       "changePct": 0.1202,
       "changePct1w": -0.2465,
-      "changePct1m": -1.0023,
+      "changePct1m": -1.031,
       "changePct1y": 1.3442
     },
     "SGDGBP": {
@@ -2533,14 +2533,14 @@
       "price": 0.7644,
       "changePct": 0.0353,
       "changePct1w": 1.1432,
-      "changePct1m": 2.3992,
+      "changePct1m": 2.4623,
       "changePct1y": 0.0235
     },
     "ZARUSD": {
       "price": 0.0569,
       "changePct": -0.5185,
       "changePct1w": -4.7052,
-      "changePct1m": -6.9132,
+      "changePct1m": -6.2875,
       "changePct1y": -2.1236
     },
     "ZARGBP": {
